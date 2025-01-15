@@ -3,8 +3,7 @@ vim.g.maplocalleader = " "
 
 require("keymaps")
 require("plugins.lazy")
--- require("plugins.misc")
--- require("plugins.lualine")
+require("plugins.misc")
 require("options")
 require("misc")
 -- require("plugins.dap")
@@ -18,6 +17,6 @@ require("misc")
 -- require("plugins.neogit")
 -- require("plugins.codesnap")
 -- require("plugins.harpoon")
--- require("plugins.mini")
+require("plugins.mini")
 
 -- vim: ts=8 sts=2 sw=2 et
