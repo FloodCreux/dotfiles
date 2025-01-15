@@ -59,15 +59,12 @@ alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
 
 # GO
-export GOPATH='/Users/omerxx/go'
-
-# VIM
-alias v="/Users/omerxx/.nix-profile/bin/nvim"
+export GOPATH='/Users/mike/go'
 
 # Nmap
 alias nm="nmap -sC -sV -oN nmap"
 
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/omer/.vimpkg/bin:${GOPATH}/bin:/Users/omerxx/.cargo/bin
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/mike/.vimpkg/bin:${GOPATH}/bin:/Users/mike/.cargo/bin
 
 alias cl='clear'
 
