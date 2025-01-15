@@ -105,10 +105,8 @@ path add /opt/homebrew/bin
 mkdir ~/.cache/starship
 starship init nu | save -f ~/.cache/starship/init.nu
 zoxide init nushell | save -f ~/.zoxide.nu
-# oh-my-posh init nu --config ~/.config/ohmyposh/zen.toml --print | save -f ~/.config/ohmyposh/init.nu --force
-# oh-my-posh init nu --print | save -f ~/.config/ohmyposh/init.nu --force
-oh-my-posh init nu --config ~/.config/ohmyposh/zen.toml
 
-$env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense,nu' # optional
+$env.STARSHIP_CONFIG = /Users/mike/.config/starship/starship.toml
+$env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
 mkdir ~/.cache/carapace
 carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
