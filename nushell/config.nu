@@ -901,15 +901,6 @@ $env.config = {
 alias vim = nvim
 alias vimdiff = nvim -d
 
-def nixswitch [name = "default"] {
-    let command = $"($env.HOME)/personal/nix/.#($name)"
-    darwin-rebuild switch --flake $command
-}
-
-def nixup [name = "default"] {
-    cd ~/personal/nix; nix flake update; nixswitch $name;
-}
-
 def zell [path = "~/personal"] {
     let name = $"($path)" | path basename
     zellij attach -b -c $name options --default-cwd $path
