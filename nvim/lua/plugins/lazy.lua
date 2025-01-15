@@ -16,12 +16,6 @@ vim.opt.rtp:prepend(lazypath)
 vim.o.termguicolors = true
 
 require("lazy").setup({
-	{
-		"nvim-tree/nvim-tree.lua",
-		config = function()
-			require("nvim-tree").setup()
-		end,
-	},
 	{ "echasnovski/mini.nvim", version = false },
 
 	{
@@ -199,27 +193,6 @@ require("lazy").setup({
 		"mistricky/codesnap.nvim",
 		build = "make",
 	},
-	{
-		"NeogitOrg/neogit",
-		lazy = false,
-		dependencies = {
-			"nvim-lua/plenary.nvim", -- required
-			"sindrets/diffview.nvim", -- optional - Diff integration
-			"nvim-telescope/telescope.nvim", -- optional
-		},
-		config = true,
-	},
-	-- {
-	--   'Exafunction/codeium.vim',
-	--   event = "InsertEnter",
-	--   config = function ()
-	--     -- Change '<C-g>' here to any keycode you like.
-	--     vim.keymap.set('i', '<C-e>', function () return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
-	--     vim.keymap.set('i', '<c-n>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true, silent = true })
-	--     vim.keymap.set('i', '<c-p>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true, silent = true })
-	--     vim.keymap.set('i', '<c-x>', function() return vim.fn['codeium#Clear']() end, { expr = true, silent = true })
-	--   end
-	-- },
 	"onsails/lspkind.nvim",
 	{
 		"iamcco/markdown-preview.nvim",
@@ -229,20 +202,9 @@ require("lazy").setup({
 			vim.fn["mkdp#util#install"]()
 		end,
 	},
-	"preservim/vim-pencil",
-	{
-		"epwalsh/obsidian.nvim",
-		version = "*", -- recommended, use latest release instead of latest commit
-		lazy = true,
-		ft = "markdown",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
-	},
 	"folke/zen-mode.nvim",
 	"tpope/vim-obsession",
 	"ThePrimeagen/git-worktree.nvim",
-	-- "tpope/vim-furround",
 	{
 		"rmagatti/goto-preview",
 		config = function()
@@ -319,8 +281,6 @@ require("lazy").setup({
 		},
 	},
 
-	"ray-x/go.nvim",
-	"ray-x/guihua.lua",
 	{ "catppuccin/nvim", as = "catppuccin" },
 	{ "blazkowolf/gruber-darker.nvim" },
 	{ -- LSP Configuration & Plugins
@@ -416,11 +376,7 @@ require("lazy").setup({
 
 	"nvim-lualine/lualine.nvim", -- Fancier statusline
 	{ "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
-	-- {
-	--   'numToStr/Comment.nvim', -- "gc" to comment visual regions/lines
-	--   event = { "BufRead", "BufNewFile" },
-	--   config = true
-	-- },
+
 	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
 
 	-- Fuzzy Finder (files, lsp, etc)
