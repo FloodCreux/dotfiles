@@ -4,7 +4,7 @@ require("mini.icons").setup()
 require("mini.indentscope").setup()
 
 local hipatterns = require("mini.hipatterns")
-hipatters.setup({
+hipatterns.setup({
 	highlighters = {
 		-- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
 		fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
