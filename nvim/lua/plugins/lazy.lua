@@ -322,6 +322,7 @@ require("lazy").setup({
 	"ray-x/go.nvim",
 	"ray-x/guihua.lua",
 	{ "catppuccin/nvim", as = "catppuccin" },
+	{ "blazkowolf/gruber-darker.nvim" },
 	{ -- LSP Configuration & Plugins
 		"neovim/nvim-lspconfig",
 		dependencies = {
