@@ -393,4 +393,7 @@ require("lazy").setup({
 			-- refer to the configuration section below
 		},
 	},
+	{
+		"folke/which-key.nvim",
+	},
 })
