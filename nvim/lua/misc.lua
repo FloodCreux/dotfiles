@@ -1,13 +1,10 @@
--- worktree settings
-require("git-worktree").setup()
-
--- Go
-local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
-vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = "*.go",
+-- [[ Highlight on yank ]]
+-- See `:help vim.highlight.on_yank()`
+local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+vim.api.nvim_create_autocmd("TextYankPost", {
 	callback = function()
-		require("go.format").goimport()
+		vim.highlight.on_yank()
 	end,
-	group = format_sync_grp,
+	group = highlight_group,
+	pattern = "*",
 })
-require("go").setup()
