@@ -5,6 +5,10 @@ vim.o.hlsearch = true
 vim.wo.number = true
 vim.o.relativenumber = true
 
+-- Tab Spacing
+vim.opt.shiftwidth = 3
+vim.opt.tabstop = 3
+
 -- Disable mouse mode
 vim.o.mouse = "a"
 
