@@ -916,6 +916,16 @@ def ff [] {
     aerospace list-windows --all | fzf --bind 'enter:execute(bash -c "aerospace focus --window-id {1}")+abort'
 }
 
+def nixswitch [profile = "default"] {
+    cd ~/.config/nix-darwin
+    darwin-rebuild switch --flake .#($profile)
+}
+
+def nixup [profile = "default"] {
+    cd ~/.config/nix-darwin
+    nix flake update
+    nixswitch ($profile)
+}
 
 # Git
 alias gc = git commit -m
