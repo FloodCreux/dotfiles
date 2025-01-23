@@ -106,7 +106,7 @@ path add /run/current-system/sw/bin
 mkdir ~/.cache/starship
 starship init nu | save -f ~/.cache/starship/init.nu
 zoxide init nushell | save -f ~/.zoxide.nu
-# oh-my-posh init nu --config ~/.config/ohmyposh/zen.toml
+oh-my-posh init nu --config ~/.config/ohmyposh/zen.toml
 
 $env.STARSHIP_CONFIG = $env.HOME + '/.config/starship/starship.toml'
 $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional

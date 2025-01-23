@@ -152,5 +152,6 @@ require("lazy").setup({
 		ft = { "scala", "sbt", "java" },
 	},
 
+	require("plugins.dadbod"),
 	require("plugins.yazi"),
 })
