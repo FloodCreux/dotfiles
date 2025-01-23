@@ -1,5 +1,5 @@
 # Alias
 # ---
 
-alias personal="sh ~/.local/scripts/tmux-sessionizer ~/personal"
-alias work="sh ~/.local/scripts/tmux-sessionizer ~/work"
+alias personal="sh ~/.config/tmux/scripts/tmux-sessionizer ~/personal"
+alias work="sh ~/.config/tmux/scripts/tmux-sessionizer ~/work"

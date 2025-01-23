@@ -104,6 +104,7 @@ require("lazy").setup({
 			"hrsh7th/cmp-nvim-lsp",
 			"L3MON4D3/LuaSnip",
 			"saadparwaiz1/cmp_luasnip",
+			"hrsh7th/cmp-path",
 		},
 	},
 
@@ -142,6 +143,14 @@ require("lazy").setup({
 	"nvim-telescope/telescope-symbols.nvim",
 	-- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
 	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make", cond = vim.fn.executable("make") == 1 },
+
+	{
+		"scalameta/nvim-metals",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		ft = { "scala", "sbt", "java" },
+	},
 
 	require("plugins.yazi"),
 })

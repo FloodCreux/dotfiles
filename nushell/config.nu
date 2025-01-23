@@ -908,6 +908,7 @@ alias c = clear
 alias ll = ls -l
 alias lt = eza --tree --level=2 --long --icons --git
 alias v = nvim
+alias vim = nvim
 alias hms = /nix/store/6kc5srg83nkyg21am089xx7pvq44kn2c-home-manager/bin/home-manager switch
 alias as = aerospace
 
@@ -947,7 +948,12 @@ alias kns = kubens
 alias kl = kubectl logs -f
 alias ke = kubectl exec -it
 
+# TMUX
+alias personal = sh ~/.config/tmux/scripts/tmux-sessionizer ~/personal
+alias work = sh ~/.config/tmux/scripts/tmux-sessionizer ~/work
+
 source ~/.config/nushell/env.nu
 source ~/.zoxide.nu
 source ~/.cache/carapace/init.nu
+source ~/.oh-my-posh.nu
 use ~/.cache/starship/init.nu
