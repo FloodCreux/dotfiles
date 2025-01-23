@@ -53,7 +53,6 @@ let
               useUserPackages = true;
               users.${username} = {
                 imports = [
-                  inputs.neovim-flake.homeManagerModules.${system}.nvim
                   (import ../modules/home-manager {
                     inherit inputs;
                     inherit pkgs;
@@ -116,7 +115,6 @@ in
   libOverlay
   metalsOverlay
   nvim-nighlty-overlay
-  neovim-flake.overlays.${system}.default
   buildersOverlay
   treesitterGrammarsOverlay
   rustOverlay

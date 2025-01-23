@@ -24,7 +24,6 @@ in
     ./eza
     ./fzf
     ./git
-    (importPkgs ../../home/programs/neovim-ide)
     (importPkgs ./java)
     ./neofetch
     ./nushell
@@ -32,8 +31,6 @@ in
     ./password-store
     ./starship
     (importPkgs ./tmux)
-    # Comment out Wezterm for now in favor of Ghostty
-    # ./wezterm
     ./zellij
     ./zsh
   ];
