@@ -121,11 +121,17 @@ require("lazy").setup({
 			"nvim-treesitter/nvim-treesitter-textobjects",
 		},
 	},
-
 	{
-		"rcarriga/nvim-dap-ui",
-		dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+		"mfussenegger/nvim-dap",
+		dependencies = {
+			{ "igorlfs/nvim-dap-view", opts = {} },
+			{ "nvim-neotest/nvim-nio" },
+		},
 	},
+	-- {
+	-- 	"rcarriga/nvim-dap-ui",
+	-- 	dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+	-- },
 	"theHamsta/nvim-dap-virtual-text",
 	"leoluz/nvim-dap-go",
 
