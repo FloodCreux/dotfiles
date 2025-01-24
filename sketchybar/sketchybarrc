@@ -29,7 +29,7 @@ sketchybar -m --default label.padding_left=0 \
                         icon.padding_right=6
 
 sketchybar -m --add item logo left \
-              --set logo icon= \
+              --set logo icon=󰀵 \
                     background.color=0xffBF616A \
                     background.height=20 \
                     background.padding_right=0 \
@@ -39,8 +39,8 @@ sketchybar -m --add item logo left \
 sketchybar -m --add space productivity left \
               --set productivity associated_space=1 \
                          associated_display=1 \
-                         icon= \
-                         click_script="yabai -m space --focus 1" \
+                         icon=󰭤 \
+                         click_script="aerospace workspace 1" \
                          background.color=0xffD8DEE9 \
                          background.drawing=off \
               --subscribe productivity mouse.entered mouse.exited \
@@ -48,8 +48,8 @@ sketchybar -m --add space productivity left \
               --add space browser left \
               --set browser associated_display=1 \
                          associated_space=2 \
-                         icon=爵 \
-                         click_script="yabai -m space --focus 2" \
+                         icon=󰖟 \
+                         click_script="aerospace workspace 6" \
                          background.color=0xffD8DEE9 \
                          background.drawing=off \
               --subscribe browser mouse.entered mouse.exited \
@@ -57,26 +57,17 @@ sketchybar -m --add space productivity left \
               --add space messaging left \
               --set messaging associated_display=1 \
                          associated_space=3 \
-                         icon= \
-                         click_script="yabai -m space --focus 3" \
+                         icon=󰍡 \
+                         click_script="aerospace workspace C" \
                          background.color=0xffD8DEE9 \
                          background.drawing=off \
               --subscribe messaging mouse.entered mouse.exited \
-                                                                 \
-              --add space reference left \
-              --set reference associated_display=1 \
-                         associated_space=4 \
-                         icon= \
-                         click_script="yabai -m space --focus 4" \
-                         background.color=0xffD8DEE9 \
-                         background.drawing=off \
-              --subscribe reference mouse.entered mouse.exited \
-                                                                 \
+                                                                        \
               --add space code left \
               --set code associated_display=1 \
                          associated_space=5 \
-                         icon= \
-                         click_script="yabai -m space --focus 5" \
+                         icon= \
+                         click_script="aerospace workspace T" \
                          background.color=0xffD8DEE9 \
                          background.drawing=off \
               --subscribe code mouse.entered mouse.exited \
@@ -84,60 +75,12 @@ sketchybar -m --add space productivity left \
               --add space media left \
               --set media associated_display=1 \
                          associated_space=6 \
-                         icon= \
-                         click_script="yabai -m space --focus 6" \
+                         icon=󰐌 \
+                         click_script="aerospace workspace M" \
                          background.color=0xffD8DEE9 \
                          background.drawing=off \
               --subscribe media mouse.entered mouse.exited \
-                                                                 \
-              --add space feed left \
-              --set feed associated_display=1 \
-                         associated_space=7 \
-                         icon= \
-                         click_script="yabai -m space --focus 7" \
-                         background.color=0xffD8DEE9 \
-                         background.drawing=off \
-              --subscribe feed mouse.entered mouse.exited \
-                                                                 \
-              --add space system left \
-              --set system associated_display=1 \
-                         associated_space=8 \
-                         icon= \
-                         click_script="yabai -m space --focus 8" \
-                         background.color=0xffD8DEE9 \
-                         background.drawing=off \
-              --subscribe system mouse.entered mouse.exited \
-                                                                 \
-              --add space vm left \
-              --set vm associated_display=1 \
-                         associated_space=9 \
-                         icon= \
-                         click_script="yabai -m space --focus 9" \
-                         background.color=0xffD8DEE9 \
-                         background.drawing=off \
-              --subscribe vm mouse.entered mouse.exited
 
-sketchybar -m --add item yabai_logo left \
-              --set yabai_logo icon="" \
-                               background.color=0xffD08770 \
-                               background.height=20 \
-                               background.padding_left=5 \
-                               icon.font="JetBrains Mono:Regular:10.0"
-
-sketchybar -m --add item yabai_mode left \
-              --add event mode_change \
-              --set yabai_mode update_freq=3 \
-                               script="~/.config/sketchybar/plugins/yabai_mode.sh" \
-                               click_script="~/.config/sketchybar/plugins/yabai_mode_click.sh" \
-              --subscribe yabai_mode space_change mode_change
-
-sketchybar -m --add item yabai_float left \
-              --add event window_focus \
-              --add event float_change \
-              --set yabai_float script="~/.config/sketchybar/plugins/yabai_float.sh" \
-                    click_script="~/.config/sketchybar/plugins/yabai_float_click.sh" \
-                    lazy=off \
-              --subscribe yabai_float front_app_switched window_focus float_change \
 
 ############## ITEM DEFAULTS ###############
 sketchybar -m --default label.padding_left=0 \
@@ -167,7 +110,7 @@ sketchybar -m --add item clock right \
                           background.height=20 \
 
 sketchybar -m --add item clock_logo right\
-              --set clock_logo icon= \
+              --set clock_logo icon=󰃭 \
                                background.color=0xff5E81AC \
                                background.height=20 \
                                background.padding_left=5
@@ -179,7 +122,7 @@ sketchybar -m --add item brightness right \
                                update_freq=1
 
 sketchybar -m --add item brightness_logo right \
-              --set brightness_logo icon= \
+              --set brightness_logo icon=󰩮 \
                                     background.color=0xffEBCB8B \
                                     background.height=20 \
                                     background.padding_left=5
@@ -191,7 +134,7 @@ sketchybar -m --add item volume right \
                            update_freq=1
 
 sketchybar -m --add item volume_logo right \
-              --set volume_logo icon= \
+              --set volume_logo icon=󰕾 \
                         background.color=0xff81A1C1 \
                         background.height=20 \
                         background.padding_left=5
@@ -202,7 +145,7 @@ sketchybar -m --add item net right \
                                 background.height=20
 
 sketchybar -m --add item net_logo right \
-              --set net_logo icon= \
+              --set net_logo icon=󰡷 \
                         background.color=0xffB48EAD \
                         background.height=20 \
                         background.padding_left=5
@@ -263,13 +206,13 @@ sketchybar -m --add item network_up right \
                                  update_freq=1
 
 sketchybar -m --add item stats_logo right \
-              --set stats_logo icon= \
+              --set stats_logo icon= \
                                icon.font="JetBrains Mono:Regular:13.0" \
                                background.color=0xffD08770 \
                                background.height=20
 
 sketchybar -m --add item vpn right \
-              --set vpn icon= \
+              --set vpn icon=󰖂 \
                         icon.color=0xffA3BE8C \
                         update_freq=5 \
                         script="~/.config/sketchybar/plugins/vpn.sh"
@@ -289,17 +232,13 @@ sketchybar -m --add item packages right \
 
 sketchybar -m --add item messages right \
               --set messages update_freq=60 \
-                             icon= \
+                             icon=󰍡 \
                              script="~/.config/sketchybar/plugins/messages.sh" \
                              background.color=0xff3B4252 \
                              background.height=20
 
-sketchybar -m --add alias Hammerspoon right \
-              --set Hammerspoon background.color=0xff3B4252 \
-                                background.height=20
-
 sketchybar -m --add item misc_logo right \
-              --set misc_logo icon= \
+              --set misc_logo icon= \
                                icon.font="JetBrains Mono:Regular:13.0" \
                                background.color=0xffA3BE8C \
                                background.height=20
@@ -323,12 +262,6 @@ sketchybar -m --add item music_info left \
                --set primary_spaces background.color=0xff3B4252 \
                                     background.corner_radius=0 \
                                     background.height=20
-
- sketchybar -m --add bracket yabai yabai_mode \
-                                   yabai_float \
-               --set yabai background.color=0xff3B4252 \
-                           background.corner_radius=0 \
-                           background.height=20
 
  sketchybar -m --add bracket stats headphones \
                                    disk_label \
