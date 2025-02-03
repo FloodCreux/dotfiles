@@ -11,6 +11,12 @@ return {
 				enabled = true,
 				timeout = 3000,
 			},
+			picker = {
+				enabled = true,
+				matcher = {
+					frecency = true,
+				},
+			},
 			quickfile = { enabled = true },
 			statuscolumn = { enabled = true },
 			words = { enabled = true },
@@ -124,6 +130,48 @@ return {
 						},
 					})
 				end,
+			},
+			{
+				"<leader>ff",
+				function()
+					Snacks.picker.files({
+						finder = "files",
+						format = "file",
+						show_empty = true,
+						supports_live = true,
+						-- In case you want to override the layout for this keymap
+						-- layout = "vscode",
+					})
+				end,
+				desc = "Find Files",
+			},
+			{
+				"<leader>fg",
+				function()
+					Snacks.picker.grep()
+				end,
+				desc = "Grep Files",
+			},
+			{
+				"<leader>fm",
+				function()
+					Snacks.picker.man()
+				end,
+				desc = "Man Pages",
+			},
+			{
+				"<leader>fr",
+				function()
+					Snacks.picker.recent()
+				end,
+				desc = "Recent Files",
+			},
+			{
+				"<leader>pp",
+				function()
+					Snacks.picker.lazy()
+				end,
+				desc = "Search Plugin Specs",
 			},
 		},
 		init = function()
