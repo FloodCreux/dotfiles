@@ -57,7 +57,7 @@ require("mason").setup()
 
 -- Enable the following language servers
 -- Feel free to add/remove any LSPs that you want here. They will automatically be installed
-local servers = { "clangd", "rust_analyzer", "gopls", "nil_ls", "lua_ls", "terraformls" }
+local servers = { "clangd", "rust_analyzer", "gopls", "nil_ls", "lua_ls", "terraformls", "html" }
 
 -- Ensure the servers above are installed
 require("mason-lspconfig").setup({
@@ -114,6 +114,18 @@ require("lspconfig").nil_ls.setup({
 		["nil"] = {
 			formatting = {
 				command = { "nixfmt" },
+			},
+		},
+	},
+})
+
+require("lspconfig").html.setup({
+	settings = {
+		html = {
+			format = {
+				enable = true,
+				wrapLineLength = 120,
+				indentInnerHtml = true,
 			},
 		},
 	},
