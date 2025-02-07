@@ -91,3 +91,10 @@ dap.configurations.scala = {
 		},
 	},
 }
+
+dap.adapters.gdb = {
+	id = "gdb",
+	type = "executable",
+	command = "gdb",
+	args = { "--quiet", "--interpreter=dap" },
+}
