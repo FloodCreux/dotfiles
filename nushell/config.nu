@@ -917,12 +917,12 @@ def ff [] {
 }
 
 def nixswitch [profile = "default"] {
-    cd ~/.config/nix-darwin
+    cd ~/personal/nix
     darwin-rebuild switch --flake .#($profile)
 }
 
 def nixup [profile = "default"] {
-    cd ~/.config/nix-darwin
+    cd ~/personal/nix
     nix flake update
     nixswitch ($profile)
 }
