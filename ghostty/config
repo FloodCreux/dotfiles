@@ -1,8 +1,6 @@
 background-opacity = 0.95
 background-blur-radius = 20
 
-command = nu --login --interactive
-
 font-family = JetBrainsMono Nerd Font Mono
 
 macos-titlebar-style = hidden

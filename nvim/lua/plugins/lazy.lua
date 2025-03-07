@@ -16,7 +16,13 @@ vim.opt.rtp:prepend(lazypath)
 vim.o.termguicolors = true
 
 require("lazy").setup({
-	{ "echasnovski/mini.nvim", version = false },
+	{
+		"echasnovski/mini.nvim",
+		version = false,
+		dependencies = {
+			"GCBallesteros/NotebookNavigator.nvim",
+		},
+	},
 
 	require("plugins.folke"),
 
@@ -158,6 +164,16 @@ require("lazy").setup({
 		ft = { "scala", "sbt", "java" },
 	},
 
+	{
+		"rest-nvim/rest.nvim",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			opts = function(_, opts)
+				opts.ensure_installed = opts.ensure_installed or {}
+				table.insert(opts.ensure_installed, "http")
+			end,
+		},
+	},
 	require("plugins.dadbod"),
 	require("plugins.yazi"),
 })

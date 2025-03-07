@@ -1,4 +1,8 @@
-require("mini.ai").setup({ n_lines = 500 })
+require("mini.ai").setup({
+	n_lines = 500,
+	custom_textobjects = { h = require("notebook-navigator").miniai_spec },
+})
+
 require("mini.completion").setup()
 require("mini.icons").setup()
 
@@ -18,6 +22,7 @@ hipatterns.setup({
 
 		-- Highlight hex color strings (`#rrggbb`) using that color
 		hex_color = hipatterns.gen_highlighter.hex_color(),
+		cells = require("notebook-navigator").minihipatterns_spec,
 	},
 })
 
