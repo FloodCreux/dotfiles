@@ -16,7 +16,7 @@ require("conform").setup({
 		lua = { "stylua" },
 		-- Conform can also run multiple formatters sequentially
 		-- python = { "isort", "black" },
-		javascript = { { "prettier" } },
+		javascript = { "prettier" },
 		cs = { "csharpier" },
 		xml = { "xmllint" },
 		-- sql = { 'sqlfmt' },
