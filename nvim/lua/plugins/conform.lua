@@ -14,8 +14,7 @@ require("conform").setup({
 	end,
 	formatters_by_ft = {
 		lua = { "stylua" },
-		-- Conform can also run multiple formatters sequentially
-		-- python = { "isort", "black" },
+		python = { "isort", "black" },
 		javascript = { "prettier" },
 		cs = { "csharpier" },
 		xml = { "xmllint" },
