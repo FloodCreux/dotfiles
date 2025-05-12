@@ -17,7 +17,7 @@ return {
 			picker = { enabled = true },
 			quickfile = { enabled = true },
 			scope = { enabled = true },
-			scroll = { enabled = true },
+			scroll = { enabled = false },
 			statuscolumn = { enabled = true },
 			words = { enabled = true },
 			styles = {
@@ -43,7 +43,7 @@ return {
 				desc = "Buffers",
 			},
 			{
-				"<leader>gg",
+				"<leader>fg",
 				function()
 					Snacks.picker.grep()
 				end,
@@ -93,7 +93,7 @@ return {
 				desc = "Find Files",
 			},
 			{
-				"<leader>fg",
+				"<leader>fh",
 				function()
 					Snacks.picker.git_files()
 				end,
