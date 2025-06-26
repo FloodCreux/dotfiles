@@ -116,6 +116,9 @@ fv() { nvim "$(find . -type f -not -path '*/.*' | fzf)" }
 
 export XDG_CONFIG_HOME="/Users/mike/.config"
 
+echo 'export JAVA_HOME="/opt/homebrew/opt/openjdk@17"' >> ~/.zshrc
+echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.zshrc
+
 eval "$(fzf --zsh)"
 eval "$(zoxide init zsh)"
 eval "$(direnv hook zsh)"

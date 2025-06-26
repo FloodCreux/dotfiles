@@ -918,7 +918,7 @@ def ff [] {
 
 def nixswitch [profile = "default"] {
     cd ~/personal/nix
-    darwin-rebuild switch --flake .#($profile)
+    sudo darwin-rebuild switch --flake .#($profile)
 }
 
 def nixup [profile = "default"] {

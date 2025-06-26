@@ -23,6 +23,12 @@ require("nvim-treesitter.configs").setup({
 		"json",
 		"toml",
 		"scala",
+		"latex",
+		"norg",
+		"scss",
+		"svelte",
+		"typst",
+		"vue",
 	},
 
 	highlight = { enable = true },

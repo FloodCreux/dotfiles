@@ -1,8 +1,9 @@
 local dap = require("dap")
 -- local dapui = require("dapui")
 local dapui = require("dap-view")
+local dappy = require("dap-python")
 
-vim.keymap.set("n", "<F5>", dap.continue, { desc = "Debug: Start/Continue" })
+vim.keymap.set("n", "<leader>dc", dap.continue, { desc = "Debug: Start/Continue" })
 vim.keymap.set("n", "<F1>", dap.step_into, { desc = "Debug: Step Into" })
 vim.keymap.set("n", "<F2>", dap.step_over, { desc = "Debug: Step Over" })
 vim.keymap.set("n", "<F3>", dap.step_out, { desc = "Debug: Step Out" })
@@ -70,6 +71,15 @@ for _, lang in ipairs({ "cs", "fsharp", "vb" }) do
 end
 
 require("dap-go").setup({})
+
+dap.configurations.python = {
+	{
+		type = "python",
+		request = "launch",
+		name = "My custom launch configuration",
+		program = "${file}",
+	},
+}
 
 dap.configurations.scala = {
 	{

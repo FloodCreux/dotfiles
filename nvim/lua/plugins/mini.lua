@@ -40,6 +40,7 @@ end
 
 require("mini.surround").setup()
 require("mini.operators").setup()
-require("mini.pairs").setup()
+-- NOTE I don't like auto closing chars at the moment
+-- require("mini.pairs").setup()
 require("mini.bracketed").setup()
 require("mini.files").setup()

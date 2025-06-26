@@ -53,10 +53,18 @@ local on_attach = function(_, bufnr)
 end
 
 -- Setup mason so it can manage external tooling
-require("mason").setup()
+local debuggers = { "debugpy" }
 
--- Enable the following language servers
--- Feel free to add/remove any LSPs that you want here. They will automatically be installed
+-- Merge all tools into one table
+local all_tools = {}
+for _, v in ipairs(debuggers) do
+	table.insert(all_tools, v)
+end
+
+require("mason").setup({
+	ensure_installed = all_tools,
+})
+
 local servers = { "clangd", "rust_analyzer", "gopls", "nil_ls", "lua_ls", "terraformls", "html" }
 
 -- Ensure the servers above are installed
@@ -126,6 +134,21 @@ require("lspconfig").html.setup({
 				enable = true,
 				wrapLineLength = 120,
 				indentInnerHtml = true,
+			},
+		},
+	},
+})
+
+require("lspconfig").pyright.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+	filetypes = { "python" },
+	settings = {
+		python = {
+			analysis = {
+				autoSearchPaths = true,
+				diagnosticMode = "openFilesOnly",
+				useLibraryCodeForTypes = true,
 			},
 		},
 	},

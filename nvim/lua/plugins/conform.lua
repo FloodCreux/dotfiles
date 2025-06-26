@@ -18,7 +18,6 @@ require("conform").setup({
 		javascript = { "prettier" },
 		cs = { "csharpier" },
 		xml = { "xmllint" },
-		-- sql = { 'sqlfmt' },
 		markdown = { "prettier" },
 		ocaml = { "ocamlformat" },
 		nix = { "nixfmt" },

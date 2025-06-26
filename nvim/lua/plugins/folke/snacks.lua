@@ -7,14 +7,28 @@ return {
 		opts = {
 			bigfile = { enabled = true },
 			dashboard = { enabled = true },
-			explorer = { enabled = true },
+			explorer = { enabled = false },
 			indent = { enabled = true },
 			input = { enabled = true },
+			lazygit = {
+				configure = true,
+			},
 			notifier = {
 				enabled = true,
 				timeout = 3000,
 			},
-			picker = { enabled = true },
+			picker = {
+				enabled = true,
+				hidden = true,
+				ignored = true,
+
+				sources = {
+					files = {
+						hidden = true,
+						ignored = true,
+					},
+				},
+			},
 			quickfile = { enabled = true },
 			scope = { enabled = true },
 			scroll = { enabled = false },
