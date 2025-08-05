@@ -9,6 +9,7 @@ map("n", "<leader>Y", [["+Y]])
 map("n", "<esc><esc>", "<cmd>nohlsearch<cr>", { silent = true })
 
 map("n", "<leader>pv", "<cmd>Yazi<cr>")
+
 map("n", "<leader>ff", function()
 	Snacks.picker.smart()
 end)
@@ -20,6 +21,25 @@ map("n", "<leader>n", function()
 end)
 map("n", "<leader>gg", function()
 	Snacks.lazygit()
+end)
+
+map("n", "gd", function()
+	Snacks.picker.lsp_definitions()
+end)
+map("n", "gD", function()
+	Snacks.picker.lsp_declarations()
+end)
+
+map("n", "gr", function()
+	Snacks.picker.lsp_references()
+end)
+
+map("n", "gI", function()
+	Snacks.picker.lsp_implementations()
+end)
+
+map("n", "gy", function()
+	Snacks.picker.lsp_type_definitions()
 end)
 
 map({ "n", "v", "x" }, "<leader>s", ":e #<CR>")
