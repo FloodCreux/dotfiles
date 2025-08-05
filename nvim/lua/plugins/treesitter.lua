@@ -1,5 +1,8 @@
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
+vim.cmd("TSUpdate")
+
+---@diagnostic disable-next-line
 require("nvim-treesitter.configs").setup({
 	-- Add languages to be installed here that you want installed for treesitter
 	ensure_installed = {
@@ -23,7 +26,7 @@ require("nvim-treesitter.configs").setup({
 		"json",
 		"toml",
 		"scala",
-		"latex",
+		-- "latex",
 		"norg",
 		"scss",
 		"svelte",

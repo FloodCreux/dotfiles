@@ -1,25 +1,56 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+vim.o.termguicolors = true
+
 require("keymaps")
-require("plugins.lazy")
-require("plugins.misc")
+
+vim.pack.add({
+	-- Deps
+	{ src = "https://github.com/nvim-lua/plenary.nvim" },
+	{ src = "https://github.com/j-hui/fidget.nvim" },
+	{ src = "https://github.com/MunifTanjim/nui.nvim" },
+	{ src = "https://github.com/rcarriga/nvim-notify" },
+	-- Lsp
+	{ src = "https://github.com/mason-org/mason.nvim" },
+	{ src = "https://github.com/scalameta/nvim-metals" },
+	{ src = "https://github.com/stevearc/conform.nvim" },
+	-- { src = "https://github.com/onsails/lspkind.nvim" },
+	-- TPope
+	{ src = "https://github.com/tpope/vim-fugitive" },
+	{ src = "https://github.com/tpope/vim-sleuth" }, -- Detect tabstop and shiftwidth automatically
+	{ src = "https://github.com/tpope/vim-obsession" },
+	{ src = "https://github.com/tpope/vim-dadbod" },
+	{ src = "https://github.com/kristijanhusak/vim-dadbod-completion" },
+	{ src = "https://github.com/kristijanhusak/vim-dadbod-ui" },
+	-- Git
+	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
+	-- Folke
+	{ src = "https://github.com/folke/snacks.nvim" },
+	-- Mini
+	{ src = "https://github.com/echasnovski/mini.ai" },
+	{ src = "https://github.com/echasnovski/mini.bracketed" },
+	{ src = "https://github.com/echasnovski/mini.completion" },
+	{ src = "https://github.com/echasnovski/mini.files" },
+	{ src = "https://github.com/echasnovski/mini.icons" },
+	{ src = "https://github.com/echasnovski/mini.indentscope" },
+	{ src = "https://github.com/echasnovski/mini.hipatterns" },
+	-- { src = "https://github.com/echasnovski/mini.pick" },
+	{ src = "https://github.com/echasnovski/mini.snippets" },
+	{ src = "https://github.com/echasnovski/mini.statusline" },
+	-- Color Schemes
+	{ src = "https://github.com/blazkowolf/gruber-darker.nvim" },
+	{ src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
+	-- File Manager
+	{ src = "https://github.com/mikavilpas/yazi.nvim" },
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+	-- { src = "https://github.com/ThePrimeagen/git-worktree.nvim" },
+	-- Notifications
+	{ src = "https://github.com/folke/noice.nvim" },
+})
+
 require("options")
 require("misc")
-require("plugins.cmp")
-require("plugins.conform")
-require("plugins.dap")
-require("plugins.gitsigns")
--- require("plugins.telescope")
-require("plugins.treesitter")
-require("plugins.lsp")
-require("plugins.metals")
-require("plugins.trouble")
--- require("plugins.obsidian")
-require("plugins.zenmode")
-require("plugins.neogit")
-require("plugins.codesnap")
-require("plugins.harpoon")
-require("plugins.mini")
+require("plugins")
 
 -- vim: ts=8 sts=2 sw=2 et

@@ -1,11 +1,10 @@
 require("mini.ai").setup({
 	n_lines = 500,
-	custom_textobjects = { h = require("notebook-navigator").miniai_spec },
 })
-
+require("mini.bracketed").setup()
 require("mini.completion").setup()
+require("mini.files").setup()
 require("mini.icons").setup()
-
 require("mini.indentscope").setup({
 	symbol = "▏",
 	options = { try_as_border = true },
@@ -22,9 +21,12 @@ hipatterns.setup({
 
 		-- Highlight hex color strings (`#rrggbb`) using that color
 		hex_color = hipatterns.gen_highlighter.hex_color(),
-		cells = require("notebook-navigator").minihipatterns_spec,
+		-- cells = require("notebook-navigator").minihipatterns_spec,
 	},
 })
+
+require("mini.pick").setup()
+require("mini.snippets").setup()
 
 local statusline = require("mini.statusline")
 -- set use_icons to true if you have a Nerd Font
@@ -38,9 +40,8 @@ statusline.section_location = function()
 	return "%2l:%-2v"
 end
 
-require("mini.surround").setup()
-require("mini.operators").setup()
+-- I don't really use this too much
+-- require("mini.surround").setup()
+-- require("mini.operators").setup()
 -- NOTE I don't like auto closing chars at the moment
 -- require("mini.pairs").setup()
-require("mini.bracketed").setup()
-require("mini.files").setup()

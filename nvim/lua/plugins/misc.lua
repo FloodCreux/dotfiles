@@ -1,5 +1,5 @@
 -- worktree settings
-require("git-worktree").setup()
+-- require("git-worktree").setup()
 
 -- Go
 -- local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})

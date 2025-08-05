@@ -1,0 +1,10 @@
+require("fidget").setup()
+
+require("plugins.conform")
+require("plugins.gitsigns")
+require("plugins.lsp")
+require("plugins.mini")
+require("plugins.metals")
+require("plugins.notifications")
+require("plugins.snacks")
+require("plugins.treesitter")

@@ -6,8 +6,8 @@ vim.wo.number = true
 vim.o.relativenumber = true
 
 -- Tab Spacing
-vim.opt.shiftwidth = 3
-vim.opt.tabstop = 3
+vim.opt.shiftwidth = 2
+vim.opt.tabstop = 2
 
 -- Disable mouse mode
 vim.o.mouse = "a"
@@ -56,3 +56,5 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 vim.opt.modifiable = true
+
+vim.o.winborder = "rounded"
