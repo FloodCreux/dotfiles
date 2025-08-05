@@ -13,11 +13,14 @@ vim.pack.add({
 	{ src = "https://github.com/L3MON4D3/LuaSnip" },
 	{ src = "https://github.com/saadparwaiz1/cmp_luasnip" },
 	{ src = "https://github.com/hrsh7th/cmp-path" },
+	{ src = "https://github.com/igorlfs/nvim-dap-view" },
+	{ src = "https://github.com/nvim-neotest/nvim-nio" },
 	-- Lsp
 	{ src = "https://github.com/mason-org/mason.nvim" },
 	{ src = "https://github.com/scalameta/nvim-metals" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
-	-- { src = "https://github.com/onsails/lspkind.nvim" },
+	-- Debug
+	{ src = "https://github.com/mfussenegger/nvim-dap" },
 	-- TPope
 	{ src = "https://github.com/tpope/vim-fugitive" },
 	{ src = "https://github.com/tpope/vim-sleuth" }, -- Detect tabstop and shiftwidth automatically
@@ -37,7 +40,7 @@ vim.pack.add({
 	{ src = "https://github.com/echasnovski/mini.icons" },
 	{ src = "https://github.com/echasnovski/mini.indentscope" },
 	{ src = "https://github.com/echasnovski/mini.hipatterns" },
-	-- { src = "https://github.com/echasnovski/mini.pick" },
+	{ src = "https://github.com/echasnovski/mini.pick" },
 	{ src = "https://github.com/echasnovski/mini.snippets" },
 	{ src = "https://github.com/echasnovski/mini.statusline" },
 	-- Color Schemes
@@ -46,7 +49,6 @@ vim.pack.add({
 	-- File Manager
 	{ src = "https://github.com/mikavilpas/yazi.nvim" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
-	-- { src = "https://github.com/ThePrimeagen/git-worktree.nvim" },
 	-- Notifications
 	{ src = "https://github.com/folke/noice.nvim" },
 	-- Snippets
