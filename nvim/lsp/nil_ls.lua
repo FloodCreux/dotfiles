@@ -9,7 +9,14 @@
 ---
 --- _See an example config at https://github.com/oxalica/nil/blob/main/dev/nvim-lsp.nix._
 return {
-  cmd = { 'nil' },
-  filetypes = { 'nix' },
-  root_markers = { 'flake.nix', '.git' },
+	cmd = { "nil" },
+	filetypes = { "nix" },
+	root_markers = { "flake.nix", ".git" },
+	settings = {
+		["nil"] = {
+			formatting = {
+				command = { "nixfmt" },
+			},
+		},
+	},
 }

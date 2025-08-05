@@ -23,12 +23,8 @@ local on_attach = function(_, bufnr)
 
 	nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 	nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-	nmap("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
-	nmap("<leader>gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-	nmap("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
-	nmap("<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
-	nmap("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
-	nmap("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+	-- nmap("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
+	-- nmap("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
 
 	-- See `:help K` for why this keymap
 	nmap("K", vim.lsp.buf.hover, "Hover Documentation")
@@ -61,60 +57,29 @@ for _, v in ipairs(debuggers) do
 	table.insert(all_tools, v)
 end
 
+local servers = { "clangd", "rust_analyzer", "gopls", "lua_ls", "terraformls", "html", "nixd" }
+for _, v in ipairs(servers) do
+	table.insert(all_tools, v)
+end
+
 require("mason").setup({
 	ensure_installed = all_tools,
 })
 
--- Make runtime files discoverable to the server
-local servers = { "clangd", "rust_analyzer", "gopls", "lua_ls", "terraformls", "html" }
-
 vim.lsp.enable(servers)
 
--- Ensure the servers above are installed
--- require("mason-lspconfig").setup({
--- 	ensure_installed = servers,
--- })
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
--- nvim-cmp supports additional completion capabilities
--- local capabilities = vim.lsp.protocol.make_client_capabilities()
--- capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-
--- for _, lsp in ipairs(servers) do
--- 	require("lspconfig")[lsp].setup({
--- 		on_attach = on_attach,
--- 		capabilities = capabilities,
--- 	})
--- end
+for _, lsp in ipairs(servers) do
+	vim.lsp.config(lsp, {
+		on_attach = on_attach,
+		capabilities = capabilities,
+	})
+end
 
 -- Turn on lsp status information
 
--- Example custom configuration for lua
---
-
--- require("lspconfig").lua_ls.setup({
--- 	on_attach = on_attach,
--- 	capabilities = capabilities,
--- 	settings = {
--- 		Lua = {
--- 			runtime = {
--- 				-- Tell the language server which version of Lua you're using (most likely LuaJIT)
--- 				version = "LuaJIT",
--- 				-- Setup your lua path
--- 				path = runtime_path,
--- 			},
--- 			diagnostics = {
--- 				globals = { "vim" },
--- 			},
--- 			workspace = {
--- 				library = vim.api.nvim_get_runtime_file("", true),
--- 				checkThirdParty = false,
--- 			},
--- 			-- Do not send telemetry data containing a randomized but unique identifier
--- 			telemetry = { enable = false },
--- 		},
--- 	},
--- })
---
 -- require("lspconfig").nil_ls.setup({
 -- 	settings = {
 -- 		["nil"] = {
