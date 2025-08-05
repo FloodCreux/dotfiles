@@ -141,8 +141,16 @@ require("lazy").setup({
 			{ "mfussenegger/nvim-dap" },
 		},
 		config = function(_, opts)
-			require("dap-python").setup("uv")
+			dap = require("dap-python")
+			dap.setup("uv")
+			dap.test_runner = "pytest"
 		end,
+	},
+	{
+		"igorlfs/nvim-dap-view",
+		---@module 'dap-view'
+		---@type dapview.Config
+		opts = {},
 	},
 	-- {
 	-- 	"rcarriga/nvim-dap-ui",
@@ -172,6 +180,13 @@ require("lazy").setup({
 			"nvim-lua/plenary.nvim",
 		},
 		ft = { "scala", "sbt", "java" },
+	},
+
+	{
+		"benomahony/uv.nvim",
+		opts = {
+			picker_integration = true,
+		},
 	},
 
 	require("plugins.dadbod"),

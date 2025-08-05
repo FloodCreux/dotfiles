@@ -7,3 +7,6 @@ font-family = JetBrainsMono Nerd Font Mono
 macos-titlebar-style = hidden
 
 theme = gruber-darker
+
+custom-shader = shaders/cursor_blaze.glsl
+custom-shader = shaders/cursor_smear.glsl

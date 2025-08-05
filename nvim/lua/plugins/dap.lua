@@ -108,3 +108,13 @@ dap.adapters.gdb = {
 	command = "gdb",
 	args = { "--quiet", "--interpreter=dap" },
 }
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "python", -- Changed from "py" to "python"
+	callback = function()
+		local dap = require("dap-python") -- Added 'local'
+		vim.keymap.set("n", "<leader>dn", dap.test_method, { desc = "Python: Test Method" })
+		vim.keymap.set("n", "<leader>df", dap.test_class, { desc = "Python: Test Class" })
+		vim.keymap.set("n", "<leader>ds", dap.debug_selection, { desc = "Python: Debug Selection" })
+	end,
+})

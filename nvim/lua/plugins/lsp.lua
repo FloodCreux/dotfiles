@@ -65,7 +65,7 @@ require("mason").setup({
 	ensure_installed = all_tools,
 })
 
-local servers = { "clangd", "rust_analyzer", "gopls", "nil_ls", "lua_ls", "terraformls", "html" }
+local servers = { "clangd", "rust_analyzer", "gopls", "lua_ls", "terraformls", "html" }
 
 -- Ensure the servers above are installed
 require("mason-lspconfig").setup({
@@ -162,4 +162,10 @@ vim.api.nvim_create_autocmd("FileType", {
 			cmd = { "bash-language-server", "start" },
 		})
 	end,
+})
+
+vim.filetype.add({
+	extension = {
+		jsonl = "json",
+	},
 })

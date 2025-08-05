@@ -26,6 +26,13 @@ return {
 					files = {
 						hidden = true,
 						ignored = true,
+						exclude = {
+							".git/",
+							".metals/",
+							".bloop/",
+							"*.class",
+							"*.semanticdb",
+						},
 					},
 				},
 			},
