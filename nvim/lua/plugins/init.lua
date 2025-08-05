@@ -1,5 +1,6 @@
 require("fidget").setup()
 
+require("plugins.cmp")
 require("plugins.conform")
 require("plugins.gitsigns")
 require("plugins.lsp")
@@ -8,3 +9,4 @@ require("plugins.metals")
 require("plugins.notifications")
 require("plugins.snacks")
 require("plugins.treesitter")
+require("plugins.yazi")

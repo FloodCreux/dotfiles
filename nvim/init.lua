@@ -1,8 +1,6 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-vim.o.termguicolors = true
-
 require("keymaps")
 
 vim.pack.add({
@@ -11,6 +9,10 @@ vim.pack.add({
 	{ src = "https://github.com/j-hui/fidget.nvim" },
 	{ src = "https://github.com/MunifTanjim/nui.nvim" },
 	{ src = "https://github.com/rcarriga/nvim-notify" },
+	{ src = "https://github.com/hrsh7th/cmp-nvim-lsp" },
+	{ src = "https://github.com/L3MON4D3/LuaSnip" },
+	{ src = "https://github.com/saadparwaiz1/cmp_luasnip" },
+	{ src = "https://github.com/hrsh7th/cmp-path" },
 	-- Lsp
 	{ src = "https://github.com/mason-org/mason.nvim" },
 	{ src = "https://github.com/scalameta/nvim-metals" },
@@ -47,6 +49,8 @@ vim.pack.add({
 	-- { src = "https://github.com/ThePrimeagen/git-worktree.nvim" },
 	-- Notifications
 	{ src = "https://github.com/folke/noice.nvim" },
+	-- Snippets
+	{ src = "https://github.com/hrsh7th/nvim-cmp" },
 })
 
 require("options")

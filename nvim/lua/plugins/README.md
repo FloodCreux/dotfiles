@@ -1,20 +1,2 @@
-## Missing
+Files not in the `init.lua` are not used
 
-    ○ avante.nvim
-    ○ catppuccin
-    ○ crates.nvim
-    ○ easy-dotnet.nvim
-    ○ img-clip.nvim
-    ○ mason-nvim-dap.nvim
-    ○ mason-tool-installer.nvim
-    ○ multicursor.nvim
-    ○ neofusion.nvim
-    ○ neotest
-    ○ nvim-jdtls
-    ○ omnisharp-extended-lsp.nvim
-    ○ render-markdown.nvim
-    ○ rustaceanvim
-    ○ telescope-terraform-doc.nvim
-    ○ telescope-terraform.nvim
-    ○ telescope-ui-select.nvim
-    ○ vim-wakatime
