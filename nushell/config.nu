@@ -958,6 +958,11 @@ alias kns = kubens
 alias kl = kubectl logs -f
 alias ke = kubectl exec -it
 
+# Eza
+alias ll = eza -l --icons --git -a
+alias lt = eza --tree --level=2 --long --icons --git
+alias ltree = eza --tree --level=2  --icons --git
+
 # TMUX
 alias personal = sh ~/.config/tmux/scripts/tmux-sessionizer ~/personal
 alias work = sh ~/.config/tmux/scripts/tmux-sessionizer ~/work

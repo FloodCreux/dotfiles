@@ -36,7 +36,7 @@ vim.cmd.colorscheme("gruber-darker")
 vim.opt.clipboard = "unnamedplus"
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = "menuone,noselect"
+vim.o.completeopt = "menu,menuone,noselect"
 
 -- Concealer for Neorg
 vim.o.conceallevel = 2

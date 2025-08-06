@@ -26,11 +26,12 @@ require("nvim-treesitter.configs").setup({
 		"json",
 		"toml",
 		"scala",
-		-- "latex",
+		"latex",
 		"norg",
 		"scss",
 		"svelte",
 		"typst",
+		"tsx",
 		"vue",
 	},
 

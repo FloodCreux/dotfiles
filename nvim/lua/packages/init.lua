@@ -16,12 +16,15 @@ local M = {
 	gh("hrsh7th/cmp-path"),
 	gh("igorlfs/nvim-dap-view"),
 	gh("nvim-neotest/nvim-nio"),
+	-- gh("nvim-tree/nvim-web-devicons"),
 
 	-- LSP
 	gh("mason-org/mason.nvim"),
 	gh("scalameta/nvim-metals"),
 	gh("stevearc/conform.nvim"),
 	gh("benomahony/uv.nvim"),
+	-- gh("OXY2DEV/markview.nvim"),
+	gh("MeanderingProgrammer/render-markdown.nvim"),
 
 	-- Debug
 	gh("mfussenegger/nvim-dap"),
@@ -41,6 +44,7 @@ local M = {
 
 	-- Folke
 	gh("folke/snacks.nvim"),
+	gh("folke/which-key.nvim"),
 
 	-- Mini
 	gh("echasnovski/mini.ai"),

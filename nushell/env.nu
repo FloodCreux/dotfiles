@@ -113,3 +113,11 @@ $env.STARSHIP_CONFIG = $env.HOME + '/.config/starship/starship.toml'
 $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
 mkdir ~/.cache/carapace
 carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
+
+$env.LIBRARY_PATH = if "LIBRARY_PATH" in $env {
+    $"($env.LIBRARY_PATH):(xcrun --show-sdk-path | str trim)/usr/lib"
+} else {
+    $"(xcrun --show-sdk-path | str trim)/usr/lib"
+}
+
+$env.LDFLAGS = $"-L(xcrun --show-sdk-path | str trim)/usr/lib"
