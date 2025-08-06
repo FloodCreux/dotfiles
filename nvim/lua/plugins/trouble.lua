@@ -1,3 +1,5 @@
+require("trouble").setup({})
+
 -- Diagnostic signs
 -- https://github.com/folke/trouble.nvim/issues/52
 local signs = {

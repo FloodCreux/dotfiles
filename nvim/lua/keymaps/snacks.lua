@@ -1,0 +1,97 @@
+local utils = require("keymaps.utils")
+local map = utils.map
+
+map("n", "<leader>ff", function()
+	Snacks.picker.smart()
+end)
+map("n", "<leader>fg", function()
+	Snacks.picker.grep()
+end)
+map("n", "<leader>n", function()
+	Snacks.picker.notifications()
+end)
+map("n", "<leader>gg", function()
+	Snacks.lazygit()
+end)
+
+map("n", "gd", function()
+	Snacks.picker.lsp_definitions()
+end)
+map("n", "gD", function()
+	Snacks.picker.lsp_declarations()
+end)
+
+map("n", "gr", function()
+	Snacks.picker.lsp_references()
+end)
+
+map("n", "gI", function()
+	Snacks.picker.lsp_implementations()
+end)
+
+map("n", "gy", function()
+	Snacks.picker.lsp_type_definitions()
+end)
+map("n", "<leader>ss", function()
+	Snacks.picker.lsp_symbols()
+end)
+map("n", "<leader>sS", function()
+	Snacks.picker.lsp_workspace_symbols()
+end)
+-- Other
+map("n", "<leader>z", function()
+	Snacks.zen()
+end)
+map("n", "<leader>Z", function()
+	Snacks.zen.zoom()
+end)
+map("n", "<leader>.", function()
+	Snacks.scratch()
+end)
+map("n", "<leader>S", function()
+	Snacks.scratch.select()
+end)
+map("n", "<leader>n", function()
+	Snacks.notifier.show_history()
+end)
+map("n", "<leader>bd", function()
+	Snacks.bufdelete()
+end)
+map("n", "<leader>cR", function()
+	Snacks.rename.rename_file()
+end)
+map("n", "<leader>gB", function()
+	Snacks.gitbrowse()
+end)
+map("n", "<leader>gg", function()
+	Snacks.lazygit()
+end)
+map("n", "<leader>un", function()
+	Snacks.notifier.hide()
+end)
+map("n", "<c-/>", function()
+	Snacks.terminal()
+end)
+map("n", "<c-_>", function()
+	Snacks.terminal()
+end)
+map("n", "]]", function()
+	Snacks.words.jump(vim.v.count1)
+end)
+map("n", "[[", function()
+	Snacks.words.jump(-vim.v.count1)
+end)
+map("n", "<leader>N", function()
+	Snacks.win({
+		file = vim.api.nvim_get_runtime_file("doc/news.txt", false)[1],
+		width = 0.6,
+		height = 0.6,
+		wo = {
+			spell = false,
+			wrap = false,
+			signcolumn = "yes",
+			statuscolumn = " ",
+			conceallevel = 3,
+		},
+	})
+end)
