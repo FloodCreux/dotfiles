@@ -944,6 +944,8 @@ alias gcoall = git checkout -- .
 alias gr = git remote
 alias gre = git reset
 
+alias lazygit = with-env {SHELL: "/bin/zsh"} { lazygit }
+
 # K8s
 alias k = kubectl
 alias ka = kubectl apply -f
