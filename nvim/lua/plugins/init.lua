@@ -4,7 +4,7 @@ require("uv").setup({
 })
 require("render-markdown").setup()
 
-require("plugins.cmp")
+-- require("plugins.cmp")
 require("plugins.conform")
 require("plugins.gitsigns")
 require("plugins.lsp")

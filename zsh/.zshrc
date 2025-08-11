@@ -96,11 +96,12 @@ alias http="xh"
 bindkey jj vi-cmd-mode
 
 # Eza
-alias l="eza -l --icons --git -a"
+alias ll="eza -l --icons --git -a"
 alias lt="eza --tree --level=2 --long --icons --git"
 alias ltree="eza --tree --level=2  --icons --git"
 
 # Tmux
+alias sesh="sh ~/.config/tmux/scripts/tmux-sessionizer"
 alias personal="sh ~/.config/tmux/scripts/tmux-sessionizer ~/personal"
 alias work="sh ~/.config/tmux/scripts/tmux-sessionizer ~/work"
 
@@ -126,3 +127,29 @@ echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.zshrc
 eval "$(fzf --zsh)"
 eval "$(zoxide init zsh)"
 eval "$(direnv hook zsh)"
+
+function gpat() {
+	git remote set-url origin $1
+}
+
+function nixswitch {
+    if [[ $# -eq 0 ]]; then
+        echo "Usage: nixswitch <configuration>"
+        return 1
+    fi
+    pushd ~/personal/nix
+    sudo darwin-rebuild switch --flake ".#$1"
+    popd
+}
+
+function nixup {
+    if [[ $# -eq 0 ]]; then
+        echo "Usage: nixup <configuration>"
+        return 1
+    fi
+    pushd
+    cd ~/personal/nix
+    nix flake update
+    nixswitch "$1"
+    popd
+}

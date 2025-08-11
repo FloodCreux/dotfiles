@@ -1,5 +1,8 @@
 local metals_config = require("metals").bare_config()
-metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- capabilities = require("cmp_nvim_lsp").default_capabilities()
+--
+metals_config.capabilities = capabilities
 metals_config.on_attach = function(client, bufnr)
 	require("metals").setup_dap()
 end

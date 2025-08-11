@@ -917,14 +917,18 @@ def ff [] {
 }
 
 def nixswitch [profile = "default"] {
-    cd ~/personal/nix
-    sudo darwin-rebuild switch --flake .#($profile)
+    do {
+        cd ~/personal/nix
+        sudo darwin-rebuild switch --flake .#($profile)
+    }
 }
 
 def nixup [profile = "default"] {
-    cd ~/personal/nix
-    nix flake update
-    nixswitch ($profile)
+    do {
+        cd ~/personal/nix
+        nix flake update
+        nixswitch ($profile)
+    }
 }
 
 # Git
@@ -945,6 +949,10 @@ alias gr = git remote
 alias gre = git reset
 
 alias lazygit = with-env {SHELL: "/bin/zsh"} { lazygit }
+
+def gpat [link] {
+    git remote set-url origin $link
+}
 
 # K8s
 alias k = kubectl
@@ -968,9 +976,11 @@ alias ltree = eza --tree --level=2  --icons --git
 # TMUX
 alias personal = sh ~/.config/tmux/scripts/tmux-sessionizer ~/personal
 alias work = sh ~/.config/tmux/scripts/tmux-sessionizer ~/work
+alias sesh = sh ~/.config/tmux/scripts/tmux-sessionizer
 
 source ~/.config/nushell/env.nu
 source ~/.zoxide.nu
 source ~/.cache/carapace/init.nu
 source ~/.oh-my-posh.nu
 use ~/.cache/starship/init.nu
+

@@ -13,7 +13,11 @@ cmp.setup({
 		return not (snacks_ok and snacks.picker and is_picker_buffer())
 	end,
 
-	view = { entries = "native" },
+	window = {
+		completion = {
+			autocomplete = false,
+		},
+	},
 
 	snippet = {
 		expand = function(args)
