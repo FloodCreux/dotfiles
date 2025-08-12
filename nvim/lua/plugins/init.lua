@@ -1,3 +1,4 @@
+require("luasnip").setup({ enable_autosnippets = true })
 require("fidget").setup()
 require("uv").setup({
 	picker_integration = true,

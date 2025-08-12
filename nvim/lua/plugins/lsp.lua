@@ -37,7 +37,7 @@ for _, v in ipairs(debuggers) do
 	table.insert(all_tools, v)
 end
 
-local servers = { "clangd", "rust_analyzer", "gopls", "lua_ls", "terraformls", "html", "nixd" }
+local servers = { "clangd", "rust_analyzer", "gopls", "lua_ls", "terraformls", "html", "nixd", "ocaml_lsp" }
 for _, v in ipairs(servers) do
 	table.insert(all_tools, v)
 end

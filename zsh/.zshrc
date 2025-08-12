@@ -124,9 +124,15 @@ export XDG_CONFIG_HOME="/Users/mike/.config"
 echo 'export JAVA_HOME="/opt/homebrew/opt/openjdk@17"' >> ~/.zshrc
 echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.zshrc
 
+# Nix
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
+
 eval "$(fzf --zsh)"
 eval "$(zoxide init zsh)"
 eval "$(direnv hook zsh)"
+
 
 function gpat() {
 	git remote set-url origin $1

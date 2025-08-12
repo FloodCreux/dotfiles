@@ -10,13 +10,16 @@ local M = {
 	gh("j-hui/fidget.nvim"),
 	gh("MunifTanjim/nui.nvim"),
 	gh("rcarriga/nvim-notify"),
-	-- gh("hrsh7th/cmp-nvim-lsp"),
-	gh("L3MON4D3/LuaSnip"),
-	gh("saadparwaiz1/cmp_luasnip"),
-	gh("hrsh7th/cmp-path"),
 	gh("igorlfs/nvim-dap-view"),
 	gh("nvim-neotest/nvim-nio"),
 	-- gh("nvim-tree/nvim-web-devicons"),
+
+	-- Snippets
+	gh("L3MON4D3/LuaSnip"),
+	-- gh("hrsh7th/nvim-cmp"),
+	-- gh("hrsh7th/cmp-nvim-lsp"),
+	-- gh("saadparwaiz1/cmp_luasnip"),
+	-- gh("hrsh7th/cmp-path"),
 
 	-- LSP
 	gh("mason-org/mason.nvim"),
@@ -68,9 +71,6 @@ local M = {
 
 	-- Notifications
 	gh("folke/noice.nvim"),
-
-	-- Snippets
-	gh("hrsh7th/nvim-cmp"),
 }
 
 return M
