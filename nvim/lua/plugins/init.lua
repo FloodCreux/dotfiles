@@ -1,4 +1,3 @@
-require("luasnip").setup({ enable_autosnippets = true })
 require("fidget").setup()
 require("uv").setup({
 	picker_integration = true,
@@ -14,6 +13,7 @@ require("plugins.mini")
 require("plugins.neogit")
 require("plugins.notifications")
 require("plugins.snacks")
+require("plugins.snippets")
 require("plugins.trouble")
 require("plugins.treesitter")
 require("plugins.which-key")

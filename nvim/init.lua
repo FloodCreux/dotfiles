@@ -1,10 +1,9 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-require("keymaps")
-
 vim.pack.add(require("packages"))
 
+require("keymaps")
 require("options")
 require("misc")
 require("plugins")
