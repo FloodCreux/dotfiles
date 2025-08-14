@@ -99,6 +99,13 @@ use std "path add"
 path add /opt/homebrew/bin
 path add /run/current-system/sw/bin
 path add ~/.npm-global/bin
+# path add ~/.opam/default/bin
+
+# Add current opam switch bin directory
+let opam_switch = (opam var switch 2>/dev/null | complete | get stdout | str trim)
+if ($opam_switch | is-not-empty) {
+    path add $"~/.opam/($opam_switch)/bin"
+}
 
 # To load from a custom file you can use:
 # source ($nu.default-config-dir | path join 'custom.nu')

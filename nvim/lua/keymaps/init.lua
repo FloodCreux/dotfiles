@@ -1,4 +1,4 @@
-local utils = require("keymaps.utils")
+local utils = require("utils")
 local map = utils.map
 
 map("v", "J", ":m '>+1<CR>gv=gv", { silent = true })

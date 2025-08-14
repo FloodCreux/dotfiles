@@ -23,6 +23,8 @@ require("conform").setup({
 		nix = { "nixfmt" },
 		tf = { "terraform_fmt" },
 		terraform = { "terraform_fmt" },
+		haskell = { "fourmolu" },
+		zig = { "zigfmt" },
 	},
 	format_after_save = function(bufnr)
 		if not slow_format_filetypes[vim.bo[bufnr].filetype] then

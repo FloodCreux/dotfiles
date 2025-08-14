@@ -22,7 +22,7 @@ export STARSHIP_CONFIG=~/.config/starship/starship.toml
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
-export EDITOR=/opt/homebrew/bin/nvim
+export EDITOR=/run/current-system/sw/bin/nvim
 
 alias la=tree
 alias cat=bat

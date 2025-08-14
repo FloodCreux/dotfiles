@@ -1,4 +1,4 @@
-local utils = require("keymaps.utils")
+local utils = require("utils")
 local map = utils.map
 
 local ls = require("luasnip")
