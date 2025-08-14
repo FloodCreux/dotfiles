@@ -5,7 +5,11 @@ require("snacks").setup({
 	indent = { enabled = true },
 	input = { enabled = true },
 	lazygit = {
-		configure = true,
+		enabled = true,
+		configure = false,
+		config = {
+			os = { editPreset = "nvim-remote" },
+		},
 	},
 	notifier = {
 		enabled = true,

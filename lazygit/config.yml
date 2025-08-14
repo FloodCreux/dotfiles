@@ -1,5 +1,78 @@
 gui:
   showIcons: true
+  theme:
+    activeBorderColor:
+      - '#ffdd33'  # Gruber darker yellow accent
+      - bold
+    inactiveBorderColor:
+      - '#52494e'  # Muted border
+    searchingActiveBorderColor:
+      - '#f43841'  # Gruber darker red
+      - bold
+    optionsTextColor:
+      - '#e4e4ef'  # Light text
+    selectedLineBgColor:
+      - '#453d41'  # Subtle selection background
+    selectedRangeBgColor:
+      - '#52494e'  # Range selection
+    cherryPickedCommitBgColor:
+      - '#453d41'
+    cherryPickedCommitFgColor:
+      - '#ffdd33'
+    unstagedChangesColor:
+      - '#f43841'  # Red for unstaged
+    defaultFgColor:
+      - '#e4e4ef'  # Main text color
+
+    statusColors:
+      added: '#73c936'      # Gruber darker green
+      modified: '#ffdd33'   # Gruber darker yellow  
+      deleted: '#f43841'    # Gruber darker red
+      renamed: '#96a6c8'    # Gruber darker blue
+      copied: '#9e95c7'     # Gruber darker purple
+      untracked: '#cc8c3c'  # Gruber darker orange
+
+    commitHashColor:
+      - '#96a6c8'  # Blue for commit hashes
+    
+    branchColors:
+      current: 
+        - '#73c936'  # Green for current branch
+        - bold
+      default:
+        - '#e4e4ef'  # Default text for other branches
+
+    fileColors:
+      added: '#73c936'
+      modified: '#ffdd33'
+      deleted: '#f43841'
+      untracked: '#cc8c3c'
+
+    diffColors:
+      added: '#73c936'
+      deleted: '#f43841'
+      modified: '#ffdd33'
+      context: '#e4e4ef'
+
+  scrollHeight: 2
+  scrollOffMargin: 2
+  sidePanelWidth: 0.3333
+  expandFocusedSidePanel: false
+  mainPanelSplitMode: 'flexible'
+  language: 'auto'
+  timeFormat: '02 Jan 06 15:04 MST'
+  commitLength:
+    show: true
+  mouseEvents: true
+  skipDiscardChangeWarning: false
+  skipStashWarning: false
+  showFileTree: true
+  showListFooter: true
+  showRandomTip: false
+  showBranchCommitHash: false
+  showBottomLine: true
+  showCommandLog: true
+  nerdFontsVersion: "3"
 git:
   paging:
     colorArg: always
