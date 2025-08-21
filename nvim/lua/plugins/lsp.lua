@@ -38,7 +38,7 @@ for _, v in ipairs(debuggers) do
 end
 
 local servers =
-	{ "clangd", "rust_analyzer", "gopls", "lua_ls", "terraformls", "html", "nixd", "ocamllsp", "hls", "zls" }
+	{ "clangd", "rust_analyzer", "gopls", "lua_ls", "terraformls", "html", "nixd", "ocamllsp", "hls", "zls", "pyright" }
 for _, v in ipairs(servers) do
 	table.insert(all_tools, v)
 end
@@ -52,11 +52,37 @@ vim.lsp.enable(servers)
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 -- capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
+local function get_python_path(workspace)
+	local uv_python = vim.fn.system("cd " .. workspace .. " && uv run which python 2>/dev/null")
+	if vim.v.shell_error == 0 then
+		return vim.trim(uv_python)
+	end
+	return vim.fn.exepath("python3") or vim.fn.exepath("python")
+end
+
 for _, lsp in ipairs(servers) do
-	vim.lsp.config(lsp, {
-		on_attach = on_attach,
-		capabilities = capabilities,
-	})
+	if lsp == "pyright" then
+		vim.lsp.config(lsp, {
+			on_attach = on_attach,
+			capabilities = capabilities,
+			settings = {
+				python = {
+					analysis = {
+						autoSearchPaths = true,
+						useLibraryCodeForTypes = true,
+					},
+				},
+			},
+			on_new_config = function(config, root_dir)
+				config.settings.python.pythonPath = get_python_path(root_dir)
+			end,
+		})
+	else
+		vim.lsp.config(lsp, {
+			on_attach = on_attach,
+			capabilities = capabilities,
+		})
+	end
 end
 
 vim.api.nvim_create_autocmd("FileType", {

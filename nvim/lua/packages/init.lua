@@ -16,6 +16,8 @@ local M = {
 
 	-- Snippets
 	gh("L3MON4D3/LuaSnip"),
+
+	-- Completion
 	-- gh("hrsh7th/nvim-cmp"),
 	-- gh("hrsh7th/cmp-nvim-lsp"),
 	-- gh("saadparwaiz1/cmp_luasnip"),

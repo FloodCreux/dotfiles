@@ -984,3 +984,5 @@ source ~/.cache/carapace/init.nu
 source ~/.oh-my-posh.nu
 use ~/.cache/starship/init.nu
 
+alias cd = z
+

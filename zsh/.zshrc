@@ -28,6 +28,7 @@ alias la=tree
 alias cat=bat
 
 # Vim
+alias nvim=/run/current-system/sw/bin/nvim
 alias v=nvim
 alias vim=nvim
 
@@ -63,12 +64,12 @@ alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
 
 # GO
-export GOPATH='/Users/mike/go'
+export GOPATH='~/go'
 
 # Nmap
 alias nm="nmap -sC -sV -oN nmap"
 
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/mike/.vimpkg/bin:${GOPATH}/bin:/Users/mike/.cargo/bin
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:~/.vimpkg/bin:${GOPATH}/bin:~/.cargo/bin
 
 alias cl='clear'
 
@@ -119,7 +120,7 @@ fcd() { cd "$(find . -type d -not -path '*/.*' | fzf)" && l; }
 f() { echo "$(find . -type f -not -path '*/.*' | fzf)" | pbcopy }
 fv() { nvim "$(find . -type f -not -path '*/.*' | fzf)" }
 
-export XDG_CONFIG_HOME="/Users/mike/.config"
+export XDG_CONFIG_HOME="/Users/chmc-h022fl97xj/.config"
 
 echo 'export JAVA_HOME="/opt/homebrew/opt/openjdk@17"' >> ~/.zshrc
 echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.zshrc

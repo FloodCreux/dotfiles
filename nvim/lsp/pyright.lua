@@ -20,6 +20,23 @@ local function set_python_path(path)
 	end
 end
 
+local function get_python_path(workspace)
+	-- Try uv first
+	local uv_python = vim.fn.system("cd " .. workspace .. " && uv run which python 2>/dev/null")
+	if vim.v.shell_error == 0 then
+		return vim.trim(uv_python)
+	end
+	
+	-- Fallback to .venv/bin/python
+	local venv_python = workspace .. "/.venv/bin/python"
+	if vim.fn.executable(venv_python) == 1 then
+		return venv_python
+	end
+	
+	-- System python fallback
+	return vim.fn.exepath("python3") or vim.fn.exepath("python")
+end
+
 return {
 	cmd = { "pyright-langserver", "--stdio" },
 	filetypes = { "python" },
@@ -30,6 +47,7 @@ return {
 		"requirements.txt",
 		"Pipfile",
 		"pyrightconfig.json",
+		"uv.lock",
 		".git",
 	},
 	settings = {
@@ -41,6 +59,9 @@ return {
 			},
 		},
 	},
+	on_new_config = function(config, root_dir)
+		config.settings.python.pythonPath = get_python_path(root_dir)
+	end,
 	on_attach = function(client, bufnr)
 		vim.api.nvim_buf_create_user_command(bufnr, "LspPyrightOrganizeImports", function()
 			client:exec_cmd({

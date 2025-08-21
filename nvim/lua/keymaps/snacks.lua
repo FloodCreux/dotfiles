@@ -1,5 +1,6 @@
 local utils = require("utils")
 local map = utils.map
+local Snacks = require("snacks")
 
 map("n", "<leader>ff", function()
 	Snacks.picker.smart()
