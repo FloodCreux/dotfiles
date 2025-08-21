@@ -120,7 +120,7 @@ fcd() { cd "$(find . -type d -not -path '*/.*' | fzf)" && l; }
 f() { echo "$(find . -type f -not -path '*/.*' | fzf)" | pbcopy }
 fv() { nvim "$(find . -type f -not -path '*/.*' | fzf)" }
 
-export XDG_CONFIG_HOME="/Users/chmc-h022fl97xj/.config"
+export XDG_CONFIG_HOME="~/.config"
 
 echo 'export JAVA_HOME="/opt/homebrew/opt/openjdk@17"' >> ~/.zshrc
 echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.zshrc
