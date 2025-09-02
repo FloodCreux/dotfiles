@@ -52,16 +52,16 @@ local M = {
 	gh("folke/which-key.nvim"),
 
 	-- Mini
-	gh("echasnovski/mini.ai"),
-	gh("echasnovski/mini.bracketed"),
-	gh("echasnovski/mini.completion"),
-	gh("echasnovski/mini.files"),
-	gh("echasnovski/mini.icons"),
-	gh("echasnovski/mini.indentscope"),
-	gh("echasnovski/mini.hipatterns"),
-	gh("echasnovski/mini.pick"),
-	gh("echasnovski/mini.snippets"),
-	gh("echasnovski/mini.statusline"),
+	gh("nvim-mini/mini.ai"),
+	gh("nvim-mini/mini.bracketed"),
+	gh("nvim-mini/mini.completion"),
+	gh("nvim-mini/mini.files"),
+	gh("nvim-mini/mini.icons"),
+	gh("nvim-mini/mini.indentscope"),
+	gh("nvim-mini/mini.hipatterns"),
+	gh("nvim-mini/mini.pick"),
+	gh("nvim-mini/mini.snippets"),
+	gh("nvim-mini/mini.statusline"),
 
 	-- Color Schemes
 	gh("blazkowolf/gruber-darker.nvim"),
@@ -69,7 +69,8 @@ local M = {
 
 	-- File Manager
 	gh("mikavilpas/yazi.nvim"),
-	gh("nvim-treesitter/nvim-treesitter"),
+	gh("nvim-treesitter/nvim-treesitter", { version = "main" }),
+	gh("nvim-treesitter/nvim-treesitter-textobjects"),
 
 	-- Notifications
 	gh("folke/noice.nvim"),

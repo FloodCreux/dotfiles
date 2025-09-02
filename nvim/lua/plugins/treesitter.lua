@@ -1,6 +1,6 @@
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
-vim.cmd("TSUpdate")
+-- vim.cmd("TSUpdate")
 
 ---@diagnostic disable-next-line
 require("nvim-treesitter.configs").setup({
