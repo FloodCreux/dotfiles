@@ -5,3 +5,4 @@ fzf
 history.txt
 .direnv
 result
+**/.zcompdump
