@@ -33,6 +33,9 @@ local M = {
 
 	-- Debug
 	gh("mfussenegger/nvim-dap"),
+	gh("mfussenegger/nvim-dap-python"),
+	gh("nvim-neotest/nvim-nio"),
+	gh("rcarriga/nvim-dap-ui"),
 	gh("folke/trouble.nvim"),
 
 	-- TPope

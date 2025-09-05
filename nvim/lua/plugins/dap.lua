@@ -1,6 +1,6 @@
 local dap = require("dap")
--- local dapui = require("dapui")
-local dapui = require("dap-view")
+local dapui = require("dapui")
+-- local dapui = require("dap-view")
 local dappy = require("dap-python")
 
 vim.keymap.set("n", "<leader>dc", dap.continue, { desc = "Debug: Start/Continue" })
@@ -11,6 +11,10 @@ vim.keymap.set("n", "<leader>b", dap.toggle_breakpoint, { desc = "Debug: Toggle 
 vim.keymap.set("n", "<leader>B", function()
 	dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
 end, { desc = "Debug: Set Breakpoint" })
+
+-- local debugpy_path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
+-- dappy.setup(debugpy_path)
+dappy.setup("uv")
 
 -- Dap UI setup
 -- For more information, see |:help nvim-dap-ui|
@@ -33,6 +37,17 @@ end, { desc = "Debug: Set Breakpoint" })
 --       },
 --    },
 -- })
+
+dapui.setup()
+dap.listeners.after.event_initialized["dapui_config"] = function()
+	dapui.open()
+end
+dap.listeners.before.event_terminated["dapui_config"] = function()
+	dapui.close()
+end
+dap.listeners.before.event_exited["dapui_config"] = function()
+	dapui.close()
+end
 
 -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
 vim.keymap.set("n", "<F7>", dapui.toggle, { desc = "Debug: See last session result." })
