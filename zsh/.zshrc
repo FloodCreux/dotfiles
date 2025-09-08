@@ -64,12 +64,12 @@ alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
 
 # GO
-export GOPATH='~/go'
+export GOPATH="$HOME/go"
 
 # Nmap
 alias nm="nmap -sC -sV -oN nmap"
 
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:~/.vimpkg/bin:${GOPATH}/bin:~/.cargo/bin
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${HOME}/.vimpkg/bin:${GOPATH}/bin:~/.cargo/bin
 
 alias cl='clear'
 
@@ -120,10 +120,10 @@ fcd() { cd "$(find . -type d -not -path '*/.*' | fzf)" && l; }
 f() { echo "$(find . -type f -not -path '*/.*' | fzf)" | pbcopy }
 fv() { nvim "$(find . -type f -not -path '*/.*' | fzf)" }
 
-export XDG_CONFIG_HOME="~/.config"
+export XDG_CONFIG_HOME="$HOME/.config"
 
 echo 'export JAVA_HOME="/opt/homebrew/opt/openjdk@17"' >> ~/.zshrc
-echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.zshrc
+echo "export PATH=$HOME/.npm-global/bin:$PATH" >> ~/.zshrc
 
 # Nix
 if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
