@@ -3,6 +3,7 @@ require("uv").setup({
 	picker_integration = true,
 })
 require("render-markdown").setup()
+require("plugin-view").setup()
 
 -- require("plugins.cmp")
 require("plugins.conform")

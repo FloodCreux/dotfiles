@@ -17,6 +17,9 @@ local M = {
 	-- Snippets
 	gh("L3MON4D3/LuaSnip"),
 
+	-- Package Manager
+	gh("adriankarlen/plugin-view.nvim"),
+
 	-- Completion
 	-- gh("hrsh7th/nvim-cmp"),
 	-- gh("hrsh7th/cmp-nvim-lsp"),
@@ -68,7 +71,7 @@ local M = {
 
 	-- Color Schemes
 	gh("blazkowolf/gruber-darker.nvim"),
-	gh("catppuccin/nvim", { name = "catppuccin" }),
+	-- gh("catppuccin/nvim", { name = "catppuccin" }),
 
 	-- File Manager
 	gh("mikavilpas/yazi.nvim"),

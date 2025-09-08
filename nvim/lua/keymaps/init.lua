@@ -14,6 +14,10 @@ map("n", "<esc><esc>", "<cmd>nohlsearch<cr>", { silent = true })
 map("n", "<leader>pv", "<cmd>Yazi<cr>")
 map("n", "<leader>uu", ":lua vim.pack.update()<cr>")
 
+map("n", "<leader>pp", function()
+	require("plugin-view").open()
+end)
+
 require("keymaps.snacks")
 require("keymaps.snippets")
 require("keymaps.trouble")
