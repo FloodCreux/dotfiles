@@ -34,6 +34,9 @@ local M = {
 	-- gh("OXY2DEV/markview.nvim"),
 	gh("MeanderingProgrammer/render-markdown.nvim"),
 
+	gh("tris203/rzls.nvim"),
+	gh("seblyng/roslyn.nvim"),
+
 	-- Debug
 	gh("mfussenegger/nvim-dap"),
 	gh("mfussenegger/nvim-dap-python"),
@@ -80,6 +83,9 @@ local M = {
 
 	-- Notifications
 	gh("folke/noice.nvim"),
+
+	-- AI Assist
+	gh("NickvanDyke/opencode.nvim"),
 }
 
 return M

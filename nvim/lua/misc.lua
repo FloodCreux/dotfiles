@@ -9,6 +9,14 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	pattern = "*",
 })
 
+-- Set filetype for .razor files
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = "*.razor",
+	callback = function()
+		vim.bo.filetype = "cs"
+	end,
+})
+
 -- local lsp_attach_group = vim.api.nvim_create_augroup("my.lsp", {})
 -- vim.api.nvim_create_autocmd("LspAttach", {
 -- 	group = lsp_attach_group,

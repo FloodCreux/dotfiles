@@ -34,7 +34,7 @@ require("conform").setup({
 	end,
 	formatters = {
 		csharpier = {
-			command = "dotnet-csharpier",
+			command = "csharpier",
 			args = { "--write-stdout" },
 		},
 	},

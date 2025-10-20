@@ -106,6 +106,9 @@ alias sesh="sh ~/.config/tmux/scripts/tmux-sessionizer"
 alias personal="sh ~/.config/tmux/scripts/tmux-sessionizer ~/personal"
 alias work="sh ~/.config/tmux/scripts/tmux-sessionizer ~/work"
 
+# Python
+alias python="python3"
+
 ### FZF ###
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

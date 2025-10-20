@@ -18,6 +18,7 @@ map("n", "<leader>pp", function()
 	require("plugin-view").open()
 end)
 
+require("keymaps.opencode")
 require("keymaps.snacks")
 require("keymaps.snippets")
 require("keymaps.trouble")

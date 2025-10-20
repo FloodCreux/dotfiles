@@ -978,6 +978,9 @@ alias personal = sh ~/.config/tmux/scripts/tmux-sessionizer ~/personal
 alias work = sh ~/.config/tmux/scripts/tmux-sessionizer ~/work
 alias sesh = sh ~/.config/tmux/scripts/tmux-sessionizer
 
+# Python
+alias python = python3
+
 source ~/.config/nushell/env.nu
 source ~/.zoxide.nu
 source ~/.cache/carapace/init.nu
