@@ -18,25 +18,45 @@ dappy.setup("uv")
 
 -- Dap UI setup
 -- For more information, see |:help nvim-dap-ui|
--- dapui.setup({
---    -- Set icons to characters that are more likely to work in every terminal.
---    --    Feel free to remove or use ones that you like more! :)
---    --    Don't feel like these are good choices.
---    icons = { expanded = "▾", collapsed = "▸", current_frame = "*" },
---    controls = {
---       icons = {
---          pause = "⏸",
---          play = "▶",
---          step_into = "⏎",
---          step_over = "⏭",
---          step_out = "⏮",
---          step_back = "b",
---          run_last = "▶▶",
---          terminate = "⏹",
---          disconnect = "⏏",
---       },
---    },
--- })
+dapui.setup({
+	-- Set icons to characters that are more likely to work in every terminal.
+	--    Feel free to remove or use ones that you like more! :)
+	--    Don't feel like these are good choices.
+	icons = { expanded = "▾", collapsed = "▸", current_frame = "*" },
+	controls = {
+		icons = {
+			pause = "⏸",
+			play = "▶",
+			step_into = "⏎",
+			step_over = "⏭",
+			step_out = "⏮",
+			step_back = "b",
+			run_last = "▶▶",
+			terminate = "⏹",
+			disconnect = "⏏",
+		},
+	},
+	layouts = {
+		{
+			elements = {
+				{ id = "scopes", size = 0.25 },
+				{ id = "breakpoints", size = 0.25 },
+				{ id = "stacks", size = 0.25 },
+				{ id = "watches", size = 0.25 },
+			},
+			size = 40,
+			position = "left",
+		},
+		{
+			elements = {
+				{ id = "repl", size = 0.5 },
+				{ id = "console", size = 0.5 },
+			},
+			size = 10,
+			position = "bottom",
+		},
+	},
+})
 
 dapui.setup()
 dap.listeners.after.event_initialized["dapui_config"] = function()
@@ -51,10 +71,6 @@ end
 
 -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
 vim.keymap.set("n", "<F7>", dapui.toggle, { desc = "Debug: See last session result." })
-
-dap.listeners.after.event_initialized["dapui_config"] = dapui.open
-dap.listeners.before.event_terminated["dapui_config"] = dapui.close
-dap.listeners.before.event_exited["dapui_config"] = dapui.close
 
 require("neodev").setup({
 	library = { plugins = { "nvim-dap-ui" }, types = true },
@@ -96,27 +112,6 @@ dap.configurations.python = {
 	},
 }
 
-dap.configurations.scala = {
-	{
-		type = "scala",
-		request = "launch",
-		name = "RunOrTest",
-		metals = {
-			runType = "runOrTestFile",
-			--args = { "firstArg", "secondArg", "thirdArg" }, -- here just as an example
-			args = { "--add-opens", "java.base/sun.nio.ch=ALL-UNNAMED" },
-		},
-	},
-	{
-		type = "scala",
-		request = "launch",
-		name = "Test Target",
-		metals = {
-			runType = "testTarget",
-		},
-	},
-}
-
 dap.adapters.gdb = {
 	id = "gdb",
 	type = "executable",
@@ -127,9 +122,8 @@ dap.adapters.gdb = {
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "python", -- Changed from "py" to "python"
 	callback = function()
-		local dap = require("dap-python") -- Added 'local'
-		vim.keymap.set("n", "<leader>dn", dap.test_method, { desc = "Python: Test Method" })
-		vim.keymap.set("n", "<leader>df", dap.test_class, { desc = "Python: Test Class" })
-		vim.keymap.set("n", "<leader>ds", dap.debug_selection, { desc = "Python: Debug Selection" })
+		vim.keymap.set("n", "<leader>dn", dappy.test_method, { desc = "Python: Test Method" })
+		vim.keymap.set("n", "<leader>df", dappy.test_class, { desc = "Python: Test Class" })
+		vim.keymap.set("n", "<leader>ds", dappy.debug_selection, { desc = "Python: Debug Selection" })
 	end,
 })

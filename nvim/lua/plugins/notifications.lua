@@ -28,5 +28,13 @@ require("noice").setup({
 			},
 			opts = { skip = true },
 		},
+		{
+			filter = {
+				event = "lsp",
+				kind = "progress",
+				find = "metals",
+			},
+			opts = { skip = true },
+		},
 	},
 })

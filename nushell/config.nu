@@ -989,3 +989,9 @@ use ~/.cache/starship/init.nu
 
 alias cd = z
 
+def reload-gpg [] {
+  let tty_val = (tty)
+  $env.GPG_TTY = $tty_val
+  gpg-connect-agent updatestartuptty /bye
+  gpgconf --kill gpg-agent
+}

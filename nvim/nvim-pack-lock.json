@@ -1,0 +1,94 @@
+{
+  "plugins": {
+    "LuaSnip": {
+      "rev": "ccf25a5"
+    },
+    "conform.nvim": {
+      "rev": "26c02e1"
+    },
+    "fidget.nvim": {
+      "rev": "e32b672"
+    },
+    "gitsigns.nvim": [],
+    "gruber-darker.nvim": {
+      "rev": "98a2e14"
+    },
+    "mason.nvim": [],
+    "mini.ai": [],
+    "mini.bracketed": [],
+    "mini.completion": {
+      "rev": "2ab1c80"
+    },
+    "mini.files": {
+      "rev": "d5c1337"
+    },
+    "mini.hipatterns": [],
+    "mini.icons": [],
+    "mini.indentscope": [],
+    "mini.pick": {
+      "rev": "bb764a5"
+    },
+    "mini.snippets": [],
+    "mini.statusline": [],
+    "neogit": {
+      "rev": "1cedfc3f"
+    },
+    "noice.nvim": {
+      "rev": "5099348"
+    },
+    "nui.nvim": [],
+    "nvim-dap": {
+      "rev": "e97dc47"
+    },
+    "nvim-dap-python": [],
+    "nvim-dap-ui": [],
+    "nvim-dap-view": {
+      "rev": "8972e4f"
+    },
+    "nvim-metals": [],
+    "nvim-nio": [],
+    "nvim-notify": [],
+    "nvim-treesitter": {
+      "rev": "65a266bf",
+      "version": "'main'"
+    },
+    "nvim-treesitter-textobjects": {
+      "rev": "5ca4aaa"
+    },
+    "opencode.nvim": {
+      "rev": "fa7b538"
+    },
+    "plenary.nvim": [],
+    "plugin-view.nvim": [],
+    "render-markdown.nvim": {
+      "rev": "10126ef"
+    },
+    "roslyn.nvim": {
+      "rev": "7ba2dd0"
+    },
+    "rzls.nvim": {
+      "rev": "bbfe0f5"
+    },
+    "snacks.nvim": {
+      "rev": "3893cca"
+    },
+    "trouble.nvim": {
+      "rev": "bd67efe"
+    },
+    "uv.nvim": [],
+    "vim-dadbod": [],
+    "vim-dadbod-completion": [],
+    "vim-dadbod-ui": {
+      "rev": "236179f"
+    },
+    "vim-fugitive": [],
+    "vim-obsession": [],
+    "vim-sleuth": [],
+    "which-key.nvim": {
+      "rev": "3aab214"
+    },
+    "yazi.nvim": {
+      "rev": "055f57b"
+    }
+  }
+}

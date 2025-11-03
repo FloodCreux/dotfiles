@@ -128,3 +128,5 @@ $env.LIBRARY_PATH = if "LIBRARY_PATH" in $env {
 }
 
 $env.LDFLAGS = $"-L(xcrun --show-sdk-path | str trim)/usr/lib"
+$env.GPG_TTY = (tty | str trim)
+$env.JAVA_HOME = "/opt/homebrew/opt/openjdk@17"

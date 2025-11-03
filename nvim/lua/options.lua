@@ -60,3 +60,5 @@ vim.g.maplocalleader = " "
 vim.opt.modifiable = true
 
 vim.o.winborder = "rounded"
+
+vim.env.PATH = vim.env.PATH .. ":/run/current-system/sw/bin"
