@@ -59,6 +59,7 @@ fi
 source "$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
 # Starship prompt
+source ~/.config/zsh/starship.zsh
 eval "$(starship init zsh)"
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
