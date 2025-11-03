@@ -32,7 +32,7 @@ export KUBECONFIG=~/.kube/config
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
 
 # PATH
-export PATH="$HOME/.npm-global/bin:$HOME/.local/bin:$BREW_PREFIX/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.vimpkg/bin:$GOPATH/bin:$HOME/.cargo/bin"
+export PATH="/run/current-system/sw/bin/:$HOME/.npm-global/bin:$HOME/.local/bin:$BREW_PREFIX/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.vimpkg/bin:$GOPATH/bin:$HOME/.cargo/bin"
 
 # ============================================
 # KEY BINDINGS
