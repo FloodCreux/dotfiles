@@ -73,7 +73,31 @@ gui:
   showBottomLine: true
   showCommandLog: true
   nerdFontsVersion: "3"
+
 git:
+  commit:
+    signOff: false
+    autoWrapCommitMessage: true
+    autoWrapWidth: 72
+
+  log:
+    order: 'topo-order'
+    showGraph: 'always'
+    showWholeGraph: false
+
+  merging:
+    manualCommit: false
+
   paging:
     colorArg: always
     useConfig: false
+
+  pull:
+    mode: 'rebase'
+
+refresher:
+  refreshInterval: 10
+  fetchInterval: 60
+
+os:
+  editPreset: 'nvim'

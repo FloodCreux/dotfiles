@@ -1,15 +1,40 @@
 # ============================================
-# SHELL OPTIONS
+# BASH OPTIONS
 # ============================================
-setopt prompt_subst
+shopt -s histappend
+shopt -s checkwinsize
+shopt -s cdspell
+shopt -s dirspell
+shopt -s cmdhist
+HISTCONTROL=ignoreboth
+HISTSIZE=10000
+HISTFILESIZE=20000
 
 # ============================================
 # COMPLETIONS
 # ============================================
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-autoload bashcompinit && bashcompinit
-autoload -Uz compinit
-compinit
+# Case-insensitive completion
+bind 'set completion-ignore-case on'
+bind 'set show-all-if-ambiguous on'
+bind 'set colored-stats on'
+bind 'set visible-stats on'
+bind 'set mark-symlinked-directories on'
+bind 'set colored-completion-prefix on'
+bind 'set menu-complete-display-prefix on'
+
+# Enable programmable completion features
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+# Homebrew bash completion
+if [ -f "$BREW_PREFIX/etc/bash_completion" ]; then
+  . "$BREW_PREFIX/etc/bash_completion"
+fi
 
 # ============================================
 # ENVIRONMENT VARIABLES
@@ -36,18 +61,16 @@ export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
 export PATH="/run/current-system/sw/bin/:$HOME/.npm-global/bin:$HOME/.local/bin:$BREW_PREFIX/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.vimpkg/bin:$GOPATH/bin:$HOME/.cargo/bin"
 
 # ============================================
-# KEY BINDINGS
+# KEY BINDINGS (Bash equivalents)
 # ============================================
-# Autosuggestions
-bindkey '^w' autosuggest-execute
-bindkey '^e' autosuggest-accept
-bindkey '^u' autosuggest-toggle
-bindkey '^L' vi-forward-word
+# Vi mode (similar to zsh's vi-cmd-mode)
+set -o vi
+# Use jj to enter command mode in vi insert mode
+bind -m vi-insert '"jj": vi-movement-mode'
 
-# Navigation
-bindkey '^k' up-line-or-search
-bindkey '^j' down-line-or-search
-bindkey jj vi-cmd-mode
+# Better history search
+bind '"\C-k": previous-history'
+bind '"\C-j": next-history'
 
 # ============================================
 # PLUGINS & EXTERNAL TOOLS
@@ -57,22 +80,49 @@ if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
     . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
 fi
 
-source "$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+# Bash autosuggestions (if available via homebrew)
+if [ -f "$BREW_PREFIX/share/bash-autosuggestions/bash-autosuggestions.sh" ]; then
+    source "$BREW_PREFIX/share/bash-autosuggestions/bash-autosuggestions.sh"
+fi
+
+# Starship prompt detection script
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # macOS
+    export STARSHIP_DISTRO=""
+
+    # Cache device type (only detect once)
+    DEVICE_CACHE="$HOME/.cache/starship_device"
+    if [[ ! -f "$DEVICE_CACHE" ]]; then
+        mkdir -p "$(dirname "$DEVICE_CACHE")"
+        _device=$(system_profiler SPHardwareDataType | awk '/Model Name/ {print $3,$4,$5,$6,$7}')
+        case $_device in
+            *MacBook*)  echo "󰌢" > "$DEVICE_CACHE";;
+            *mini*)     echo "󰇄" > "$DEVICE_CACHE";;
+            *)          echo "" > "$DEVICE_CACHE";;
+        esac
+    fi
+    export STARSHIP_DEVICE="$(cat "$DEVICE_CACHE")"
+fi
 
 # Starship prompt
-source ~/.config/zsh/starship.zsh
-eval "$(starship init zsh)"
+eval "$(starship init bash)"
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
 # FZF
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-eval "$(fzf --zsh)"
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+if command -v fzf &> /dev/null; then
+    eval "$(fzf --bash)"
+fi
 
 # Zoxide
-eval "$(zoxide init zsh)"
+if command -v zoxide &> /dev/null; then
+    eval "$(zoxide init bash)"
+fi
 
 # Direnv
-eval "$(direnv hook zsh)"
+if command -v direnv &> /dev/null; then
+    eval "$(direnv hook bash)"
+fi
 
 # ============================================
 # ALIASES
