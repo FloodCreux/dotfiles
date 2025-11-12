@@ -1,10 +1,10 @@
 {
   "plugins": {
     "LuaSnip": {
-      "rev": "ccf25a5"
+      "rev": "3732756"
     },
     "conform.nvim": {
-      "rev": "26c02e1"
+      "rev": "cde4da5"
     },
     "fidget.nvim": {
       "rev": "e32b672"
@@ -14,27 +14,41 @@
       "rev": "98a2e14"
     },
     "mason.nvim": [],
-    "mini.ai": [],
-    "mini.bracketed": [],
+    "mini.ai": {
+      "rev": "0d3c9cf"
+    },
+    "mini.bracketed": {
+      "rev": "e50e3ab"
+    },
     "mini.completion": {
-      "rev": "2ab1c80"
+      "rev": "581934b"
     },
     "mini.files": {
-      "rev": "d5c1337"
+      "rev": "dce9a4e"
     },
-    "mini.hipatterns": [],
-    "mini.icons": [],
-    "mini.indentscope": [],
+    "mini.hipatterns": {
+      "rev": "45fde19"
+    },
+    "mini.icons": {
+      "rev": "ff2e4f1"
+    },
+    "mini.indentscope": {
+      "rev": "0308f94"
+    },
     "mini.pick": {
-      "rev": "bb764a5"
+      "rev": "08a7220"
     },
-    "mini.snippets": [],
-    "mini.statusline": [],
+    "mini.snippets": {
+      "rev": "66c041f"
+    },
+    "mini.statusline": {
+      "rev": "1491990"
+    },
     "neogit": {
-      "rev": "1cedfc3f"
+      "rev": "d2a2ae44"
     },
     "noice.nvim": {
-      "rev": "5099348"
+      "rev": "7bfd942"
     },
     "nui.nvim": [],
     "nvim-dap": {
@@ -43,25 +57,25 @@
     "nvim-dap-python": [],
     "nvim-dap-ui": [],
     "nvim-dap-view": {
-      "rev": "8972e4f"
+      "rev": "b976fa2"
     },
     "nvim-metals": [],
     "nvim-nio": [],
     "nvim-notify": [],
     "nvim-treesitter": {
-      "rev": "65a266bf",
+      "rev": "896e92a7",
       "version": "'main'"
     },
     "nvim-treesitter-textobjects": {
       "rev": "5ca4aaa"
     },
     "opencode.nvim": {
-      "rev": "fa7b538"
+      "rev": "5206966"
     },
     "plenary.nvim": [],
     "plugin-view.nvim": [],
     "render-markdown.nvim": {
-      "rev": "10126ef"
+      "rev": "a1b2bf0"
     },
     "roslyn.nvim": {
       "rev": "7ba2dd0"
@@ -70,7 +84,7 @@
       "rev": "bbfe0f5"
     },
     "snacks.nvim": {
-      "rev": "3893cca"
+      "rev": "741f4b1"
     },
     "trouble.nvim": {
       "rev": "bd67efe"
@@ -88,7 +102,7 @@
       "rev": "3aab214"
     },
     "yazi.nvim": {
-      "rev": "055f57b"
+      "rev": "4a4ca03"
     }
   }
 }
