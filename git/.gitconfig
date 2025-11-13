@@ -1,18 +1,13 @@
-[user]
-  name = Mike Flood (Default)
-  email = mflood@r1rcm.com
-  signingkey = 63313EFCBD57B8BC
-
-[includeIf "gitdir:/Users/chmc-h022fl97xj/work/**"]
-  path = /Users/chmc-h022fl97xj/.gitconfig-work
-[includeIf "gitdir:/Users/chmc-h022fl97xj/work/phare/**"]
-  path = /Users/chmc-h022fl97xj/.gitconfig-phare
-[includeIf "gitdir:/Users/chmc-h022fl97xj/work/palantir/**"]
-  path = /Users/chmc-h022fl97xj/.gitconfig-palantir
-[includeIf "gitdir:/Users/chmc-h022fl97xj/personal/**"]
-  path = /Users/chmc-h022fl97xj/.gitconfig-personal
-[includeIf "gitdir:/Users/chmc-h022fl97xj/.config/**"]
-  path = /Users/chmc-h022fl97xj/.gitconfig-personal
+[includeIf "gitdir:~/work/**"]
+  path = ~/.gitconfig-work
+[includeIf "gitdir:~/work/phare/**"]
+  path = ~/.gitconfig-phare
+[includeIf "gitdir:~/work/palantir/**"]
+  path = ~/.gitconfig-palantir
+[includeIf "gitdir:~/personal/**"]
+  path = ~/.gitconfig-personal
+[includeIf "gitdir:~/.config/**"]
+  path = ~/.gitconfig-personal
 
 [commit]
   gpgsign = true
