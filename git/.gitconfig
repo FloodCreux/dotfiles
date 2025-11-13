@@ -1,21 +1,21 @@
 [user]
   name = Mike Flood (Default)
   email = mflood@r1rcm.com
-	signingkey = 63313EFCBD57B8BC
+  signingkey = 63313EFCBD57B8BC
 
+[includeIf "gitdir:/Users/chmc-h022fl97xj/work/**"]
+  path = /Users/chmc-h022fl97xj/.gitconfig-work
 [includeIf "gitdir:/Users/chmc-h022fl97xj/work/phare/**"]
   path = /Users/chmc-h022fl97xj/.gitconfig-phare
 [includeIf "gitdir:/Users/chmc-h022fl97xj/work/palantir/**"]
   path = /Users/chmc-h022fl97xj/.gitconfig-palantir
-[includeIf "gitdir:/Users/chmc-h022fl97xj/work/**"]
-  path = /Users/chmc-h022fl97xj/.gitconfig-work
 [includeIf "gitdir:/Users/chmc-h022fl97xj/personal/**"]
   path = /Users/chmc-h022fl97xj/.gitconfig-personal
 [includeIf "gitdir:/Users/chmc-h022fl97xj/.config/**"]
   path = /Users/chmc-h022fl97xj/.gitconfig-personal
 
 [commit]
-	gpgsign = true
+  gpgsign = true
 
 [tag]
   forceSignAnnotated = false
@@ -24,8 +24,8 @@
   enabled = true
 
 [safe]
-  directory = /Users/chmc-h022fl97xj/.local/share/nvim/lazy/fidget.nvim
-  directory = /Users/chmc-h022fl97xj/.local/share/nvim/lazy/mason-lspconfig.nvim
+  directory = ~/.local/share/nvim/lazy/fidget.nvim
+  directory = ~/.local/share/nvim/lazy/mason-lspconfig.nvim
 
 [init]
   defaultBranch = main
