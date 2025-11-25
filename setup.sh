@@ -9,6 +9,8 @@ ln -sf ~/.config/git/.gitconfig-personal ~/.gitconfig-personal
 ln -sf ~/.config/git/.gitconfig-phare ~/.gitconfig-phare
 ln -sf ~/.config/git/.gitconfig-work ~/.gitconfig-work
 
+ln -sf ~/.config/ssh/config ~/.ssh/config
+
 chmod +x ~/.config/tmux/scripts/tmux-sessionizer
 chmod -R +x ~/.config/sketchybar/plugins
 # Add Logic to build and run nix-darwin

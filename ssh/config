@@ -1,0 +1,30 @@
+# ~/.ssh/config
+
+# Personal GitHub account
+Host github-personal
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_personal
+    IdentitiesOnly yes
+
+# Work GitHub account
+Host github-work
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_work
+    IdentitiesOnly yes
+
+# Phare GitHub account
+Host github-phare
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_phare_rsa
+    IdentitiesOnly yes
+
+# Default GitHub (fallback)
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_work
+    IdentitiesOnly yes
+

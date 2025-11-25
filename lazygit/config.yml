@@ -2,58 +2,52 @@ gui:
   showIcons: true
   theme:
     activeBorderColor:
-      - '#ffdd33'  # Gruber darker yellow accent
+      - '#ffdd33' # Gruber darker yellow accent
       - bold
     inactiveBorderColor:
-      - '#52494e'  # Muted border
+      - '#52494e' # Muted border
     searchingActiveBorderColor:
-      - '#f43841'  # Gruber darker red
+      - '#f43841' # Gruber darker red
       - bold
     optionsTextColor:
-      - '#e4e4ef'  # Light text
+      - '#e4e4ef' # Light text
     selectedLineBgColor:
-      - '#453d41'  # Subtle selection background
+      - '#453d41' # Subtle selection background
     selectedRangeBgColor:
-      - '#52494e'  # Range selection
+      - '#52494e' # Range selection
     cherryPickedCommitBgColor:
       - '#453d41'
     cherryPickedCommitFgColor:
       - '#ffdd33'
     unstagedChangesColor:
-      - '#f43841'  # Red for unstaged
+      - '#f43841' # Red for unstaged
     defaultFgColor:
-      - '#e4e4ef'  # Main text color
-
+      - '#e4e4ef' # Main text color
     statusColors:
-      added: '#73c936'      # Gruber darker green
-      modified: '#ffdd33'   # Gruber darker yellow  
-      deleted: '#f43841'    # Gruber darker red
-      renamed: '#96a6c8'    # Gruber darker blue
-      copied: '#9e95c7'     # Gruber darker purple
-      untracked: '#cc8c3c'  # Gruber darker orange
-
+      added: '#73c936' # Gruber darker green
+      modified: '#ffdd33' # Gruber darker yellow  
+      deleted: '#f43841' # Gruber darker red
+      renamed: '#96a6c8' # Gruber darker blue
+      copied: '#9e95c7' # Gruber darker purple
+      untracked: '#cc8c3c' # Gruber darker orange
     commitHashColor:
-      - '#96a6c8'  # Blue for commit hashes
-    
+      - '#96a6c8' # Blue for commit hashes
     branchColors:
-      current: 
-        - '#73c936'  # Green for current branch
+      current:
+        - '#73c936' # Green for current branch
         - bold
       default:
-        - '#e4e4ef'  # Default text for other branches
-
+        - '#e4e4ef' # Default text for other branches
     fileColors:
       added: '#73c936'
       modified: '#ffdd33'
       deleted: '#f43841'
       untracked: '#cc8c3c'
-
     diffColors:
       added: '#73c936'
       deleted: '#f43841'
       modified: '#ffdd33'
       context: '#e4e4ef'
-
   scrollHeight: 2
   scrollOffMargin: 2
   sidePanelWidth: 0.3333
@@ -73,31 +67,24 @@ gui:
   showBottomLine: true
   showCommandLog: true
   nerdFontsVersion: "3"
-
 git:
   commit:
     signOff: false
     autoWrapCommitMessage: true
     autoWrapWidth: 72
-
   log:
     order: 'topo-order'
     showGraph: 'always'
     showWholeGraph: false
-
   merging:
     manualCommit: false
-
-  paging:
-    colorArg: always
-    useConfig: false
-
+  pagers:
+    - colorArg: always
+      useConfig: false
   pull:
     mode: 'rebase'
-
 refresher:
   refreshInterval: 10
   fetchInterval: 60
-
 os:
   editPreset: 'nvim'
