@@ -121,17 +121,23 @@ PACKAGES=(
     "zsh"
 )
 
-# Stow each package
+# Stow each package into its own subdirectory
 STOWED=0
 FAILED=0
 for package in "${PACKAGES[@]}"; do
     if [ -d "$package" ]; then
         info "Stowing $package..."
-        if stow -t ~/.config "$package" 2>/dev/null; then
+
+        # Create target directory if it doesn't exist
+        target_dir="$HOME/.config/$package"
+        mkdir -p "$target_dir"
+
+        # Stow into ~/.config/<package> to preserve directory structure
+        if stow -d . -t "$target_dir" "$package" 2>/dev/null; then
             success "✓ $package"
             STOWED=$((STOWED + 1))
         else
-            warn "✗ $package (conflicts exist, use 'stow -t ~/.config $package' to see details)"
+            warn "✗ $package (conflicts exist, use 'stow -d . -t ~/.config/$package $package' to see details)"
             FAILED=$((FAILED + 1))
         fi
     fi
