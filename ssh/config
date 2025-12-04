@@ -7,6 +7,13 @@ Host github-personal
     IdentityFile ~/.ssh/id_personal
     IdentitiesOnly yes
 
+# Personal GitHub account
+Host github-codeberg
+    HostName codeberg.org
+    User git
+    IdentityFile ~/.ssh/id_proton
+    IdentitiesOnly yes
+
 # Work GitHub account
 Host github-work
     HostName github.com

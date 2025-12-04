@@ -1,8 +1,68 @@
+# ============================================
+# macOS
+# ============================================
 .DS_Store
-tmux/plugins/
-raycast
-fzf
-history.txt
-.direnv
-result
+.AppleDouble
+.LSOverride
+._*
+
+# ============================================
+# Personal/Sensitive Configuration Files
+# ============================================
+# Git identity files (use .example templates instead)
+git/.gitconfig-personal
+git/.gitconfig-work
+git/.gitconfig-palantir
+git/.gitconfig-phare
+git/.gitconfig-codeberg
+
+# SSH keys and sensitive config
+ssh/id_*
+ssh/*.pem
+ssh/*.key
+
+# ============================================
+# Shell History & Cache
+# ============================================
 **/.zcompdump
+**/.zcompdump-*
+**/.zsh_history
+**/.bash_history
+.direnv
+history.txt
+
+# ============================================
+# Editor/IDE
+# ============================================
+# VSCode
+.vscode/
+*.code-workspace
+
+# JetBrains
+.idea/
+*.iml
+
+# Vim
+**/.netrwhist
+**/tags
+**/tags.lock
+
+# ============================================
+# Plugin/Package Directories
+# ============================================
+tmux/plugins/
+raycast/
+fzf/
+
+# ============================================
+# Build/Generated Files
+# ============================================
+result
+*.swp
+*.swo
+*~
+
+# ============================================
+# Cache Directories
+# ============================================
+**/.cache/

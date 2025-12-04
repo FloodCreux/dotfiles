@@ -29,17 +29,32 @@
   symlinks = true
 
 [alias]
+  # Note: These aliases reference environment variables for security.
+  # Set in your shell or git config:
+  #   export GIT_PERSONAL_EMAIL="your@email.com"
+  #   export GIT_PERSONAL_KEY="YOUR_KEY_ID"
+  #   export GIT_CODEBERG_EMAIL="your@codeberg.email"
+  #   export GIT_CODEBERG_KEY="YOUR_KEY_ID"
+
   # Push to GitHub with personal identity
   push-github = "!f() { \
-      git config user.email flood.mike@gmail.com && \
-      git config user.signingkey 63313EFCBD57B8BC && \
+      if [ -z \"$GIT_PERSONAL_EMAIL\" ] || [ -z \"$GIT_PERSONAL_KEY\" ]; then \
+          echo \"Error: Set GIT_PERSONAL_EMAIL and GIT_PERSONAL_KEY environment variables\"; \
+          return 1; \
+      fi; \
+      git config user.email \"$GIT_PERSONAL_EMAIL\" && \
+      git config user.signingkey \"$GIT_PERSONAL_KEY\" && \
       git push origin \"$@\"; \
   }; f"
 
   # Push to Codeberg with codeberg identity
   push-codeberg = "!f() { \
-      git config user.email flood.mike@proton.me && \
-      git config user.signingkey 20DCF5AD0C30A3BB05A21DF063313EFCBD57B8BC && \
+      if [ -z \"$GIT_CODEBERG_EMAIL\" ] || [ -z \"$GIT_CODEBERG_KEY\" ]; then \
+          echo \"Error: Set GIT_CODEBERG_EMAIL and GIT_CODEBERG_KEY environment variables\"; \
+          return 1; \
+      fi; \
+      git config user.email \"$GIT_CODEBERG_EMAIL\" && \
+      git config user.signingkey \"$GIT_CODEBERG_KEY\" && \
       git push codeberg \"$@\"; \
   }; f"
 
