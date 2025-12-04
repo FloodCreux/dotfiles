@@ -25,11 +25,56 @@ require("snacks").setup({
 				hidden = true,
 				ignored = true,
 				exclude = {
+					-- Version Control
 					".git/",
+					".svn/",
+					".hg/",
+
+					-- Build & Dependency Directories
+					"node_modules/",
+					"target/",
+					"build/",
+					"dist/",
+					"out/",
+					"vendor/",
+					".next/",
+					".nuxt/",
+
+					-- Cache & Temporary Files
+					".cache/",
+					".gradle/",
+					".maven/",
+					".pytest_cache/",
+					".mypy_cache/",
+					".turbo/",
+					".parcel-cache/",
+					"*.pyc",
+
+					-- IDE & Editor Files
+					".idea/",
+					".vscode/",
+					".DS_Store",
+					"*.swp",
+					"*.swo",
+
+					-- Language-Specific Build/Cache
 					".metals/",
 					".bloop/",
 					"*.class",
 					"*.semanticdb",
+					"venv/",
+					".venv/",
+					"__pycache__/",
+
+					-- Minified & Generated Files
+					"*.min.js",
+					"*.min.css",
+					"*.map",
+
+					-- Test Coverage & Logs
+					"coverage/",
+					".nyc_output/",
+					"*.log",
 				},
 			},
 		},

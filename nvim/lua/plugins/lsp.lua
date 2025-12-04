@@ -50,6 +50,7 @@ local servers = {
 	"zls",
 	"pyright",
 	"csharp_ls",
+	"ts_ls",
 }
 for _, v in ipairs(servers) do
 	table.insert(all_tools, v)

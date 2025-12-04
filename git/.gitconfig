@@ -5,9 +5,9 @@
 [includeIf "gitdir:~/work/palantir/**"]
   path = ~/.gitconfig-palantir
 [includeIf "gitdir:~/personal/**"]
-  path = ~/.gitconfig-personal
+  path = ~/.gitconfig-codeberg
 [includeIf "gitdir:~/.config/**"]
-  path = ~/.gitconfig-personal
+  path = ~/.gitconfig-codeberg
 
 [commit]
   gpgsign = true
@@ -27,4 +27,22 @@
 
 [core]
   symlinks = true
+
+[alias]
+  # Push to GitHub with personal identity
+  push-github = "!f() { \
+      git config user.email flood.mike@gmail.com && \
+      git config user.signingkey 63313EFCBD57B8BC && \
+      git push origin \"$@\"; \
+  }; f"
+
+  # Push to Codeberg with codeberg identity
+  push-codeberg = "!f() { \
+      git config user.email flood.mike@proton.me && \
+      git config user.signingkey 20DCF5AD0C30A3BB05A21DF063313EFCBD57B8BC && \
+      git push codeberg \"$@\"; \
+  }; f"
+
+  # Push to both
+  push-all = "!git push-github && git push-codeberg"
 

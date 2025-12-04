@@ -23,6 +23,7 @@ require("conform").setup({
 		nix = { "nixfmt" },
 		tf = { "terraform_fmt" },
 		terraform = { "terraform_fmt" },
+		typescript = { "prettier" },
 		haskell = { "fourmolu" },
 		zig = { "zigfmt" },
 	},
