@@ -17,8 +17,6 @@ require("snacks").setup({
 	},
 	picker = {
 		enabled = true,
-		hidden = true,
-		ignored = true,
 
 		sources = {
 			files = {
@@ -84,9 +82,4 @@ require("snacks").setup({
 	scroll = { enabled = false },
 	statuscolumn = { enabled = false },
 	words = { enabled = true },
-	styles = {
-		notification = {
-			-- wo = { wrap = true } -- Wrap notifications
-		},
-	},
 })

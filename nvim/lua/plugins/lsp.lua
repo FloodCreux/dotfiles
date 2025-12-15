@@ -51,6 +51,7 @@ local servers = {
 	"pyright",
 	"csharp_ls",
 	"ts_ls",
+	"helm_ls",
 }
 for _, v in ipairs(servers) do
 	table.insert(all_tools, v)
@@ -90,6 +91,20 @@ for _, lsp in ipairs(servers) do
 				config.settings.python.pythonPath = get_python_path(root_dir)
 			end,
 		})
+	elseif lsp == "helm_ls" then
+		vim.lsp.config(lsp, {
+			on_attach = on_attach,
+			capabilities = vim.tbl_deep_extend("force", capabilities, {
+				workspace = {
+					didChangeWatchedFiles = {
+						dynamicRegistration = true,
+					},
+				},
+			}),
+			cmd = { "helm_ls", "serve" },
+			filetypes = { "helm", "yaml.helm-values" },
+			root_markers = { "Chart.yaml" },
+		})
 	else
 		vim.lsp.config(lsp, {
 			on_attach = on_attach,
@@ -111,6 +126,14 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.filetype.add({
 	extension = {
 		jsonl = "json",
+	},
+	pattern = {
+		[".*/templates/.*%.yaml"] = "helm",
+		[".*/templates/.*%.tpl"] = "helm",
+	},
+	filename = {
+		["Chart.yaml"] = "yaml",
+		["values.yaml"] = "yaml.helm-values",
 	},
 })
 

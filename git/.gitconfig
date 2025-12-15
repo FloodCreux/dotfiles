@@ -60,4 +60,3 @@
 
   # Push to both
   push-all = "!git push-github && git push-codeberg"
-

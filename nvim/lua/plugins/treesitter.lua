@@ -33,6 +33,7 @@ require("nvim-treesitter.configs").setup({
 		"typst",
 		"tsx",
 		"vue",
+		"helm",
 	},
 
 	highlight = { enable = true },
