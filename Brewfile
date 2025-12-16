@@ -1,124 +1,106 @@
-# ============================================
-# BREWFILE - Dotfiles Dependencies
-# ============================================
-# Install all dependencies with: brew bundle
-# Check for missing dependencies: brew bundle check
-# ============================================
+# Brewfile - Minimal (Leaf Packages Only)
+# Dependencies will be automatically installed by Homebrew
 
-# ============================================
-# TAPS
-# ============================================
+# Taps
+tap "azure/azd"
+tap "azure/functions"
+tap "azure/kubelogin"
+tap "coursier/formulas"
+tap "databricks/tap"
+tap "felixkratz/formulae"
 tap "homebrew/bundle"
-tap "homebrew/cask-fonts"
+tap "homebrew/services"
+tap "isen-ng/dotnet-sdk-versions"
+tap "koekeishiya/formulae"
+tap "nikitabobko/tap"
+tap "powershell/tap"
+tap "scalacenter/bloop"
 
-# ============================================
-# CORE UTILITIES
-# ============================================
-brew "stow"              # Symlink manager for dotfiles
-brew "coreutils"         # GNU core utilities
-brew "findutils"         # GNU find, locate, updatedb, xargs
-brew "gnu-sed"           # GNU sed
-brew "gnu-tar"           # GNU tar
-brew "gawk"              # GNU awk
-brew "grep"              # GNU grep
+# Formulae (Explicitly Installed)
+brew "apache-spark"
+brew "autoconf-archive"
+brew "automake"
+brew "awscli"
+brew "azure-cli"
+brew "azd"
+brew "azure-functions-core-tools@4"
+brew "black"
+brew "bloop"
+brew "borders"
+brew "ccache"
+brew "cmake"
+brew "cmake-docs"
+brew "codex"
+brew "composer"
+brew "databricks"
+brew "direnv"
+brew "docker"
+brew "docker-compose"
+brew "eza"
+brew "fastfetch"
+brew "fd"
+brew "ffmpeg"
+brew "fzf"
+brew "gemini-cli"
+brew "gh"
+brew "ghostscript"
+brew "gpatch"
+brew "helm"
+brew "httpie"
+brew "imagemagick"
+brew "isort"
+brew "jdtls"
+brew "jj"
+brew "jupyterlab"
+brew "just"
+brew "kubelogin"
+brew "libev"
+brew "libiconv"
+brew "llvm"
+brew "lpeg"
+brew "lua-language-server"
+brew "luarocks"
+brew "mermaid-cli"
+brew "mill"
+brew "mypy"
+brew "nasm"
+brew "ninja"
+brew "nmap"
+brew "opam"
+brew "opencode"
+brew "openjdk@17"
+brew "pass"
+brew "pipx"
+brew "poetry"
+brew "powershell"
+brew "pyenv"
+brew "python@3.11"
+brew "qt"
+brew "raylib"
+brew "rust-analyzer"
+brew "sketchybar"
+brew "sqlcmd"
+brew "stow"
+brew "tectonic"
+brew "tmux"
+brew "tree-sitter"
+brew "tree-sitter-cli"
+brew "uv"
+brew "wget"
+brew "xh"
+brew "zig"
+brew "zoxide"
+brew "zsh-autosuggestions"
 
-# ============================================
-# SHELL & TERMINAL
-# ============================================
-brew "bash"              # Latest Bash
-brew "zsh"               # Z shell
-brew "nushell"           # Nu shell
-brew "tmux"              # Terminal multiplexer
-brew "starship"          # Cross-shell prompt
-
-# ============================================
-# MODERN CLI REPLACEMENTS
-# ============================================
-brew "bat"               # Better cat
-brew "eza"               # Modern ls
-brew "fd"                # Better find
-brew "ripgrep"           # Better grep (rg)
-brew "fzf"               # Fuzzy finder
-brew "zoxide"            # Smarter cd
-brew "xh"                # Better httpie/curl
-brew "tree"              # Directory tree viewer
-
-# ============================================
-# EDITORS
-# ============================================
-# brew "neovim"            # Modern Vim
-# brew "vim"               # Classic Vim
-
-# ============================================
-# VERSION CONTROL
-# ============================================
-brew "git"               # Version control
-brew "git-lfs"           # Git Large File Storage
-brew "lazygit"           # Git TUI
-brew "gh"                # GitHub CLI
-
-# ============================================
-# PROGRAMMING LANGUAGES & TOOLS
-# ============================================
-brew "go"                # Go language
-brew "rust"              # Rust language
-brew "python@3.11"       # Python 3.11
-brew "node"              # Node.js
-brew "openjdk@17"        # Java 17
-
-# ============================================
-# KUBERNETES & CLOUD
-# ============================================
-brew "kubectl"           # Kubernetes CLI
-brew "kubectx"           # Kubernetes context switcher
-brew "kubens"            # Kubernetes namespace switcher
-brew "helm"              # Kubernetes package manager
-brew "k9s"               # Kubernetes TUI
-
-# ============================================
-# CONTAINERS
-# ============================================
-brew "docker"            # Container platform
-brew "docker-compose"    # Multi-container Docker apps
-
-# ============================================
-# SECURITY & NETWORKING
-# ============================================
-brew "gnupg"             # GPG encryption
-brew "openssh"           # SSH client
-brew "nmap"              # Network scanner
-brew "wget"              # File downloader
-brew "curl"              # URL transfer tool
-
-# ============================================
-# FILE MANAGEMENT
-# ============================================
-brew "yazi"              # Terminal file manager
-brew "direnv"            # Directory-based environments
-
-# ============================================
-# SYSTEM TOOLS
-# ============================================
-brew "htop"              # Process viewer
-brew "btop"              # Resource monitor
-brew "watch"             # Execute program periodically
-
-# ============================================
-# macOS APPLICATIONS (CASKS)
-# ============================================
-cask "ghostty"                       # Modern terminal emulator
-cask "font-hack-nerd-font"           # Nerd Font for terminal
-cask "font-fira-code-nerd-font"      # Fira Code Nerd Font
-cask "font-jetbrains-mono-nerd-font" # JetBrains Mono Nerd Font
-
-# ============================================
-# OPTIONAL - Uncomment if needed
-# ============================================
-# brew "nix"             # Nix package manager
-# brew "jq"              # JSON processor
-# brew "yq"              # YAML processor
-# brew "httpie"          # HTTP client
-# brew "tldr"            # Simplified man pages
-# brew "mas"             # Mac App Store CLI
-# cask "docker"          # Docker Desktop
-# cask "visual-studio-code"  # VS Code editor
+# Casks
+cask "aerospace"
+cask "dbeaver-community"
+cask "devtoys"
+cask "font-hack-nerd-font"
+cask "fontforge"
+cask "fontforge-app"
+cask "ghostty"
+cask "raycast"
+cask "warp"
+cask "zen"
+cask "zen-browser"
