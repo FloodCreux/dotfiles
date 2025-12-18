@@ -48,7 +48,7 @@ local servers = {
 	"ocamllsp",
 	"hls",
 	"zls",
-	-- "pyright",
+	"pyright",
 	"ty",
 	"csharp_ls",
 	"ts_ls",
