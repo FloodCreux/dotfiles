@@ -48,7 +48,8 @@ local servers = {
 	"ocamllsp",
 	"hls",
 	"zls",
-	"pyright",
+	-- "pyright",
+	"ty",
 	"csharp_ls",
 	"ts_ls",
 	"helm_ls",
@@ -91,6 +92,18 @@ for _, lsp in ipairs(servers) do
 				config.settings.python.pythonPath = get_python_path(root_dir)
 			end,
 		})
+	elseif lsp == "ty" then
+		-- Optional: Only required if you need to update the language server settings
+		vim.lsp.config("ty", {
+			settings = {
+				ty = {
+					-- ty language server settings go here
+				},
+			},
+		})
+
+		-- Required: Enable the language server
+		vim.lsp.enable("ty")
 	elseif lsp == "helm_ls" then
 		vim.lsp.config(lsp, {
 			on_attach = on_attach,

@@ -26,6 +26,12 @@ read_only = ' 🔒'
 [directory.substitutions]
 '~/tests/starship-custom' = 'work-project'
 
+[aws]
+disabled = true
+
+[azure]
+disabled = true
+
 [git_branch]
 format =  '[$symbol$branch(:$remote_branch)]($style)'
 
@@ -55,7 +61,7 @@ symbol = '󰬷 '
 disabled = true
 
 [kubernetes]
-disabled = false
+disabled = true
 format = '[$symbol$context( \($namespace\))]($style) '
 
 [nodejs]
