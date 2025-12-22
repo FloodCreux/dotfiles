@@ -27,16 +27,14 @@ Install via Homebrew after setup:
 brew bundle
 ```
 
-See `Brewfile` for the complete list of dependencies including:
-- `neovim` - Modern text editor
-- `tmux` - Terminal multiplexer
-- `fzf` - Fuzzy finder
-- `bat` - Better cat
-- `eza` - Modern ls
-- `zoxide` - Smarter cd
-- `starship` - Cross-shell prompt
-- `direnv` - Environment switcher
-- And many more...
+See [Brewfile.md](Brewfile.md) for the complete documentation of ~95 packages including:
+- **Development:** Python, Rust, Scala, Java tooling
+- **Cloud:** AWS, Azure, Databricks, Docker, Kubernetes
+- **Shell:** fzf, eza, zoxide, tmux, starship
+- **Editors:** Neovim LSP servers and dependencies
+- **macOS:** Aerospace, SketchyBar, Ghostty
+
+Quick reference: `make brew` to install all packages.
 
 ### Optional
 
@@ -46,36 +44,48 @@ See `Brewfile` for the complete list of dependencies including:
 
 ## Installation
 
-### Fresh Install
+### Quick Start (Fresh macOS System)
 
-1. **Clone this repository:**
-   ```bash
-   git clone <your-repo-url> ~/personal/dotfiles
-   cd ~/personal/dotfiles
-   ```
+Bootstrap everything automatically:
 
-2. **Backup existing configs** (automatic):
-   ```bash
-   ./setup.sh
-   ```
+```bash
+# Clone the repository
+git clone <your-repo-url> ~/personal/dotfiles
+cd ~/personal/dotfiles
 
-   This will:
-   - Backup existing configs to `~/.dotfiles-backup-<timestamp>/`
-   - Use stow to symlink all configurations to `~/.config/`
-   - Set proper permissions for executable scripts
-   - Create necessary symlinks to home directory
+# Run the bootstrap script (installs Homebrew, packages, and configs)
+./install.sh
+```
 
-3. **Install dependencies:**
-   ```bash
-   brew bundle
-   ```
+The `install.sh` script will:
+- Install Homebrew if missing
+- Install GNU Stow
+- Install all packages from Brewfile (~100 packages, optional)
+- Run setup.sh to configure dotfiles
+- Backup existing configs automatically
 
-4. **Restart your shell** or source the config:
-   ```bash
-   exec $SHELL
-   # or
-   source ~/.zshrc  # or ~/.bashrc
-   ```
+### Manual Install (Existing System)
+
+If you already have Homebrew and Stow:
+
+```bash
+# Clone the repository
+git clone <your-repo-url> ~/personal/dotfiles
+cd ~/personal/dotfiles
+
+# Install dotfiles only
+make install
+# or
+./setup.sh
+
+# Install brew packages
+make brew
+# or
+brew bundle
+
+# Restart your shell
+exec $SHELL
+```
 
 ### Selective Installation
 
@@ -116,9 +126,30 @@ dotfiles/
 ├── zsh/               # Zsh configuration
 ├── setup.sh           # Installation script
 ├── uninstall.sh       # Uninstallation script
+├── install.sh         # Bootstrap script for fresh systems
+├── Makefile           # Convenient management commands
 ├── Brewfile           # Homebrew dependencies
+├── Brewfile.md        # Brewfile documentation
 └── README.md          # This file
 ```
+
+## Makefile Commands
+
+Convenient commands for managing dotfiles:
+
+```bash
+make help          # Show all available commands
+make install       # Install dotfiles (stow configs)
+make bootstrap     # Full bootstrap (Homebrew + packages + configs)
+make update        # Pull from git and restow
+make brew          # Install/update Brewfile packages
+make brew-update   # Update all Homebrew packages
+make test          # Validate configurations
+make status        # Show dotfiles and git status
+make uninstall     # Remove all symlinks
+```
+
+See `make help` for all 22+ available commands.
 
 ## Configuration Highlights
 
