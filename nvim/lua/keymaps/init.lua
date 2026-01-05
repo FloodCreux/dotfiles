@@ -18,7 +18,11 @@ map("n", "<leader>pp", function()
 	require("plugin-view").open()
 end)
 
+map("n", "<leader>bo", function()
+	require("bafa").toggle()
+end)
+
 require("keymaps.opencode")
 require("keymaps.snacks")
-require("keymaps.snippets")
+-- require("keymaps.snippets")
 require("keymaps.trouble")

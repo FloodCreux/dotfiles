@@ -15,7 +15,8 @@ local M = {
 	-- gh("nvim-tree/nvim-web-devicons"),
 
 	-- Snippets
-	gh("L3MON4D3/LuaSnip"),
+	-- USING MINI SNIPPETS
+	-- gh("L3MON4D3/LuaSnip"),
 
 	-- Package Manager
 	gh("adriankarlen/plugin-view.nvim"),
@@ -86,6 +87,9 @@ local M = {
 
 	-- AI Assist
 	gh("NickvanDyke/opencode.nvim"),
+
+	-- Buffer Management
+	gh("mistweaverco/bafa.nvim", { version = "v1.10.1" }),
 }
 
 return M

@@ -38,6 +38,7 @@ for _, v in ipairs(debuggers) do
 end
 
 local servers = {
+	"c3_lsp",
 	"clangd",
 	"rust_analyzer",
 	"gopls",
@@ -48,7 +49,7 @@ local servers = {
 	"ocamllsp",
 	"hls",
 	"zls",
-	"pyright",
+	-- "pyright",
 	"ty",
 	"csharp_ls",
 	"ts_ls",
@@ -76,7 +77,19 @@ local function get_python_path(workspace)
 end
 
 for _, lsp in ipairs(servers) do
-	if lsp == "pyright" then
+	if lsp == "ty" then
+		-- Optional: Only required if you need to update the language server settings
+		vim.lsp.config("ty", {
+			settings = {
+				ty = {
+					-- ty language server settings go here
+				},
+			},
+		})
+
+		-- Required: Enable the language server
+		vim.lsp.enable("ty")
+	elseif lsp == "pyright" then
 		vim.lsp.config(lsp, {
 			on_attach = on_attach,
 			capabilities = capabilities,
@@ -92,18 +105,6 @@ for _, lsp in ipairs(servers) do
 				config.settings.python.pythonPath = get_python_path(root_dir)
 			end,
 		})
-	elseif lsp == "ty" then
-		-- Optional: Only required if you need to update the language server settings
-		vim.lsp.config("ty", {
-			settings = {
-				ty = {
-					-- ty language server settings go here
-				},
-			},
-		})
-
-		-- Required: Enable the language server
-		vim.lsp.enable("ty")
 	elseif lsp == "helm_ls" then
 		vim.lsp.config(lsp, {
 			on_attach = on_attach,

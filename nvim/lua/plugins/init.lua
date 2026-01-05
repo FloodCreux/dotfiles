@@ -6,6 +6,7 @@ require("render-markdown").setup()
 require("plugin-view").setup()
 
 -- require("plugins.cmp")
+require("plugins.buffer")
 require("plugins.conform")
 require("plugins.gitsigns")
 require("plugins.lsp")
