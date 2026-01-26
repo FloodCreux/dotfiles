@@ -2,10 +2,31 @@
 -- See `:help nvim-treesitter`
 -- vim.cmd("TSUpdate")
 
+-- Configure custom parsers BEFORE setup
+local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+parser_config.nu = {
+	install_info = {
+		url = "https://github.com/nushell/tree-sitter-nu",
+		files = { "src/parser.c", "src/scanner.c" },
+		branch = "main",
+	},
+	filetype = "nu",
+}
+
+parser_config.c3 = {
+	install_info = {
+		url = "https://github.com/c3lang/tree-sitter-c3",
+		files = { "src/parser.c", "src/scanner.c" },
+		branch = "main",
+	},
+	filetype = "c3",
+}
+
 ---@diagnostic disable-next-line
 require("nvim-treesitter.configs").setup({
 	-- Add languages to be installed here that you want installed for treesitter
 	ensure_installed = {
+		"c3",
 		"go",
 		"lua",
 		"python",
@@ -36,7 +57,10 @@ require("nvim-treesitter.configs").setup({
 		"helm",
 	},
 
-	highlight = { enable = true },
+	highlight = {
+		enable = true,
+		disable = { "go" },
+	},
 	indent = { enable = true },
 	incremental_selection = {
 		enable = true,
@@ -97,22 +121,3 @@ require("nvim-treesitter.configs").setup({
 		},
 	},
 })
-
-local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-parser_config.nu = {
-	install_info = {
-		url = "https://github.com/nushell/tree-sitter-nu",
-		files = { "src/parser.c", "src/scanner.c" },
-		branch = "main",
-	},
-	filetype = "nu",
-}
-
-parser_config.c3 = {
-	install_info = {
-		url = "https://github.com/c3lang/tree-sitter-c3",
-		files = { "src/parser.c", "src/scanner.c" },
-		branch = "main",
-	},
-	filetype = "c3",
-}

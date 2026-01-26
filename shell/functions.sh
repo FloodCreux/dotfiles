@@ -106,9 +106,9 @@ nixswitch() {
 
     pushd ~/personal/nix >/dev/null || return 1
     sudo darwin-rebuild switch --flake ".#$1"
-    local status=$?
+    local exit_code=$?
     popd >/dev/null || return 1
-    return $status
+    return $exit_code
 }
 
 # Update nix flake and switch configuration

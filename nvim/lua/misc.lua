@@ -17,6 +17,25 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	end,
 })
 
+-- Set filetype for C3 files  
+vim.filetype.add({
+	extension = {
+		c3 = "c3",
+		c3i = "c3i",
+	},
+})
+
+-- Ensure treesitter attaches to C3 files
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "c3",
+	callback = function(args)
+		local ok, ts_highlight = pcall(require, "nvim-treesitter.highlight")
+		if ok and ts_highlight then
+			ts_highlight.attach(args.buf, "c3")
+		end
+	end,
+})
+
 -- local lsp_attach_group = vim.api.nvim_create_augroup("my.lsp", {})
 -- vim.api.nvim_create_autocmd("LspAttach", {
 -- 	group = lsp_attach_group,
