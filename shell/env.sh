@@ -71,6 +71,7 @@ PATH_COMPONENTS=(
     "$HOME/.vimpkg/bin"
     "$GOPATH/bin"
     "$HOME/.cargo/bin"
+    "$HOME/.dotnet/tools"
 )
 
 # Rebuild PATH with only existing directories
