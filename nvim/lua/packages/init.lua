@@ -90,6 +90,11 @@ local M = {
 
 	-- Buffer Management
 	gh("mistweaverco/bafa.nvim", { version = "v1.10.1" }),
+
+	-- Multicursor
+	gh("brenton-leighton/multiple-cursors.nvim", {
+		version = "main",
+	}),
 }
 
 return M
