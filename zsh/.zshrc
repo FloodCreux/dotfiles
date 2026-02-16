@@ -87,3 +87,11 @@ fi
 if command -v mise >/dev/null 2>&1; then
     eval "$(mise activate zsh)"
 fi
+
+# Cert Setup
+export REQUESTS_CA_BUNDLE="$HOME/nscacert_combined.pem"
+export NODE_EXTRA_CA_CERTS="$HOME/nscacert_combined.pem"
+export NIX_SSL_CERT_FILE='/etc/ssl/certs/ca-certificates-combined.crt'
+
+# Docker/Podman
+export DOCKER_HOST="unix://$HOME/.local/share/containers/podman/machine/podman.sock"
