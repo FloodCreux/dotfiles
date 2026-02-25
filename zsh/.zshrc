@@ -92,6 +92,7 @@ fi
 export REQUESTS_CA_BUNDLE="$HOME/nscacert_combined.pem"
 export NODE_EXTRA_CA_CERTS="$HOME/nscacert_combined.pem"
 export NIX_SSL_CERT_FILE='/etc/ssl/certs/ca-certificates-combined.crt'
+export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1
 
 # Docker/Podman
 export DOCKER_HOST="unix://$HOME/.local/share/containers/podman/machine/podman.sock"

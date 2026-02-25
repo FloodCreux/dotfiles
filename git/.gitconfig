@@ -1,7 +1,8 @@
 [includeIf "gitdir:~/work/**"]
   path = ~/.gitconfig-work
 [includeIf "gitdir:~/work/phare/**"]
-  path = ~/.gitconfig-phare
+  path = ~/.gitconfig-work
+  ; path = ~/.gitconfig-phare
 [includeIf "gitdir:~/work/palantir/**"]
   path = ~/.gitconfig-palantir
 [includeIf "gitdir:~/personal/**"]

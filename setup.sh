@@ -111,6 +111,7 @@ PACKAGES=(
     "nushell"
     "nvim"
     "ohmyposh"
+    "opencode"
     "shell"
     "sketchybar"
     "ssh"
