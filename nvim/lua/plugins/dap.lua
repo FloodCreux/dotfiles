@@ -72,10 +72,7 @@ end
 -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
 vim.keymap.set("n", "<F7>", dapui.toggle, { desc = "Debug: See last session result." })
 
-require("neodev").setup({
-	library = { plugins = { "nvim-dap-ui" }, types = true },
-	lspconfig = true,
-})
+require("lazydev").setup({})
 
 if not dap.adapters["netcoredbg"] then
 	require("dap").adapters["netcoredbg"] = {
@@ -127,3 +124,52 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.keymap.set("n", "<leader>ds", dappy.debug_selection, { desc = "Python: Debug Selection" })
 	end,
 })
+
+dap.adapters["pwa-node"] = {
+	type = "server",
+	host = "localhost",
+	port = "${port}",
+	executable = {
+		command = "js-debug-adapter",
+		args = { "${port}" },
+	},
+}
+
+for _, lang in ipairs({ "javascript", "typescript" }) do
+	dap.configurations[lang] = {
+		{
+			type = "pwa-node",
+			request = "launch",
+			name = "Launch file",
+			program = "${file}",
+			cwd = "${workspaceFolder}",
+			sourceMaps = true,
+		},
+		{
+			type = "pwa-node",
+			request = "attach",
+			name = "Attach to Node.js",
+			port = function()
+				return tonumber(vim.fn.input("Debug port: ", "9229"))
+			end,
+			cwd = "${workspaceFolder}",
+			sourceMaps = true,
+			restart = true, -- re-attaches after nodemon restarts
+			skipFiles = { "<node_internals>/**", "node_modules/**" },
+		},
+		{
+			type = "pwa-node",
+			request = "launch",
+			name = "Debug Vitest (current file)",
+			program = "${workspaceFolder}/node_modules/.bin/vitest",
+			args = { "run", "--no-file-parallelism", "${file}" },
+			cwd = "${workspaceFolder}",
+			console = "integratedTerminal",
+			sourceMaps = true,
+			resolveSourceMapLocations = {
+				"${workspaceFolder}/**",
+				"!**/node_modules/**",
+			},
+		},
+	}
+end

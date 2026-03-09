@@ -30,10 +30,14 @@ local on_attach = function(_, bufnr)
 	end, { desc = "Format current buffer with LSP" })
 end
 
-local debuggers = { "debugpy" }
+local debuggers = { "debugpy", "js-debug-adapter" }
+local formatters = { "prettier" }
 
 local all_tools = {}
 for _, v in ipairs(debuggers) do
+	table.insert(all_tools, v)
+end
+for _, v in ipairs(formatters) do
 	table.insert(all_tools, v)
 end
 
@@ -54,6 +58,9 @@ local servers = {
 	"csharp_ls",
 	"ts_ls",
 	"helm_ls",
+	"eslint",
+	"jsonls",
+	"tailwindcss",
 }
 for _, v in ipairs(servers) do
 	table.insert(all_tools, v)
@@ -159,7 +166,7 @@ local cmd = {
 	vim.fs.joinpath(roslyn_base_path, "Microsoft.CodeAnalysis.LanguageServer.dll"),
 	"--stdio",
 	"--logLevel=Information",
-	"--extensionLogDirectory=" .. vim.fs.dirname(vim.lsp.get_log_path()),
+	"--extensionLogDirectory=" .. vim.fs.dirname(vim.lsp.log.get_filename()),
 	"--razorSourceGenerator=" .. vim.fs.joinpath(rzls_base_path, "Microsoft.CodeAnalysis.Razor.Compiler.dll"),
 	"--razorDesignTimePath="
 		.. vim.fs.joinpath(rzls_base_path, "Targets", "Microsoft.NET.Sdk.Razor.DesignTime.targets"),

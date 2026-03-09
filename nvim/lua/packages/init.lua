@@ -44,6 +44,7 @@ local M = {
 	gh("nvim-neotest/nvim-nio"),
 	gh("rcarriga/nvim-dap-ui"),
 	gh("folke/trouble.nvim"),
+	gh("leoluz/nvim-dap-go"),
 
 	-- TPope
 	gh("tpope/vim-fugitive"),
@@ -60,6 +61,7 @@ local M = {
 	-- Folke
 	gh("folke/snacks.nvim"),
 	gh("folke/which-key.nvim"),
+	gh("folke/lazydev.nvim", { ft = "lua" }),
 
 	-- Mini
 	gh("nvim-mini/mini.ai"),
