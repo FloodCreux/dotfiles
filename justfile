@@ -54,6 +54,13 @@ update:
 # HOMEBREW
 # ============================================
 
+# Install taps first, then install all packages from Brewfile (use on fresh system)
+brew-setup:
+    @echo "[BREW] Installing taps..."
+    @cd {{dotfiles_dir}} && grep '^tap' Brewfile | sed 's/tap "/brew tap /;s/"$//' | bash
+    @echo "[BREW] Installing Brewfile packages..."
+    @cd {{dotfiles_dir}} && brew bundle install --verbose
+
 # Install/update packages from Brewfile
 brew:
     @echo "[BREW] Installing Brewfile packages..."

@@ -28,13 +28,18 @@ brew bundle check
 brew bundle cleanup
 ```
 
-Or use the Makefile:
+Or use the justfile:
 ```bash
-make brew           # Install/update Brewfile packages
-make brew-update    # Update all packages
-make brew-dump      # Export installed packages to Brewfile
-make brew-cleanup   # Clean cache and old versions
+just brew-setup     # Fresh system: install taps first, then all packages
+just brew           # Install/update Brewfile packages (taps already present)
+just brew-update    # Update all packages
+just brew-dump      # Export installed packages to Brewfile
+just brew-cleanup   # Clean cache and old versions
 ```
+
+> **Fresh system tip:** Use `just brew-setup` instead of `just brew` on a new machine.
+> `brew bundle` will fail if taps aren't installed first, since formulae like `databricks`
+> come from third-party taps. `brew-setup` installs all taps before running `brew bundle`.
 
 ---
 
