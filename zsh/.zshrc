@@ -11,6 +11,13 @@ autoload bashcompinit && bashcompinit
 autoload -Uz compinit
 compinit
 
+# PLUGINS & EXTERNAL TOOLS
+# ============================================
+# Nix (load first so Nix-managed tools are available)
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
+
 # ============================================
 # SHARED CONFIGURATION
 # Load environment variables, aliases, and functions
@@ -38,13 +45,6 @@ bindkey '^j' down-line-or-search
 bindkey jj vi-cmd-mode
 
 # ============================================
-# PLUGINS & EXTERNAL TOOLS
-# ============================================
-# Nix (load first so Nix-managed tools are available)
-if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-fi
-
 # Starship prompt - with device detection for macOS
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # Cache device type (only detect once)

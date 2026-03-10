@@ -11,10 +11,7 @@ export GPG_TTY=$(tty)
 # ============================================
 # EDITOR
 # ============================================
-# Prefer Nix-managed nvim, fall back to system nvim, then vim
-if [ -x "/run/current-system/sw/bin/nvim" ]; then
-    export EDITOR="/run/current-system/sw/bin/nvim"
-elif command -v nvim >/dev/null 2>&1; then
+if command -v nvim >/dev/null 2>&1; then
     export EDITOR="$(command -v nvim)"
 elif command -v vim >/dev/null 2>&1; then
     export EDITOR="$(command -v vim)"
@@ -58,6 +55,8 @@ export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
 # ============================================
 # Build PATH with components that exist
 PATH_COMPONENTS=(
+    "$HOME/.nix-profile/bin"
+    "/nix/var/nix/profiles/default/bin"
     "/run/current-system/sw/bin"
     "$HOME/.npm-global/bin"
     "$HOME/.local/bin"

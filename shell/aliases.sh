@@ -26,11 +26,7 @@ fi
 # EDITOR
 # ============================================
 # Set vim/nvim aliases based on what's available
-if [ -x "/run/current-system/sw/bin/nvim" ]; then
-    alias nvim='/run/current-system/sw/bin/nvim'
-    alias v='/run/current-system/sw/bin/nvim'
-    alias vim='/run/current-system/sw/bin/nvim'
-elif command -v nvim >/dev/null 2>&1; then
+if command -v nvim >/dev/null 2>&1; then
     alias v='nvim'
     alias vim='nvim'
 elif command -v vim >/dev/null 2>&1; then
