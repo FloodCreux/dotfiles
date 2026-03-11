@@ -162,6 +162,8 @@ SYMLINKS=(
     "$HOME/.zshrc:$HOME/.config/zsh/.zshrc"
     "$HOME/.vimrc:$HOME/.config/vim/.vimrc"
     "$HOME/.gitconfig:$HOME/.config/git/.gitconfig"
+
+    # Claude symlinks. These need to be one-off to not overwrite Claude generated items
     "$HOME/.claude/skills:$HOME/.config/claude/skills"
     "$HOME/.claude/settings.json:$HOME/.config/claude/settings.json"
 )
