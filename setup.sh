@@ -64,6 +64,7 @@ BACKUP_TARGETS=(
     "$HOME/.bashrc"
     "$HOME/.zshrc"
     "$HOME/.vimrc"
+    "$HOME/.claude"
     "$HOME/.gitconfig"
     "$HOME/.ssh/config"
     "$HOME/.config/nvim"
@@ -104,6 +105,7 @@ cd "$DOTFILES_DIR"
 PACKAGES=(
     "aerospace"
     "bash"
+    "claude"
     "direnv"
     "ghostty"
     "git"
@@ -160,6 +162,8 @@ SYMLINKS=(
     "$HOME/.zshrc:$HOME/.config/zsh/.zshrc"
     "$HOME/.vimrc:$HOME/.config/vim/.vimrc"
     "$HOME/.gitconfig:$HOME/.config/git/.gitconfig"
+    "$HOME/.claude/skills:$HOME/.config/claude/skills"
+    "$HOME/.claude/settings.json:$HOME/.config/claude/settings.json"
 )
 
 for link_def in "${SYMLINKS[@]}"; do

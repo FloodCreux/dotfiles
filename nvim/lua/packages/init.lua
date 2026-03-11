@@ -97,6 +97,9 @@ local M = {
 	gh("brenton-leighton/multiple-cursors.nvim", {
 		version = "main",
 	}),
+
+	-- Treesitter
+	gh("bezhermoso/tree-sitter-ghostty", { build = "make nvim_install" }),
 }
 
 return M

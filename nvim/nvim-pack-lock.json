@@ -207,6 +207,10 @@
       "rev": "9912042fc8bca2209105526ac7534e9a0c2071b2",
       "src": "https://github.com/folke/snacks.nvim"
     },
+    "tree-sitter-ghostty": {
+      "rev": "c14d6cb4dd36ff9dd569978491aa52e4726cbe86",
+      "src": "https://github.com/bezhermoso/tree-sitter-ghostty"
+    },
     "trouble.nvim": {
       "rev": "bd67efe408d4816e25e8491cc5ad4088e708a69a",
       "src": "https://github.com/folke/trouble.nvim"
