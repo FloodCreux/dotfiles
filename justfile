@@ -64,10 +64,10 @@ brew-setup:
 # Install/update packages from Brewfile
 brew:
     @echo "[BREW] Installing Brewfile packages..."
-    @cd {{dotfiles_dir}} && brew bundle install --verbose
+    @cd {{dotfiles_dir}} && brew bundle install --file ./Brewfile --verbose
 
 # Update all Homebrew packages
-brew-update:
+brew-update: && fix-java-certs
     @echo "[BREW] Updating Homebrew..."
     @brew update
     @brew upgrade
@@ -230,6 +230,28 @@ diff:
 # ============================================
 # UTILITIES
 # ============================================
+
+# Import Netskope CA cert into all Homebrew JDK trust stores (needed for SSL inspection proxy)
+fix-java-certs:
+    @echo "[CERTS] Importing Netskope CA into JDK trust stores..."
+    @CERT="/Library/Application Support/Netskope/STAgent/data/nscacert.pem"; \
+    if [ ! -f "$CERT" ]; then \
+        echo "[SKIP] Netskope cert not found — not behind SSL inspection proxy"; \
+        exit 0; \
+    fi; \
+    for jdk in /opt/homebrew/opt/openjdk*/libexec/openjdk.jdk/Contents/Home /opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home; do \
+        CACERTS="$jdk/lib/security/cacerts"; \
+        if [ ! -f "$CACERTS" ]; then continue; fi; \
+        if keytool -list -keystore "$CACERTS" -storepass changeit -alias netskope-ca >/dev/null 2>&1; then \
+            echo "  [OK] $jdk (already imported)"; \
+        else \
+            keytool -importcert -trustcacerts -alias netskope-ca \
+                -file "$CERT" -keystore "$CACERTS" -storepass changeit -noprompt && \
+            echo "  [OK] $jdk (imported)" || \
+            echo "  [FAIL] $jdk"; \
+        fi; \
+    done; \
+    echo "[SUCCESS] JDK trust stores updated!"
 
 # List all backup directories
 backup-list:

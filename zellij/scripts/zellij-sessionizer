@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+if [[ $# -eq 1 ]]; then
+	selected=$1
+else
+	selected=$(find ~/work ~/personal -mindepth 1 -maxdepth 2 -type d | fzf)
+fi
+
+if [[ -z $selected ]]; then
+	exit 0
+fi
+
+selected_name=$(basename "$selected" | tr . _)
+
+if [[ -n $ZELLIJ ]]; then
+	zellij action switch-session "$selected_name"
+fi
+
+if zellij list-sessions 2>/dev/null | grep -q "^$selected_name"; then
+	zellij attach --create "$selected_name" options --default-cwd "$selected"
+else
+	cd "$selected" && zellij --session "$selected_name"
+fi

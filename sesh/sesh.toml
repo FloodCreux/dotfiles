@@ -1,0 +1,24 @@
+#:schema https://github.com/joshmedeski/sesh/raw/main/sesh.schema.json
+
+blacklist = [ "scratch" ]
+cache = true
+
+[default_session]
+startup_command = "nvim"
+
+[[session]]
+name = "nvimconf"
+path = "~/personal/dotfiles/nvim"
+windows = [ "git" ] 
+
+[[wildcard]]
+pattern = "~/personal/*"
+windows = [ "git" ] 
+
+[[wildcard]]
+pattern = "~/work/*"
+windows = [ "git" ] 
+
+[[window]]
+name = "git" 
+startup_script = "lazygit"

@@ -96,3 +96,5 @@ export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1
 
 # Docker/Podman
 export DOCKER_HOST="unix://$HOME/.local/share/containers/podman/machine/podman.sock"
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi

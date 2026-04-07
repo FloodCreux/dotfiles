@@ -119,9 +119,13 @@ fi
 # TMUX
 # ============================================
 if [ -x "$HOME/.config/tmux/scripts/tmux-sessionizer" ]; then
-    alias sesh='sh ~/.config/tmux/scripts/tmux-sessionizer'
+    alias tmux-sesh='sh ~/.config/tmux/scripts/tmux-sessionizer'
     alias personal='sh ~/.config/tmux/scripts/tmux-sessionizer ~/personal'
     alias work='sh ~/.config/tmux/scripts/tmux-sessionizer ~/work'
+fi
+
+if [ -x "$HOME/.config/tmux/scripts/tmux-cht" ]; then
+    alias tmux-chat='sh ~/.config/tmux/scripts/tmux-cht'
 fi
 
 if command -v tmux >/dev/null 2>&1; then

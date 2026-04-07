@@ -73,6 +73,7 @@ BACKUP_TARGETS=(
     "$HOME/.config/bash"
     "$HOME/.config/git"
     "$HOME/.config/starship"
+    "$HOME/.config/zellij"
 )
 
 BACKED_UP=0
@@ -114,13 +115,17 @@ PACKAGES=(
     "nvim"
     "ohmyposh"
     "opencode"
+    "sesh"
     "shell"
     "sketchybar"
     "ssh"
     "starship"
+    "television"
     "tmux"
     "vim"
+    "worktrunk"
     "yazi"
+    "zellij"
     "zsh"
 )
 

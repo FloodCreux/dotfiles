@@ -50,10 +50,8 @@ local servers = {
 	"terraformls",
 	"html",
 	"nixd",
-	"ocamllsp",
 	"hls",
 	"zls",
-	-- "pyright",
 	"ty",
 	"csharp_ls",
 	"ts_ls",
@@ -71,6 +69,7 @@ require("mason").setup({
 })
 
 vim.lsp.enable(servers)
+vim.lsp.enable("ocamllsp")
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 -- capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)

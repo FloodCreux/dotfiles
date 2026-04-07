@@ -2,7 +2,7 @@ require("fidget").setup()
 require("uv").setup({
 	picker_integration = true,
 })
-require("render-markdown").setup()
+-- require("render-markdown").setup()
 require("plugin-view").setup()
 
 -- require("plugins.cmp")

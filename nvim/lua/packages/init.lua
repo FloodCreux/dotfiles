@@ -33,7 +33,7 @@ local M = {
 	gh("stevearc/conform.nvim"),
 	gh("benomahony/uv.nvim"),
 	-- gh("OXY2DEV/markview.nvim"),
-	gh("MeanderingProgrammer/render-markdown.nvim"),
+	-- gh("MeanderingProgrammer/render-markdown.nvim"),
 
 	gh("tris203/rzls.nvim"),
 	gh("seblyng/roslyn.nvim"),
@@ -81,7 +81,7 @@ local M = {
 
 	-- File Manager
 	gh("mikavilpas/yazi.nvim"),
-	gh("nvim-treesitter/nvim-treesitter", { version = "main" }),
+	gh("nvim-treesitter/nvim-treesitter", { version = "main", build = ":TSUpdate" }),
 	gh("nvim-treesitter/nvim-treesitter-textobjects"),
 
 	-- Notifications

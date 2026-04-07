@@ -22,6 +22,7 @@ parser_config.c3 = {
 	filetype = "c3",
 }
 
+vim.opt.runtimepath:prepend(vim.fn.stdpath("data") .. "/site")
 ---@diagnostic disable-next-line
 require("nvim-treesitter.configs").setup({
 	-- Add languages to be installed here that you want installed for treesitter
@@ -36,7 +37,7 @@ require("nvim-treesitter.configs").setup({
 		"javascript",
 		"json",
 		"kdl",
-		"latex",
+		-- "latex",
 		"lua",
 		"markdown",
 		"markdown_inline",
