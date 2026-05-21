@@ -67,7 +67,7 @@ brew:
     @cd {{dotfiles_dir}} && brew bundle install --file ./Brewfile --verbose
 
 # Update all Homebrew packages
-brew-update: && fix-java-certs
+brew-update: fix-java-certs && fix-java-certs
     @echo "[BREW] Updating Homebrew..."
     @brew update
     @brew upgrade
@@ -231,7 +231,7 @@ diff:
 # UTILITIES
 # ============================================
 
-# Import Netskope CA cert into all Homebrew JDK trust stores (needed for SSL inspection proxy)
+# Import Netskope CA cert into all writable JDK trust stores (needed for SSL inspection proxy)
 fix-java-certs:
     @echo "[CERTS] Importing Netskope CA into JDK trust stores..."
     @CERT="/Library/Application Support/Netskope/STAgent/data/nscacert.pem"; \
@@ -239,14 +239,28 @@ fix-java-certs:
         echo "[SKIP] Netskope cert not found — not behind SSL inspection proxy"; \
         exit 0; \
     fi; \
-    for jdk in /opt/homebrew/opt/openjdk*/libexec/openjdk.jdk/Contents/Home /opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home; do \
+    JDK_CANDIDATES=$( { \
+        ls -d /opt/homebrew/opt/openjdk*/libexec/openjdk.jdk/Contents/Home 2>/dev/null; \
+        ls -d /opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home 2>/dev/null; \
+        ls -d $HOME/Library/Java/JavaVirtualMachines/*/Contents/Home 2>/dev/null; \
+        ls -d $HOME/Library/Caches/Coursier/jvm/*/Contents/Home 2>/dev/null; \
+        ls -d $HOME/Library/Caches/Homebrew/java_cache/*/Contents/Home 2>/dev/null; \
+    } | sort -u ); \
+    for jdk in $JDK_CANDIDATES; do \
+        case "$jdk" in /nix/store/*) echo "  [SKIP] $jdk (read-only nix store)"; continue;; esac; \
         CACERTS="$jdk/lib/security/cacerts"; \
-        if [ ! -f "$CACERTS" ]; then continue; fi; \
-        if keytool -list -keystore "$CACERTS" -storepass changeit -alias netskope-ca >/dev/null 2>&1; then \
+        if [ ! -f "$CACERTS" ] && [ -f "$jdk/jre/lib/security/cacerts" ]; then \
+            CACERTS="$jdk/jre/lib/security/cacerts"; \
+        fi; \
+        if [ ! -f "$CACERTS" ]; then echo "  [SKIP] $jdk (no cacerts)"; continue; fi; \
+        if [ ! -w "$CACERTS" ]; then echo "  [SKIP] $jdk (cacerts not writable)"; continue; fi; \
+        KEYTOOL="$jdk/bin/keytool"; \
+        if [ ! -x "$KEYTOOL" ]; then KEYTOOL=keytool; fi; \
+        if "$KEYTOOL" -list -keystore "$CACERTS" -storepass changeit -alias netskope-ca >/dev/null 2>&1; then \
             echo "  [OK] $jdk (already imported)"; \
         else \
-            keytool -importcert -trustcacerts -alias netskope-ca \
-                -file "$CERT" -keystore "$CACERTS" -storepass changeit -noprompt && \
+            "$KEYTOOL" -importcert -trustcacerts -alias netskope-ca \
+                -file "$CERT" -keystore "$CACERTS" -storepass changeit -noprompt >/dev/null 2>&1 && \
             echo "  [OK] $jdk (imported)" || \
             echo "  [FAIL] $jdk"; \
         fi; \

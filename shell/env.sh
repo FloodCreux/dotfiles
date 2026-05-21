@@ -41,6 +41,12 @@ elif [ -d "/usr/local/opt/openjdk@17" ]; then
     export JAVA_HOME="/usr/local/opt/openjdk@17"
 fi
 
+# Java SSL trust store (for corporate SSL-inspection proxies like Netskope).
+# Forces every JVM to use the patched cacerts, regardless of how `java` was discovered.
+if [ -n "$JAVA_HOME" ] && [ -f "$JAVA_HOME/lib/security/cacerts" ]; then
+    export JAVA_TOOL_OPTIONS="-Djavax.net.ssl.trustStore=$JAVA_HOME/lib/security/cacerts -Djavax.net.ssl.trustStorePassword=changeit"
+fi
+
 # ============================================
 # TOOLS
 # ============================================
@@ -55,7 +61,6 @@ export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
 # ============================================
 # Build PATH with components that exist
 PATH_COMPONENTS=(
-    "$HOME/.nix-profile/bin"
     "/nix/var/nix/profiles/default/bin"
     "/run/current-system/sw/bin"
     "$HOME/.npm-global/bin"
@@ -71,6 +76,7 @@ PATH_COMPONENTS=(
     "$GOPATH/bin"
     "$HOME/.cargo/bin"
     "$HOME/.dotnet/tools"
+    "$HOME/.nix-profile/bin"
 )
 
 # Rebuild PATH with only existing directories
