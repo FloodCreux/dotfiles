@@ -32,4 +32,9 @@ return {
 	filetypes = { "python" },
 	root_markers = { "pyproject.toml", "ruff.toml", ".ruff.toml", ".git" },
 	settings = {},
+	-- ruff's hover is intentionally suppressed so ty (or another type-aware
+	-- LSP) owns hover responses in Python buffers.
+	on_attach = function(client, _)
+		client.server_capabilities.hoverProvider = false
+	end,
 }

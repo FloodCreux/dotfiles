@@ -1,41 +1,45 @@
--- LSP settings.
---  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
-	local nmap = function(keys, func, desc)
-		if desc then
-			desc = "LSP: " .. desc
-		end
-
-		vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
-	end
-
-	nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-	nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-
-	nmap("K", vim.lsp.buf.hover, "Hover Documentation")
-
-	nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
-	nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
-	nmap("<leader>wl", function()
-		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-	end, "[W]orkspace [L]ist Folders")
-
-	vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
-		vim.lsp.buf.format()
-	end, { desc = "Format current buffer with LSP" })
-end
-
 -- Mason packages (debuggers, formatters, linters) — these are *Mason package
 -- IDs*, not LSP server names. LSP servers are handled separately below via
 -- `vim.lsp.enable`.
-local mason_packages = {
-	"debugpy",
-	"js-debug-adapter",
-	"prettier",
-}
-
 require("mason").setup({
-	ensure_installed = mason_packages,
+	ensure_installed = {
+		"debugpy",
+		"js-debug-adapter",
+		"prettier",
+	},
+})
+
+-- Shared LSP defaults — deep-merged into every per-server config from
+-- `lsp/<server>.lua` plus any later `vim.lsp.config(<name>, ...)` calls.
+vim.lsp.config("*", {
+	capabilities = vim.lsp.protocol.make_client_capabilities(),
+	root_markers = { ".git" },
+})
+
+-- Common LSP keymaps + :Format command, scoped per buffer on attach.
+vim.api.nvim_create_autocmd("LspAttach", {
+	callback = function(args)
+		local bufnr = args.buf
+		local nmap = function(keys, func, desc)
+			vim.keymap.set("n", keys, func, { buffer = bufnr, desc = "LSP: " .. desc })
+		end
+
+		nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+		nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+		nmap("K", vim.lsp.buf.hover, "Hover Documentation")
+		nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
+		nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
+		nmap("<leader>wl", function()
+			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+		end, "[W]orkspace [L]ist Folders")
+
+		-- Re-creating an existing user command errors; tolerate multiple
+		-- LSPs attaching to the same buffer.
+		pcall(vim.api.nvim_buf_del_user_command, bufnr, "Format")
+		vim.api.nvim_buf_create_user_command(bufnr, "Format", function()
+			vim.lsp.buf.format()
+		end, { desc = "Format current buffer with LSP" })
+	end,
 })
 
 local servers = {
@@ -58,52 +62,10 @@ local servers = {
 	"jsonls",
 	"tailwindcss",
 	"ruff",
+	"ocamllsp",
 }
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-for _, lsp in ipairs(servers) do
-	if lsp == "ty" then
-		-- Optional: Only required if you need to update the language server settings
-		vim.lsp.config("ty", {
-			settings = {
-				ty = {
-					-- ty language server settings go here
-				},
-			},
-		})
-	elseif lsp == "ruff" then
-		vim.lsp.config(lsp, {
-			capabilities = capabilities,
-			on_attach = function(client, bufnr)
-				client.server_capabilities.hoverProvider = false
-				on_attach(client, bufnr)
-			end,
-		})
-	elseif lsp == "helm_ls" then
-		vim.lsp.config(lsp, {
-			on_attach = on_attach,
-			capabilities = vim.tbl_deep_extend("force", capabilities, {
-				workspace = {
-					didChangeWatchedFiles = {
-						dynamicRegistration = true,
-					},
-				},
-			}),
-			cmd = { "helm_ls", "serve" },
-			filetypes = { "helm", "yaml.helm-values" },
-			root_markers = { "Chart.yaml" },
-		})
-	else
-		vim.lsp.config(lsp, {
-			on_attach = on_attach,
-			capabilities = capabilities,
-		})
-	end
-end
-
 vim.lsp.enable(servers)
-vim.lsp.enable("ocamllsp")
 
 vim.filetype.add({
 	extension = {
