@@ -17,7 +17,10 @@ require("conform").setup({
 		python = {
 			-- "isort",
 			-- "black",
-			"ruff",
+			-- "ruff",
+			"ruff_fix",
+			"ruff_organize_imports",
+			"ruff_format",
 		},
 		javascript = { "prettier" },
 		cs = { "csharpier" },

@@ -59,6 +59,7 @@ local servers = {
 	"eslint",
 	"jsonls",
 	"tailwindcss",
+	"ruff",
 }
 for _, v in ipairs(servers) do
 	table.insert(all_tools, v)
@@ -95,6 +96,14 @@ for _, lsp in ipairs(servers) do
 
 		-- Required: Enable the language server
 		vim.lsp.enable("ty")
+	elseif lsp == "ruff" then
+		vim.lsp.config(lsp, {
+			capabilities = capabilities,
+			on_attach = function(client, bufnr)
+				client.server_capabilities.hoverProvider = false
+				on_attach(client, bufnr)
+			end,
+		})
 	elseif lsp == "pyright" then
 		vim.lsp.config(lsp, {
 			on_attach = on_attach,

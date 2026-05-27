@@ -95,6 +95,7 @@ export NIX_SSL_CERT_FILE='/etc/ssl/certs/ca-certificates-combined.crt'
 export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1
 
 # Docker/Podman
-export DOCKER_HOST="unix://$HOME/.local/share/containers/podman/machine/podman.sock"
+# export DOCKER_HOST="unix://$HOME/.local/share/containers/podman/machine/podman.sock"
 
 if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
+export PATH="~/personal/Odin:$PATH"
