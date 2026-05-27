@@ -9,7 +9,6 @@ local M = {
 	gh("nvim-lua/plenary.nvim"),
 	gh("j-hui/fidget.nvim"),
 	gh("MunifTanjim/nui.nvim"),
-	gh("rcarriga/nvim-notify"),
 	gh("igorlfs/nvim-dap-view"),
 	gh("nvim-neotest/nvim-nio"),
 	-- gh("nvim-tree/nvim-web-devicons"),
@@ -69,9 +68,7 @@ local M = {
 	gh("nvim-mini/mini.completion"),
 	gh("nvim-mini/mini.files"),
 	gh("nvim-mini/mini.icons"),
-	gh("nvim-mini/mini.indentscope"),
 	gh("nvim-mini/mini.hipatterns"),
-	gh("nvim-mini/mini.pick"),
 	gh("nvim-mini/mini.snippets"),
 	gh("nvim-mini/mini.statusline"),
 

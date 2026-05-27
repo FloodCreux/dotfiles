@@ -1,5 +1,6 @@
 require("fidget").setup()
 require("plugin-view").setup()
+require("lazydev").setup({})
 
 require("plugins.buffer")
 require("plugins.conform")

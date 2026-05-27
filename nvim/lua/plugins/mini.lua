@@ -5,10 +5,6 @@ require("mini.bracketed").setup()
 require("mini.completion").setup()
 require("mini.files").setup()
 require("mini.icons").setup()
-require("mini.indentscope").setup({
-	symbol = "▏",
-	options = { try_as_border = true },
-})
 
 local hipatterns = require("mini.hipatterns")
 hipatterns.setup({
@@ -24,8 +20,6 @@ hipatterns.setup({
 		-- cells = require("notebook-navigator").minihipatterns_spec,
 	},
 })
-
-require("mini.pick").setup()
 
 local gen_loader = require("mini.snippets").gen_loader
 require("mini.snippets").setup({

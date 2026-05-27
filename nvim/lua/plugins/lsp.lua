@@ -13,7 +13,6 @@ local on_attach = function(_, bufnr)
 	nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
 	nmap("K", vim.lsp.buf.hover, "Hover Documentation")
-	nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
 
 	nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
 	nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
@@ -61,11 +60,7 @@ local servers = {
 	"ruff",
 }
 
-vim.lsp.enable(servers)
-vim.lsp.enable("ocamllsp")
-
 local capabilities = vim.lsp.protocol.make_client_capabilities()
--- capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 for _, lsp in ipairs(servers) do
 	if lsp == "ty" then
@@ -77,9 +72,6 @@ for _, lsp in ipairs(servers) do
 				},
 			},
 		})
-
-		-- Required: Enable the language server
-		vim.lsp.enable("ty")
 	elseif lsp == "ruff" then
 		vim.lsp.config(lsp, {
 			capabilities = capabilities,
@@ -109,6 +101,9 @@ for _, lsp in ipairs(servers) do
 		})
 	end
 end
+
+vim.lsp.enable(servers)
+vim.lsp.enable("ocamllsp")
 
 vim.filetype.add({
 	extension = {

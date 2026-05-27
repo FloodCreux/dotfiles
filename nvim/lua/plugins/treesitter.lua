@@ -76,21 +76,9 @@ vim.api.nvim_create_autocmd("FileType", {
 			return
 		end
 		local lang = vim.treesitter.language.get_lang(ft) or ft
-		if not pcall(vim.treesitter.start, args.buf, lang) then
-			return
-		end
-		-- Treesitter-based indentation (still considered experimental upstream).
-		vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+		pcall(vim.treesitter.start, args.buf, lang)
 	end,
 })
-
--- Incremental selection (previously provided by configs.setup).
-vim.keymap.set("n", "<c-space>", function()
-	if vim.treesitter.get_parser(0, nil, { error = false }) then
-		vim.cmd("normal! v")
-		require("vim.treesitter._range")
-	end
-end, { silent = true, desc = "Treesitter init selection" })
 
 -- ---------------------------------------------------------------------------
 -- nvim-treesitter-textobjects (also `main`-branch new API)
@@ -105,15 +93,4 @@ if ok_to then
 			set_jumps = true,
 		},
 	})
-
-	local swap = require("nvim-treesitter-textobjects.swap")
-	-- Note: <leader>a / <leader>A collide with multicursor maps. Disabled by
-	-- default; uncomment if you want them.
-	-- vim.keymap.set("n", "<leader>a", function()
-	-- 	swap.swap_next("@parameter.inner")
-	-- end, { desc = "TS: swap next parameter" })
-	-- vim.keymap.set("n", "<leader>A", function()
-	-- 	swap.swap_previous("@parameter.inner")
-	-- end, { desc = "TS: swap previous parameter" })
-	_ = swap -- keep require side-effects without unused warning
 end

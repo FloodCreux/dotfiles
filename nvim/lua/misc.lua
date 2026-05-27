@@ -9,13 +9,8 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	pattern = "*",
 })
 
--- Set filetype for .razor files
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-	pattern = "*.razor",
-	callback = function()
-		vim.bo.filetype = "cs"
-	end,
-})
+-- Note: .razor / .cshtml filetype registration lives in plugins/lsp.lua
+-- (alongside the roslyn.nvim setup) so that rzls and Roslyn pick them up.
 
 -- Set filetype for C3 files
 vim.filetype.add({

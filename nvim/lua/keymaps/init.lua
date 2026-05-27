@@ -7,7 +7,7 @@ map("v", "K", ":m '<-2<CR>gv=gv", { silent = true })
 map({ "n", "v" }, "<leader>y", [["+y]])
 map("n", "<leader>Y", [["+Y]])
 
-map({ "n", "v", "x" }, "<leader>s", ":e #<CR>")
+map({ "n", "v", "x" }, "<leader><tab>", ":e #<CR>")
 
 map("n", "<esc><esc>", "<cmd>nohlsearch<cr>", { silent = true })
 

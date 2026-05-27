@@ -7,10 +7,10 @@ vim.keymap.set("n", "<leader>dc", dap.continue, { desc = "Debug: Start/Continue"
 vim.keymap.set("n", "<F1>", dap.step_into, { desc = "Debug: Step Into" })
 vim.keymap.set("n", "<F2>", dap.step_over, { desc = "Debug: Step Over" })
 vim.keymap.set("n", "<F3>", dap.step_out, { desc = "Debug: Step Out" })
-vim.keymap.set("n", "<leader>b", dap.toggle_breakpoint, { desc = "Debug: Toggle Breakpoint" })
-vim.keymap.set("n", "<leader>B", function()
+vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "Debug: Toggle Breakpoint" })
+vim.keymap.set("n", "<leader>dB", function()
 	dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
-end, { desc = "Debug: Set Breakpoint" })
+end, { desc = "Debug: Set Conditional Breakpoint" })
 
 -- local debugpy_path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
 -- dappy.setup(debugpy_path)
@@ -71,8 +71,6 @@ end
 -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
 vim.keymap.set("n", "<F7>", dapui.toggle, { desc = "Debug: See last session result." })
 
-require("lazydev").setup({})
-
 if not dap.adapters["netcoredbg"] then
 	require("dap").adapters["netcoredbg"] = {
 		type = "executable",
@@ -91,7 +89,7 @@ for _, lang in ipairs({ "cs", "fsharp", "vb" }) do
 				program = function()
 					return vim.fn.input("Path to dll: ", vim.fn.getcwd() .. "/", "file")
 				end,
-				cwd = "$${workspaceFolder}",
+				cwd = "${workspaceFolder}",
 			},
 		}
 	end
@@ -116,11 +114,12 @@ dap.adapters.gdb = {
 }
 
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = "python", -- Changed from "py" to "python"
-	callback = function()
-		vim.keymap.set("n", "<leader>dn", dappy.test_method, { desc = "Python: Test Method" })
-		vim.keymap.set("n", "<leader>df", dappy.test_class, { desc = "Python: Test Class" })
-		vim.keymap.set("n", "<leader>ds", dappy.debug_selection, { desc = "Python: Debug Selection" })
+	pattern = "python",
+	callback = function(args)
+		local opts = { buffer = args.buf }
+		vim.keymap.set("n", "<leader>dn", dappy.test_method, vim.tbl_extend("force", opts, { desc = "Python: Test Method" }))
+		vim.keymap.set("n", "<leader>df", dappy.test_class, vim.tbl_extend("force", opts, { desc = "Python: Test Class" }))
+		vim.keymap.set("n", "<leader>ds", dappy.debug_selection, vim.tbl_extend("force", opts, { desc = "Python: Debug Selection" }))
 	end,
 })
 
