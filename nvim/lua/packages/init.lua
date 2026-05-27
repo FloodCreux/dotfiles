@@ -11,28 +11,15 @@ local M = {
 	gh("MunifTanjim/nui.nvim"),
 	gh("igorlfs/nvim-dap-view"),
 	gh("nvim-neotest/nvim-nio"),
-	-- gh("nvim-tree/nvim-web-devicons"),
-
-	-- Snippets
-	-- USING MINI SNIPPETS
-	-- gh("L3MON4D3/LuaSnip"),
 
 	-- Package Manager
 	gh("adriankarlen/plugin-view.nvim"),
-
-	-- Completion
-	-- gh("hrsh7th/nvim-cmp"),
-	-- gh("hrsh7th/cmp-nvim-lsp"),
-	-- gh("saadparwaiz1/cmp_luasnip"),
-	-- gh("hrsh7th/cmp-path"),
 
 	-- LSP
 	gh("mason-org/mason.nvim"),
 	gh("scalameta/nvim-metals"),
 	gh("stevearc/conform.nvim"),
 	gh("benomahony/uv.nvim"),
-	-- gh("OXY2DEV/markview.nvim"),
-	-- gh("MeanderingProgrammer/render-markdown.nvim"),
 
 	gh("tris203/rzls.nvim"),
 	gh("seblyng/roslyn.nvim"),
@@ -40,7 +27,6 @@ local M = {
 	-- Debug
 	gh("mfussenegger/nvim-dap"),
 	gh("mfussenegger/nvim-dap-python"),
-	gh("nvim-neotest/nvim-nio"),
 	gh("rcarriga/nvim-dap-ui"),
 	gh("folke/trouble.nvim"),
 	gh("leoluz/nvim-dap-go"),
@@ -74,7 +60,6 @@ local M = {
 
 	-- Color Schemes
 	gh("blazkowolf/gruber-darker.nvim"),
-	-- gh("catppuccin/nvim", { name = "catppuccin" }),
 
 	-- File Manager
 	gh("mikavilpas/yazi.nvim"),
