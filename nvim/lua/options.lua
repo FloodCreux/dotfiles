@@ -1,57 +1,58 @@
 vim.o.termguicolors = true
 
--- Set highlight on search
-vim.o.hlsearch = true
-
--- Make line numbers default
+-- Line numbers
 vim.wo.number = true
 vim.o.relativenumber = true
 
--- Tab Spacing
+-- Tab spacing
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 
--- Disable mouse mode
+-- Enable mouse in all modes (including command line)
 vim.o.mouse = "a"
 
--- Enable break indent
+-- Wrapped lines keep indent
 vim.o.breakindent = true
 
--- Save undo history
+-- Persistent undo
 vim.o.undofile = true
 
--- Case insensitive searching UNLESS /C or capital in search
+-- Smart case search
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
--- Decrease update time
+-- Faster CursorHold / diagnostics + always-on sign column
 vim.o.updatetime = 250
 vim.wo.signcolumn = "yes"
 
--- Set colorscheme
---vim.cmd [[colorscheme onedark]]
+-- Colorscheme
 vim.cmd.colorscheme("gruber-darker")
 
---vim.cmd()
+-- System clipboard for all yank/put
 vim.opt.clipboard = "unnamedplus"
 
--- Set completeopt to have a better completion experience
+-- Completion menu behavior
 vim.o.completeopt = "menu,menuone,noselect"
 
--- Conceal level (used for markdown rendering, etc.)
+-- Conceal level (markdown rendering, etc.)
 vim.o.conceallevel = 2
 
+-- Keep terminal block cursor in all modes
 vim.o.guicursor = ""
 
+-- Keep 10 lines of context around cursor
 vim.o.scrolloff = 10
 
+-- No swap files
 vim.opt.swapfile = false
-vim.opt.backup = false
 
+-- Mode shown by statusline, not the command area
 vim.opt.showmode = false
 
--- Note: <leader> is set in init.lua before any plugins are loaded.
-
+-- Rounded borders for floating windows
 vim.o.winborder = "rounded"
 
-vim.env.PATH = vim.env.PATH .. ":/run/current-system/sw/bin"
+-- NixOS system path (no-op elsewhere)
+if vim.uv.os_uname().sysname == "Linux" and vim.uv.fs_stat("/run/current-system/sw/bin") then
+	vim.env.PATH = vim.env.PATH .. ":/run/current-system/sw/bin"
+end
