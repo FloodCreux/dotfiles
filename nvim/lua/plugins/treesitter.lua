@@ -1,127 +1,119 @@
--- [[ Configure Treesitter ]]
--- See `:help nvim-treesitter`
--- vim.cmd("TSUpdate")
+-- [[ Configure Treesitter (nvim-treesitter `main` branch) ]]
+-- See `:help nvim-treesitter` and https://github.com/nvim-treesitter/nvim-treesitter
 
--- Configure custom parsers BEFORE setup
-local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-parser_config.nu = {
-	install_info = {
-		url = "https://github.com/nushell/tree-sitter-nu",
-		files = { "src/parser.c", "src/scanner.c" },
-		branch = "main",
-	},
-	filetype = "nu",
-}
+local install_dir = vim.fn.stdpath("data") .. "/site"
+vim.opt.runtimepath:prepend(install_dir)
 
-parser_config.c3 = {
-	install_info = {
-		url = "https://github.com/c3lang/tree-sitter-c3",
-		files = { "src/parser.c", "src/scanner.c" },
-		branch = "main",
-	},
-	filetype = "c3",
-}
-
-vim.opt.runtimepath:prepend(vim.fn.stdpath("data") .. "/site")
----@diagnostic disable-next-line
-require("nvim-treesitter.configs").setup({
-	-- Add languages to be installed here that you want installed for treesitter
-	ensure_installed = {
-		"bash",
-		"c3",
-		"css",
-		"ghostty",
-		"go",
-		"helm",
-		"html",
-		"javascript",
-		"json",
-		"kdl",
-		-- "latex",
-		"lua",
-		"markdown",
-		"markdown_inline",
-		"norg",
-		"nu",
-		"org",
-		"python",
-		"regex",
-		"rust",
-		"scala",
-		"scss",
-		"sql",
-		"svelte",
-		"terraform",
-		"tmux",
-		"tsx",
-		"typescript",
-		"typst",
-		"toml",
-		"vue",
-		"yaml",
-	},
-
-	highlight = {
-		enable = true,
-		disable = { "go" },
-	},
-	indent = { enable = true },
-	incremental_selection = {
-		enable = true,
-		keymaps = {
-			init_selection = "<c-space>",
-			node_incremental = "<c-space>",
-			scope_incremental = "<c-s>",
-			node_decremental = "<c-backspace>",
-		},
-	},
-	textobjects = {
-		select = {
-			enable = false,
-			lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-			keymaps = {
-				-- You can use the capture groups defined in textobjects.scm
-				["aa"] = "@parameter.outer",
-				["ia"] = "@parameter.inner",
-				-- ['aF'] = '@function.outer',
-				-- ['iF'] = '@function.inner',
-				["ac"] = "@class.outer",
-				["ic"] = "@class.inner",
-				["ii"] = "@conditional.inner",
-				["ai"] = "@conditional.outer",
-				-- ['il'] = '@loop.inner',
-				-- ['al'] = '@loop.outer',
-				["at"] = "@comment.outer",
+-- Register custom parsers (nu, c3) via the `User TSUpdate` hook so `:TSUpdate`
+-- and `:TSInstall` know about them.
+vim.api.nvim_create_autocmd("User", {
+	pattern = "TSUpdate",
+	callback = function()
+		local parsers = require("nvim-treesitter.parsers")
+		parsers.nu = {
+			install_info = {
+				url = "https://github.com/nushell/tree-sitter-nu",
+				branch = "main",
 			},
+		}
+		parsers.c3 = {
+			install_info = {
+				url = "https://github.com/c3lang/tree-sitter-c3",
+				branch = "main",
+			},
+		}
+	end,
+})
+
+require("nvim-treesitter").setup({
+	install_dir = install_dir,
+})
+
+-- Parsers to install. Installation is asynchronous; this is a no-op once
+-- they are present.
+local ensure_installed = {
+	"bash",
+	"c3",
+	"css",
+	"go",
+	"helm",
+	"html",
+	"javascript",
+	"json",
+	"kdl",
+	"lua",
+	"markdown",
+	"markdown_inline",
+	"nu",
+	"python",
+	"regex",
+	"rust",
+	"scala",
+	"scss",
+	"sql",
+	"svelte",
+	"terraform",
+	"tmux",
+	"tsx",
+	"typescript",
+	"typst",
+	"toml",
+	"vue",
+	"yaml",
+	-- Note: `ghostty` is installed via the `tree-sitter-ghostty` plugin's
+	-- own `make nvim_install` build step, not through nvim-treesitter.
+}
+
+require("nvim-treesitter").install(ensure_installed)
+
+-- Enable highlighting for every installed/known parser via a single FileType
+-- autocmd. `go` is disabled intentionally (matches the previous config).
+local disabled_highlight = { go = true }
+vim.api.nvim_create_autocmd("FileType", {
+	callback = function(args)
+		local ft = args.match
+		if disabled_highlight[ft] then
+			return
+		end
+		local lang = vim.treesitter.language.get_lang(ft) or ft
+		if not pcall(vim.treesitter.start, args.buf, lang) then
+			return
+		end
+		-- Treesitter-based indentation (still considered experimental upstream).
+		vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+	end,
+})
+
+-- Incremental selection (previously provided by configs.setup).
+vim.keymap.set("n", "<c-space>", function()
+	if vim.treesitter.get_parser(0, nil, { error = false }) then
+		vim.cmd("normal! v")
+		require("vim.treesitter._range")
+	end
+end, { silent = true, desc = "Treesitter init selection" })
+
+-- ---------------------------------------------------------------------------
+-- nvim-treesitter-textobjects (also `main`-branch new API)
+-- ---------------------------------------------------------------------------
+local ok_to, textobjects = pcall(require, "nvim-treesitter-textobjects")
+if ok_to then
+	textobjects.setup({
+		select = {
+			lookahead = true,
 		},
 		move = {
-			enable = false,
-			set_jumps = true, -- whether to set jumps in the jumplist
-			goto_next_start = {
-				["]f"] = "@function.outer",
-				["]]"] = "@class.outer",
-			},
-			goto_next_end = {
-				["]F"] = "@function.outer",
-				["]["] = "@class.outer",
-			},
-			goto_previous_start = {
-				["[f"] = "@function.outer",
-				["[["] = "@class.outer",
-			},
-			goto_previous_end = {
-				["[F"] = "@function.outer",
-				["[]"] = "@class.outer",
-			},
+			set_jumps = true,
 		},
-		swap = {
-			enable = true,
-			swap_next = {
-				["<leader>a"] = "@parameter.inner",
-			},
-			swap_previous = {
-				["<leader>A"] = "@parameter.inner",
-			},
-		},
-	},
-})
+	})
+
+	local swap = require("nvim-treesitter-textobjects.swap")
+	-- Note: <leader>a / <leader>A collide with multicursor maps. Disabled by
+	-- default; uncomment if you want them.
+	-- vim.keymap.set("n", "<leader>a", function()
+	-- 	swap.swap_next("@parameter.inner")
+	-- end, { desc = "TS: swap next parameter" })
+	-- vim.keymap.set("n", "<leader>A", function()
+	-- 	swap.swap_previous("@parameter.inner")
+	-- end, { desc = "TS: swap previous parameter" })
+	_ = swap -- keep require side-effects without unused warning
+end

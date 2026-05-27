@@ -85,12 +85,32 @@ function M.get_typescript_server_path(root_dir)
 	local project_roots = vim.fs.find("node_modules", { path = root_dir, upward = true, limit = math.huge })
 	for _, project_root in ipairs(project_roots) do
 		local typescript_path = project_root .. "/typescript"
-		local stat = vim.loop.fs_stat(typescript_path)
+		local stat = vim.uv.fs_stat(typescript_path)
 		if stat and stat.type == "directory" then
 			return typescript_path .. "/lib"
 		end
 	end
 	return ""
+end
+
+--- Walk upward from `startpath`, invoking `func(path)` at each ancestor.
+--- Returns the first path for which `func` returns truthy, or nil.
+--- Mirrors `lspconfig.util.search_ancestors`.
+function M.search_ancestors(startpath, func)
+	vim.validate("func", func, "function")
+	if func(startpath) then
+		return startpath
+	end
+	local guard = 100
+	for path in vim.fs.parents(startpath) do
+		guard = guard - 1
+		if guard == 0 then
+			return
+		end
+		if func(path) then
+			return path
+		end
+	end
 end
 
 function M.tbl_flatten(t)

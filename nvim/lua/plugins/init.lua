@@ -1,11 +1,6 @@
 require("fidget").setup()
-require("uv").setup({
-	picker_integration = true,
-})
--- require("render-markdown").setup()
 require("plugin-view").setup()
 
--- require("plugins.cmp")
 require("plugins.buffer")
 require("plugins.conform")
 require("plugins.gitsigns")
@@ -16,7 +11,6 @@ require("plugins.multicursor")
 require("plugins.neogit")
 require("plugins.notifications")
 require("plugins.snacks")
-require("plugins.snippets")
 require("plugins.trouble")
 require("plugins.treesitter")
 require("plugins.uv")

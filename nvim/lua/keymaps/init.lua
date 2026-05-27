@@ -24,6 +24,5 @@ end)
 
 require("keymaps.opencode")
 require("keymaps.snacks")
--- require("keymaps.snippets")
 require("keymaps.trouble")
 require("keymaps.multicursor")

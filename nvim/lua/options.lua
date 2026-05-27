@@ -38,7 +38,7 @@ vim.opt.clipboard = "unnamedplus"
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = "menu,menuone,noselect"
 
--- Concealer for Neorg
+-- Conceal level (used for markdown rendering, etc.)
 vim.o.conceallevel = 2
 
 vim.o.guicursor = ""
@@ -50,14 +50,7 @@ vim.opt.backup = false
 
 vim.opt.showmode = false
 
--- [[ Basic Keymaps ]]
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
-vim.opt.modifiable = true
+-- Note: <leader> is set in init.lua before any plugins are loaded.
 
 vim.o.winborder = "rounded"
 
