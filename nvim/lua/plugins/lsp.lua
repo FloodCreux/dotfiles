@@ -55,7 +55,7 @@ local servers = {
 	"hls",
 	"zls",
 	"ty",
-	"csharp_ls",
+	-- "csharp_ls", -- disabled: roslyn (via roslyn.nvim) is the active C# LSP
 	"ts_ls",
 	"helm_ls",
 	"eslint",
@@ -63,6 +63,7 @@ local servers = {
 	"tailwindcss",
 	"ruff",
 	"ocamllsp",
+	"ols",
 }
 
 vim.lsp.enable(servers)

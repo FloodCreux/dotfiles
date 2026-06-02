@@ -32,8 +32,9 @@ require("conform").setup({
 		cs = { "csharpier" },
 		xml = { "xmllint" },
 		markdown = { "prettier" },
-		ocaml = { "ocamlformat" },
 		nix = { "nixfmt" },
+		ocaml = { "ocamlformat" },
+		odin = { "odinfmt" },
 		tf = { "terraform_fmt" },
 		terraform = { "terraform_fmt" },
 		typescript = { "prettier" },
@@ -50,6 +51,11 @@ require("conform").setup({
 		csharpier = {
 			command = "csharpier",
 			args = { "--write-stdout" },
+		},
+		odinfmt = {
+			command = "odinfmt",
+			args = { "-stdin" },
+			stdin = true,
 		},
 	},
 })
