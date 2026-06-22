@@ -89,9 +89,9 @@ if command -v mise >/dev/null 2>&1; then
 fi
 
 # Cert Setup
-export REQUESTS_CA_BUNDLE="$HOME/nscacert_combined.pem"
-export NODE_EXTRA_CA_CERTS="$HOME/nscacert_combined.pem"
-export NIX_SSL_CERT_FILE='/etc/ssl/certs/ca-certificates-combined.crt'
+# export REQUESTS_CA_BUNDLE="$HOME/nscacert_combined.pem"
+# export NODE_EXTRA_CA_CERTS="$HOME/nscacert_combined.pem"
+# export NIX_SSL_CERT_FILE='/etc/ssl/certs/ca-certificates-combined.crt'
 export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1
 
 # Docker/Podman

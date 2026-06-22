@@ -1,5 +1,19 @@
 -- Conform config
 local slow_format_filetypes = { scala = true }
+
+-- JS/TS-family filetypes are formatted via a dedicated `BufWritePre` autocmd
+-- (see below) so we can deterministically order: organize imports -> ESLint
+-- fix -> Prettier. They are excluded from conform's generic `format_on_save`
+-- to avoid double-formatting.
+local js_ts_filetypes = {
+	javascript = true,
+	javascriptreact = true,
+	["javascript.jsx"] = true,
+	typescript = true,
+	typescriptreact = true,
+	["typescript.tsx"] = true,
+}
+
 require("conform").setup({
 	notify_on_error = false,
 	format_on_save = function(bufnr)
@@ -11,6 +25,10 @@ require("conform").setup({
 			return false
 		end
 		if slow_format_filetypes[vim.bo[bufnr].filetype] then
+			return false
+		end
+		-- JS/TS handled by the dedicated BufWritePre orchestration below.
+		if js_ts_filetypes[vim.bo[bufnr].filetype] then
 			return false
 		end
 		return {
@@ -58,4 +76,50 @@ require("conform").setup({
 			stdin = true,
 		},
 	},
+})
+
+-- JS/TS save-time orchestration.
+--
+-- Runs synchronously on `BufWritePre` in a deterministic order so the tools
+-- never fight each other:
+--   1. ts_ls `source.organizeImports` (sort + remove unused imports)
+--   2. ESLint `LspEslintFixAll` (rule autofixes)
+--   3. Prettier (formatting, via conform)
+--
+-- Each step is gated on the relevant LSP client actually being attached, so it
+-- is a no-op for stray JS/TS buffers opened outside a real project.
+local function client_attached(bufnr, name)
+	return #vim.lsp.get_clients({ bufnr = bufnr, name = name }) > 0
+end
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+	group = vim.api.nvim_create_augroup("js_ts_format_on_save", { clear = true }),
+	callback = function(args)
+		local bufnr = args.buf
+		if not js_ts_filetypes[vim.bo[bufnr].filetype] then
+			return
+		end
+
+		-- 1. Organize imports via ts_ls (synchronous so it completes first).
+		-- if client_attached(bufnr, "ts_ls") then
+		-- 	pcall(vim.lsp.buf.code_action, {
+		-- 		context = { only = { "source.organizeImports" }, diagnostics = {} },
+		-- 		apply = true,
+		-- 	})
+		-- end
+
+		-- 2. ESLint autofixes. `LspEslintFixAll` uses `request_sync`, so the
+		--    buffer is fully fixed before Prettier runs.
+		if client_attached(bufnr, "eslint") then
+			pcall(vim.cmd, "LspEslintFixAll")
+		end
+
+		-- 3. Prettier formatting (never fall back to an LSP formatter).
+		require("conform").format({
+			bufnr = bufnr,
+			formatters = { "prettier" },
+			timeout_ms = 1000,
+			lsp_format = "never",
+		})
+	end,
 })

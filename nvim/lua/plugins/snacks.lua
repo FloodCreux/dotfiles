@@ -75,6 +75,20 @@ require("snacks").setup({
 					"*.log",
 				},
 			},
+
+			grep = {
+				layout = { preset = "ivy_split" },
+				auto_close = false,
+				jump = {
+					close = false,
+					reuse_win = true,
+				},
+			},
+
+			lsp_references = {
+				layout = { preset = "ivy_split" },
+				jump = { close = false },
+			},
 		},
 	},
 	quickfile = { enabled = true },
