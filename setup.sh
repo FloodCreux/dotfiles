@@ -105,6 +105,7 @@ cd "$DOTFILES_DIR"
 # Array of packages to stow
 PACKAGES=(
     "aerospace"
+    "ai"
     "bash"
     "claude"
     "direnv"
@@ -171,6 +172,10 @@ SYMLINKS=(
     # Claude symlinks. These need to be one-off to not overwrite Claude generated items
     "$HOME/.claude/skills:$HOME/.config/claude/skills"
     "$HOME/.claude/settings.json:$HOME/.config/claude/settings.json"
+
+    # AI symlinks
+    "$HOME/.AGENTS.md:$HOME/.config/ai/AGENTS.MD"
+    "$HOME/.claude/.CLAUDE.md:$HOME/.config/ai/AGENTS.MD"
 )
 
 for link_def in "${SYMLINKS[@]}"; do
