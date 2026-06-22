@@ -65,6 +65,7 @@ local servers = {
 	"ocamllsp",
 	"ols",
 	"prismals",
+	"just",
 }
 
 vim.lsp.enable(servers)

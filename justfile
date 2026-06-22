@@ -58,8 +58,10 @@ update:
 brew-setup:
     @echo "[BREW] Installing taps..."
     @cd {{dotfiles_dir}} && grep '^tap' Brewfile | sed 's/tap "/brew tap /;s/"$//' | bash
+    @echo "[BREW] Trusting taps..."
+    @cd {{dotfiles_dir}} && grep '^tap' Brewfile | sed 's/tap "/brew trust /;s/"$//' | bash
     @echo "[BREW] Installing Brewfile packages..."
-    @cd {{dotfiles_dir}} && brew bundle install --verbose
+    @cd {{dotfiles_dir}} && brew bundle install --file ./Brewfile --verbose
 
 # Install/update packages from Brewfile
 brew:
