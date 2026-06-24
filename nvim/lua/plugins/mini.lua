@@ -2,7 +2,12 @@ require("mini.ai").setup({
 	n_lines = 500,
 })
 require("mini.bracketed").setup()
-require("mini.completion").setup()
+require("mini.completion").setup({
+	window = {
+		info = { height = 25, width = 60, border = "none" },
+		signature = { height = 10, width = 60, border = "none" },
+	},
+})
 require("mini.files").setup()
 require("mini.icons").setup()
 
@@ -40,8 +45,6 @@ statusline.section_location = function()
 	return "%2l:%-2v"
 end
 
--- I don't really use this too much
 -- require("mini.surround").setup()
 -- require("mini.operators").setup()
--- NOTE I don't like auto closing chars at the moment
 -- require("mini.pairs").setup()

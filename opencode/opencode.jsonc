@@ -3,5 +3,26 @@
   "default_agent": "plan",
   "model": "anthropic/claude-opus-4-6",
   "autoupdate": true,
+  "mcp": {
+    "ado-mcp": {
+      "type": "remote",
+      "url": "https://r1ado-mcp.r1rcm.com/mcp",
+      "enabled": true
+    },
+    "github-mcp": {
+      "type": "remote",
+      "url": "https://r1github-mcp.r1rcm.com/mcp",
+      "enabled": true
+    },
+    "linear-server": {
+      "type": "remote",
+      "url": "https://mcp.linear.app/mcp",
+      "enabled": true
+    },
+    "pagerduty-mcp": {
+      "type": "remote",
+      "url": "https://pagerduty-mcp.r1rcm.com/mcp",
+      "enabled": true
+    },
+  }
 }
-
