@@ -43,6 +43,10 @@ Before writing anything, gather context about what changed:
      - Ask the user if they'd like to create a Linear ticket for this work
      - If yes: create a ticket with a title and description based on the changes. Use the **default team** if one was provided by the caller, otherwise ask the user which team to create it under.
      - If no: continue without a ticket (the PR title won't have a ticket reference)
+5. Use `gh pr create --draft` with the title and body (creates as draft so you can review before teammates)
+6. Return the PR URL when complete (and the Linear ticket URL if one was created), and remind the user:
+   - The PR was created in **draft** state
+   - Once they've personally reviewed it, mark it "Ready for review" on GitHub so teammates can review
 
 ## Title format
 
@@ -82,4 +86,5 @@ Use this structure when the repo has no PR template:
 - [ ] Updated changelog files
 ```
 
-Fill in the Description section with a real summary derived from the diff — don't leave the HTML comment placeholder no em dashes, no `Co-Authored-By`.. Check the appropriate boxes in Type of Change based on what the diff shows.
+- Fill in the Description section with a real summary derived from the diff — don't leave the HTML comment placeholder no em dashes, no `Co-Authored-By`.. Check the appropriate boxes in Type of Change based on what the diff shows.
+- Link to Linear ticket if applicable
