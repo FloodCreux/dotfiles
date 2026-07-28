@@ -82,4 +82,4 @@ Use this structure when the repo has no PR template:
 - [ ] Updated changelog files
 ```
 
-Fill in the Description section with a real summary derived from the diff — don't leave the HTML comment placeholder, no em dashes, no `Co-Authored-By`.. Check the appropriate boxes in Type of Change based on what the diff shows.
+Fill in the Description section with a real summary derived from the diff — don't leave the HTML comment placeholder no em dashes, no `Co-Authored-By`.. Check the appropriate boxes in Type of Change based on what the diff shows.
