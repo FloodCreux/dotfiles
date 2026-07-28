@@ -1,3 +1,5 @@
+Include /Users/chmc-h022fl97xj/.colima/ssh_config
+
 Include ~/.config/colima/ssh_config
 
 # ~/.ssh/config
@@ -9,7 +11,7 @@ Host github-personal
     IdentityFile ~/.ssh/id_personal
     IdentitiesOnly yes
 
-# Personal GitHub account
+# Personal Codeberg account
 Host github-codeberg
     HostName codeberg.org
     User git
@@ -21,13 +23,6 @@ Host github-work
     HostName github.com
     User git
     IdentityFile ~/.ssh/id_work
-    IdentitiesOnly yes
-
-# Phare GitHub account
-Host github-phare
-    HostName github.com
-    User git
-    IdentityFile ~/.ssh/id_phare_rsa
     IdentitiesOnly yes
 
 # Default GitHub (fallback)

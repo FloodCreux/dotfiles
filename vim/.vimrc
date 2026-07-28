@@ -75,6 +75,18 @@ nnoremap <esc><esc> :nohlsearch<CR>
 " File explorer (using netrw)
 nnoremap <leader>pv :Explore<CR>
 
+" Align visual selection on a character (e.g. wraps 'column -t -s= -o=')
+function! s:AlignOnChar() abort
+  let l:char = input('Align on character: ', '=')
+  if l:char ==# ''
+    let l:char = '='
+  endif
+
+  let l:esc = shellescape(l:char)
+
+  execute "'<,'>!column -t -s" . l:esc . " -o" . l:esc
+endfunction
+
 " =============================================================================
 " Autocommands
 " =============================================================================

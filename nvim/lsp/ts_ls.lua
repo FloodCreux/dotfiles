@@ -128,5 +128,27 @@ return {
 				},
 			})
 		end, {})
+		--
+		-- vim.api.nvim_buf_create_user_command(bufnr, "LspTypescriptOrganizeImports", function()
+		-- 	local params = {
+		-- 		textDocument = vim.lsp.util.make_text_document_params(bufnr),
+		-- 		range = { start = { line = 0, character = 0 }, ["end"] = { line = 0, character = 0 } },
+		-- 		context = { only = { "source.organizeImports" }, diagnostics = {} },
+		-- 	}
+		--
+		-- 	local resp = client:request_sync("textDocument/codeAction", params, 1000, bufnr)
+		-- 	if not resp or not resp.result then
+		-- 		return
+		-- 	end
+		--
+		-- 	for _, action in ipairs(resp.result) do
+		-- 		if action.edit then
+		-- 			vim.lsp.util.apply_workspace_edit(action.edit, client.offset_encoding)
+		-- 		elseif action.command then
+		-- 			local command = type(action.command) == "table" and action.command or action
+		-- 			client:request_sync("workspace/executeCommand", command, 1000, bufnr)
+		-- 		end
+		-- 	end
+		-- end, {})
 	end,
 }

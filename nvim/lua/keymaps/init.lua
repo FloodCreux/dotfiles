@@ -22,6 +22,7 @@ map("n", "<leader>bo", function()
 	require("bafa").toggle()
 end)
 
+require("keymaps.align")
 require("keymaps.opencode")
 require("keymaps.snacks")
 require("keymaps.trouble")

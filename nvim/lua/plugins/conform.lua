@@ -102,6 +102,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 
 		-- 1. Organize imports via ts_ls (synchronous so it completes first).
 		-- if client_attached(bufnr, "ts_ls") then
+		-- 	-- pcall(vim.cmd, "LspTypescriptOrganizeImports")
 		-- 	pcall(vim.lsp.buf.code_action, {
 		-- 		context = { only = { "source.organizeImports" }, diagnostics = {} },
 		-- 		apply = true,

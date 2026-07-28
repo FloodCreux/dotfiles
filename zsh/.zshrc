@@ -99,3 +99,5 @@ export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1
 
 if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
 export PATH="$HOME/personal/Odin:$PATH"
+
+export PATH="/opt/homebrew/opt/util-linux/bin:$PATH"

@@ -19,10 +19,20 @@
       "url": "https://mcp.linear.app/mcp",
       "enabled": true
     },
+    "sentry-mcp": {
+      "type": "remote",
+      "url": "https://mcp.sentry.dev/mcp",
+      "enabled": true
+    },
     "pagerduty-mcp": {
       "type": "remote",
       "url": "https://pagerduty-mcp.r1rcm.com/mcp",
       "enabled": true
     },
+  },
+  "permission": {
+    "tmp": {
+      "/tmp/*": "allow"
+    }
   }
 }
