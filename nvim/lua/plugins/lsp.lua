@@ -57,6 +57,7 @@ local servers = {
 	"ty",
 	-- "csharp_ls", -- disabled: roslyn (via roslyn.nvim) is the active C# LSP
 	"ts_ls",
+	"tflint",
 	"helm_ls",
 	"eslint",
 	"jsonls",
