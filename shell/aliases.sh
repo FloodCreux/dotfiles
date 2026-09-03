@@ -35,6 +35,8 @@ else
     alias v='nvim'
 fi
 
+alias vv='~/nvim-macos-arm64/bin/nvim'
+
 # ============================================
 # NAVIGATION
 # ============================================
@@ -130,6 +132,10 @@ fi
 
 if command -v tmux >/dev/null 2>&1; then
     alias mat='osascript -e "tell application \"System Events\" to key code 126 using {command down}" && tmux neww "cmatrix"'
+fi
+
+if [ -x "$HOME/.config/sesh/scripts/dev_layout.sh" ]; then
+    alias dev='sh ~/.config/sesh/scripts/dev_layout.sh'
 fi
 
 # ============================================
