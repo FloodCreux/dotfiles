@@ -4,21 +4,21 @@ blacklist = [ "scratch" ]
 cache = true
 
 [default_session]
-startup_command = "nvim"
+windows = [ "dev" ]
 
 [[session]]
 name = "nvimconf"
 path = "~/personal/dotfiles/nvim"
-windows = [ "git" ] 
+windows = [ "dev" ]
 
 [[wildcard]]
 pattern = "~/personal/*"
-windows = [ "git" ] 
+windows = [ "dev" ]
 
 [[wildcard]]
 pattern = "~/work/*"
-windows = [ "git" ] 
+windows = [ "dev" ]
 
 [[window]]
-name = "git" 
-startup_script = "lazygit"
+name = "dev" 
+startup_script = "~/.config/sesh/scripts/dev_layout.sh"
