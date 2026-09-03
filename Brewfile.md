@@ -29,6 +29,7 @@ brew bundle cleanup
 ```
 
 Or use the justfile:
+
 ```bash
 just brew-setup     # Fresh system: install taps first, then all packages
 just brew           # Install/update Brewfile packages (taps already present)
@@ -47,21 +48,21 @@ just brew-cleanup   # Clean cache and old versions
 
 Third-party repositories for packages not in the official Homebrew repos:
 
-| Tap | Purpose | Packages |
-|-----|---------|----------|
-| `azure/azd` | Azure Developer CLI | azd |
-| `azure/functions` | Azure Functions tools | azure-functions-core-tools@4 |
-| `azure/kubelogin` | Azure Kubernetes auth | kubelogin |
-| `coursier/formulas` | Scala artifact fetcher | coursier (dependency) |
-| `databricks/tap` | Databricks CLI | databricks |
-| `felixkratz/formulae` | macOS custom bars | sketchybar, borders |
-| `homebrew/bundle` | Brewfile support | bundler functionality |
-| `homebrew/services` | Service management | brew services commands |
-| `isen-ng/dotnet-sdk-versions` | .NET SDK versions | dotnet (dependency) |
-| `koekeishiya/formulae` | macOS window managers | yabai, skhd (not currently used) |
-| `nikitabobko/tap` | Aerospace WM | aerospace |
-| `powershell/tap` | PowerShell for macOS | powershell |
-| `scalacenter/bloop` | Scala build server | bloop |
+| Tap                           | Purpose                | Packages                         |
+| ----------------------------- | ---------------------- | -------------------------------- |
+| `azure/azd`                   | Azure Developer CLI    | azd                              |
+| `azure/functions`             | Azure Functions tools  | azure-functions-core-tools@4     |
+| `azure/kubelogin`             | Azure Kubernetes auth  | kubelogin                        |
+| `coursier/formulas`           | Scala artifact fetcher | coursier (dependency)            |
+| `databricks/tap`              | Databricks CLI         | databricks                       |
+| `felixkratz/formulae`         | macOS custom bars      | sketchybar, borders              |
+| `homebrew/bundle`             | Brewfile support       | bundler functionality            |
+| `homebrew/services`           | Service management     | brew services commands           |
+| `isen-ng/dotnet-sdk-versions` | .NET SDK versions      | dotnet (dependency)              |
+| `koekeishiya/formulae`        | macOS window managers  | yabai, skhd (not currently used) |
+| `nikitabobko/tap`             | Aerospace WM           | aerospace                        |
+| `powershell/tap`              | PowerShell for macOS   | powershell                       |
+| `scalacenter/bloop`           | Scala build server     | bloop                            |
 
 ---
 
@@ -70,22 +71,26 @@ Third-party repositories for packages not in the official Homebrew repos:
 ### ☁️ Cloud & DevOps (13 packages)
 
 **Cloud Platforms:**
+
 - `awscli` - AWS command-line interface
 - `azure-cli` - Azure command-line interface
 - `azd` - Azure Developer CLI (infrastructure as code)
 - `azure-functions-core-tools@4` - Develop and test Azure Functions
 
 **Data Engineering:**
+
 - `databricks` - Databricks CLI for data/ML workflows
 - `apache-spark` - Big data processing engine
 
 **Container & Orchestration:**
+
 - `docker` - Container platform
 - `docker-compose` - Multi-container Docker apps
 - `helm` - Kubernetes package manager
 - `kubelogin` - Azure AD auth for Kubernetes
 
 **Infrastructure:**
+
 - `pass` - Unix password manager (GPG-based)
 - `nmap` - Network security scanner
 - `sqlcmd` - SQL Server command-line tool
@@ -95,6 +100,7 @@ Third-party repositories for packages not in the official Homebrew repos:
 ### 💻 Development Tools
 
 #### Build Systems & Compilers (10 packages)
+
 - `cmake` / `cmake-docs` - Cross-platform build system
 - `ninja` - Small build system with focus on speed
 - `autoconf-archive` / `automake` - GNU build tools
@@ -104,11 +110,13 @@ Third-party repositories for packages not in the official Homebrew repos:
 - `gpatch` - GNU patch utility
 
 #### Language Servers & LSP (3 packages)
+
 - `lua-language-server` - Lua LSP for Neovim
 - `rust-analyzer` - Rust LSP
 - `jdtls` - Java language server (Eclipse JDT)
 
 #### Version Managers (2 packages)
+
 - `pyenv` - Python version management
 - `opam` - OCaml package manager
 
@@ -117,21 +125,25 @@ Third-party repositories for packages not in the official Homebrew repos:
 ### 🐍 Python Ecosystem (11 packages)
 
 **Package Management:**
+
 - `poetry` - Dependency management and packaging
 - `pipx` - Install Python apps in isolated environments
 - `uv` - Ultra-fast Python package installer (Rust-based)
 
 **Code Quality:**
+
 - `ruff` - ⚡ Fast Python linter/formatter (replaces black + isort + flake8)
 - `black` - Opinionated code formatter (legacy, prefer ruff)
 - `isort` - Import statement sorter (legacy, prefer ruff)
 - `mypy` - Static type checker
 
 **Development:**
+
 - `python@3.11` - Python 3.11 runtime
 - `jupyterlab` - Interactive notebook environment
 
 **Dependencies:**
+
 - `qt` - Cross-platform UI framework (JupyterLab dependency)
 
 ---
@@ -149,12 +161,14 @@ Third-party repositories for packages not in the official Homebrew repos:
 ### 🛠️ Shell Enhancements (7 packages)
 
 **Modern CLI Replacements:**
+
 - `eza` - Modern replacement for `ls` (colors, icons, git integration)
 - `fd` - Modern replacement for `find` (fast, intuitive)
 - `fzf` - Fuzzy finder (essential for workflows)
 - `zoxide` - Smart `cd` command (learns your patterns)
 
 **Shell Utilities:**
+
 - `direnv` - Load/unload environment variables per directory
 - `zsh-autosuggestions` - Fish-like autosuggestions for zsh
 - `tmux` - Terminal multiplexer
@@ -221,22 +235,27 @@ Third-party repositories for packages not in the official Homebrew repos:
 ## Casks (GUI Applications)
 
 ### Window Management & Productivity
+
 - `aerospace` - Tiling window manager
 - `raycast` - Spotlight replacement with plugins
 
 ### Terminal Emulators
+
 - `ghostty` - Fast GPU-accelerated terminal
 - `warp` - Modern terminal with AI features
 
 ### Web Browsers
+
 - `zen` - Privacy-focused browser
 - `zen-browser` - Alternative zen distribution
 
 ### Development Tools
+
 - `dbeaver-community` - Universal database tool
 - `devtoys` - Developer utilities (formatters, encoders, etc.)
 
 ### Font Tools
+
 - `font-hack-nerd-font` - Patched font with icons
 - `fontforge` / `fontforge-app` - Font editor
 
@@ -306,11 +325,13 @@ brew bundle dump --describe --force
 ### Adding New Packages
 
 1. Install the package:
+
    ```bash
    brew install package-name
    ```
 
 2. Update Brewfile:
+
    ```bash
    make brew-dump
    # or
@@ -328,6 +349,7 @@ brew bundle dump --describe --force
 1. Remove from Brewfile (edit manually or use cleanup)
 
 2. Uninstall the package:
+
    ```bash
    brew uninstall package-name
    ```
@@ -342,12 +364,14 @@ brew bundle dump --describe --force
 If you need different packages on different machines:
 
 1. Create a `Brewfile.local`:
+
    ```ruby
    # Machine-specific packages
    brew "specific-tool"
    ```
 
 2. Install both:
+
    ```bash
    brew bundle
    brew bundle --file=Brewfile.local
@@ -371,6 +395,7 @@ If you need different packages on different machines:
 ### Why Leaf Packages Only?
 
 This Brewfile only lists **explicitly installed** packages. Dependencies are automatically managed by Homebrew, which:
+
 - Reduces file size and maintenance
 - Prevents version conflicts
 - Makes updates easier
@@ -379,6 +404,7 @@ This Brewfile only lists **explicitly installed** packages. Dependencies are aut
 ### Python Formatter Migration
 
 **Note:** `black` and `isort` are legacy entries. The setup has migrated to `ruff` which provides:
+
 - ⚡ 10-100x faster performance
 - Combined linting + formatting
 - Drop-in replacement for black, isort, flake8, and more
@@ -388,6 +414,7 @@ These may be removed in a future cleanup.
 ### Package Manager Philosophy
 
 Where multiple tools exist for the same purpose:
+
 - `eza` over `ls` - Better defaults, Git integration
 - `fd` over `find` - Simpler syntax, faster
 - `xh` over `httpie` - Rust performance, same UX
