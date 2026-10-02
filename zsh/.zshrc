@@ -101,3 +101,6 @@ if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)
 export PATH="$HOME/personal/Odin:$PATH"
 
 export PATH="/opt/homebrew/opt/util-linux/bin:$PATH"
+
+# Added by bifrost installer
+export PATH="$HOME/.bifrost/bin:$PATH"

@@ -48,3 +48,16 @@ end
 -- require("mini.surround").setup()
 -- require("mini.operators").setup()
 -- require("mini.pairs").setup()
+
+-- Stop any lingering snippet session when leaving Insert/Select mode, so
+-- empty-tabstop markers (• / ∎) never stay on screen in Normal mode.
+vim.api.nvim_create_autocmd("ModeChanged", {
+	group = vim.api.nvim_create_augroup("MiniSnippetsAutoStop", { clear = true }),
+	pattern = "*:n",
+	callback = function()
+		while require("mini.snippets").session.get() do
+			require("mini.snippets").session.stop()
+		end
+	end,
+	desc = "Stop snippet sessions on exit to Normal model",
+})

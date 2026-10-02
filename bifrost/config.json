@@ -1,0 +1,13 @@
+{
+	"$schema": "https://www.getbifrost.ai/schema",
+	"client": {
+		"drop_excess_requests": false
+	},
+	"providers": {
+		"r1rcm": {
+			"network_config": {
+				"base_url": "https://bifrost.r1rcm.com"
+			}
+		}
+	}
+}

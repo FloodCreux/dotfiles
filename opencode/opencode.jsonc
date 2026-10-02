@@ -29,6 +29,18 @@
       "url": "https://pagerduty-mcp.r1rcm.com/mcp",
       "enabled": true
     },
+    "argocd-mcp": {
+      "type": "local",
+      "command": [
+        "npx",
+        "argocd-mcp@latest",
+        "stdio"
+      ],
+      "environment": {
+        "ARGOCD_BASE_URL": "https://argocd.sharedscf.r1rcm.com/",
+        "ARGOCD_API_TOKEN": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjI2MjljNDdlYWQyOWNlNDc3NTI2Njg3ODU3MGE4YjRjZDUwMDdkMDQifQ.eyJpc3MiOiJodHRwczovL2FyZ29jZC5zaGFyZWRzY2YucjFyY20uY29tL2FwaS9kZXgiLCJzdWIiOiJDaXMyVlVkSk1EQllkWHB1WmtONFFqUklOWGcyYkRoSmVtWlJiVEpvYzJJMExXbGhYM1pXVjBSQldVVnJFZ1J6WVcxcyIsImF1ZCI6ImFyZ28tY2QiLCJleHAiOjE3ODg5NjQ1NDUsImlhdCI6MTc4ODg3ODE0NSwiYXRfaGFzaCI6IllhdnR6NWxFclpMWk5ZMkdjQ1g5UGciLCJjX2hhc2giOiJHVUdGbHpBM25MQTh3NlUtVnAzODRnIiwiZW1haWwiOiJtZmxvb2RAcjFyY20uY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImdyb3VwcyI6WyI2OGM4Yjc4Zi1hM2QwLTQ3NWUtODY3Ni1iNmY3NGJlMTE3MWIiLCIyZTg1ZWNhMi0zNjE5LTQyYjUtODI0MS1iMWVhMzA3OTE2OTYiLCJkMWExMDhkNC0yNGZiLTQ3MjgtODdkZC05OTc5NjZlOWRlYTYiXSwibmFtZSI6ImViYWQ0ZmYwLTI3OGItNDFiYy04ODdhLTgzYjYwYTg5NzBhYSJ9.QuFHir5WboysXTl_hgbp7BBjf2bEq9-gdIZKz3h7Q4i35J_0RnfnuxRDzTp90JGQ3IfcG1R7iPdkkpE1rN5fks7cDIQow86rHmQnVFJ2-SCi8djYr_86fsSmV8zLEX_DtULl1q7k5Smpdfj30jNlhDjS3SMe8pxZVWfO7IDvAOvqSB_sIf84y-VZsU8diHxiq7jCUbXUP0UXlzuVkJmHj4nCousnYASaHSBB4Z01Jb0_tgYUuSLkWY-UHXCrx5rSIfmebMEDPEF9coWa-gTKVEHmbEPl-yMQapA1Mm24lYj8NTh-4TZLROxKz8-sc0QN-lsRowZ0Bl0xsoTQtIbAYA"
+      }
+    }
   },
   "permission": {
     "tmp": {

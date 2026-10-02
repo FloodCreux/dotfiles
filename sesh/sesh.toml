@@ -3,9 +3,6 @@
 blacklist = [ "scratch" ]
 cache = true
 
-[default_session]
-windows = [ "dev" ]
-
 [[session]]
 name = "nvimconf"
 path = "~/personal/dotfiles/nvim"

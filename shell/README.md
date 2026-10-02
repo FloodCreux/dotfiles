@@ -31,6 +31,13 @@ Reusable shell functions:
 
 All functions include error handling and dependency checks.
 
+## Fish
+
+Fish cannot source these POSIX/bash files (`env.sh` uses arrays and `[[ ]]`),
+so `fish/config.fish` is a native port of `env.sh`, `aliases.sh`, `functions.sh`
+and the relevant parts of `.zshrc`. **Keep it in sync by hand** when you add or
+change aliases, functions, or environment variables here.
+
 ## Usage
 
 These files are automatically sourced by `.bashrc` and `.zshrc`:
