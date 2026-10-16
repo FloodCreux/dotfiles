@@ -36,6 +36,7 @@ local ensure_installed = {
 	"c3",
 	"css",
 	"go",
+	"git_config",
 	"helm",
 	"html",
 	"javascript",
@@ -53,7 +54,6 @@ local ensure_installed = {
 	"sql",
 	"svelte",
 	"terraform",
-	"tmux",
 	"tsx",
 	"typescript",
 	"typst",
@@ -78,6 +78,16 @@ vim.api.nvim_create_autocmd("FileType", {
 		local lang = vim.treesitter.language.get_lang(ft) or ft
 		pcall(vim.treesitter.start, args.buf, lang)
 	end,
+})
+
+vim.filetype.add({
+	extension = {
+		conf = "git_config",
+	},
+	pattern = {
+		[".*/etc/.*%.conf"] = "bash",
+		[".*tmux%.conf"] = "tmux",
+	},
 })
 
 -- ---------------------------------------------------------------------------

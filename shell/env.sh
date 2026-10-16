@@ -77,6 +77,7 @@ PATH_COMPONENTS=(
     "$HOME/.cargo/bin"
     "$HOME/.dotnet/tools"
     "$HOME/.nix-profile/bin"
+    "/Applications/love.app/Contents/MacOS"
 )
 
 # Rebuild PATH with only existing directories
