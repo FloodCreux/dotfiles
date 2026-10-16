@@ -28,14 +28,14 @@ help:
 # Install dotfiles (stow configs only)
 install:
     @echo "[INSTALL] Setting up dotfiles..."
-    @chmod +x {{dotfiles_dir}}/setup.sh
-    @bash {{dotfiles_dir}}/setup.sh
+    @chmod +x {{ dotfiles_dir }}/setup.sh
+    @bash {{ dotfiles_dir }}/setup.sh
 
 # Full bootstrap (install Homebrew, packages, and dotfiles)
 bootstrap:
     @echo "[BOOTSTRAP] Bootstrapping fresh system..."
-    @chmod +x {{dotfiles_dir}}/install.sh
-    @bash {{dotfiles_dir}}/install.sh
+    @chmod +x {{ dotfiles_dir }}/install.sh
+    @bash {{ dotfiles_dir }}/install.sh
 
 # ============================================
 # UPDATE
@@ -44,10 +44,10 @@ bootstrap:
 # Update dotfiles from git and restow
 update:
     @echo "[UPDATE] Updating dotfiles..."
-    @git -C {{dotfiles_dir}} pull --rebase
+    @git -C {{ dotfiles_dir }} pull --rebase
     @echo "[UPDATE] Restowing packages..."
-    @chmod +x {{dotfiles_dir}}/setup.sh
-    @bash {{dotfiles_dir}}/setup.sh
+    @chmod +x {{ dotfiles_dir }}/setup.sh
+    @bash {{ dotfiles_dir }}/setup.sh
     @echo "[SUCCESS] Dotfiles updated!"
 
 # ============================================
@@ -57,19 +57,19 @@ update:
 # Install taps first, then install all packages from Brewfile (use on fresh system)
 brew-setup:
     @echo "[BREW] Installing taps..."
-    @cd {{dotfiles_dir}} && grep '^tap' Brewfile | sed 's/tap "/brew tap /;s/"$//' | bash
+    @cd {{ dotfiles_dir }} && grep '^tap' Brewfile | sed 's/tap "/brew tap /;s/"$//' | bash
     @echo "[BREW] Trusting taps..."
-    @cd {{dotfiles_dir}} && grep '^tap' Brewfile | sed 's/tap "/brew trust /;s/"$//' | bash
+    @cd {{ dotfiles_dir }} && grep '^tap' Brewfile | sed 's/tap "/brew trust /;s/"$//' | bash
     @echo "[BREW] Installing Brewfile packages..."
-    @cd {{dotfiles_dir}} && brew bundle install --file ./Brewfile --verbose
+    @cd {{ dotfiles_dir }} && brew bundle install --file ./Brewfile --verbose
 
 # Install/update packages from Brewfile
 brew:
     @echo "[BREW] Installing Brewfile packages..."
-    @cd {{dotfiles_dir}} && brew bundle install --file ./Brewfile --verbose
+    @cd {{ dotfiles_dir }} && brew bundle install --file ./Brewfile --verbose
 
 # Update all Homebrew packages
-brew-update: #fix-java-certs && fix-java-certs
+brew-update: fix-java-certs
     @echo "[BREW] Updating Homebrew..."
     @brew update
     @brew upgrade
@@ -79,7 +79,7 @@ brew-update: #fix-java-certs && fix-java-certs
 # Dump currently installed packages to Brewfile
 brew-dump:
     @echo "[BREW] Dumping Brewfile..."
-    @cd {{dotfiles_dir}} && brew bundle dump --force --describe
+    @cd {{ dotfiles_dir }} && brew bundle dump --force --describe
     @echo "[SUCCESS] Brewfile updated!"
 
 # Clean up Homebrew cache and old versions
@@ -97,8 +97,8 @@ brew-cleanup:
 # Remove all dotfile symlinks
 uninstall:
     @echo "[UNINSTALL] Removing dotfiles..."
-    @chmod +x {{dotfiles_dir}}/uninstall.sh
-    @bash {{dotfiles_dir}}/uninstall.sh
+    @chmod +x {{ dotfiles_dir }}/uninstall.sh
+    @bash {{ dotfiles_dir }}/uninstall.sh
 
 # ============================================
 # TESTING & VALIDATION
@@ -143,10 +143,10 @@ test-symlinks:
 status:
     @echo "Dotfiles Status"
     @echo ""
-    @echo "Location: {{dotfiles_dir}}"
+    @echo "Location: {{ dotfiles_dir }}"
     @echo ""
     @echo "Git Status:"
-    @git -C {{dotfiles_dir}} status --short
+    @git -C {{ dotfiles_dir }} status --short
     @echo ""
     @echo "Symlinks:"
     @for link in $HOME/.bashrc $HOME/.zshrc $HOME/.vimrc $HOME/.gitconfig $HOME/.ssh/config; do \
@@ -197,19 +197,19 @@ clean:
 # Commit current changes (interactive)
 commit:
     @echo "[GIT] Preparing commit..."
-    @git -C {{dotfiles_dir}} add -p
-    @git -C {{dotfiles_dir}} status
-    @read -p "Enter commit message: " msg && git -C {{dotfiles_dir}} commit -m "$$msg"
+    @git -C {{ dotfiles_dir }} add -p
+    @git -C {{ dotfiles_dir }} status
+    @read -p "Enter commit message: " msg && git -C {{ dotfiles_dir }} commit -m "$$msg"
 
 # Push changes to remote
 push:
     @echo "[GIT] Pushing to remote..."
-    @git -C {{dotfiles_dir}} push
+    @git -C {{ dotfiles_dir }} push
 
 # Pull changes from remote
 pull:
     @echo "[GIT] Pulling from remote..."
-    @git -C {{dotfiles_dir}} pull --rebase
+    @git -C {{ dotfiles_dir }} pull --rebase
 
 # ============================================
 # DEVELOPMENT
@@ -218,16 +218,16 @@ pull:
 # Open dotfiles directory in editor
 edit:
     @if command -v $EDITOR >/dev/null 2>&1; then \
-        $EDITOR {{dotfiles_dir}}; \
+        $EDITOR {{ dotfiles_dir }}; \
     else \
         echo "[WARN] EDITOR not set, opening in vim..."; \
-        vim {{dotfiles_dir}}; \
+        vim {{ dotfiles_dir }}; \
     fi
 
 # Show differences between installed configs and repository
 diff:
     @echo "[DIFF] Checking for differences..."
-    @git -C {{dotfiles_dir}} diff
+    @git -C {{ dotfiles_dir }} diff
 
 # ============================================
 # UTILITIES
@@ -235,38 +235,38 @@ diff:
 
 # Import Netskope CA cert into all writable JDK trust stores (needed for SSL inspection proxy)
 fix-java-certs:
-    # @echo "[CERTS] Importing Netskope CA into JDK trust stores..."
-    # @CERT="/Library/Application Support/Netskope/STAgent/data/nscacert.pem"; \
-    # if [ ! -f "$CERT" ]; then \
-    #     echo "[SKIP] Netskope cert not found — not behind SSL inspection proxy"; \
-    #     exit 0; \
-    # fi; \
-    # JDK_CANDIDATES=$( { \
-    #     ls -d /opt/homebrew/opt/openjdk*/libexec/openjdk.jdk/Contents/Home 2>/dev/null; \
-    #     ls -d /opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home 2>/dev/null; \
-    #     ls -d $HOME/Library/Java/JavaVirtualMachines/*/Contents/Home 2>/dev/null; \
-    #     ls -d $HOME/Library/Caches/Coursier/jvm/*/Contents/Home 2>/dev/null; \
-    #     ls -d $HOME/Library/Caches/Homebrew/java_cache/*/Contents/Home 2>/dev/null; \
-    # } | sort -u ); \
-    # for jdk in $JDK_CANDIDATES; do \
-    #     case "$jdk" in /nix/store/*) echo "  [SKIP] $jdk (read-only nix store)"; continue;; esac; \
-    #     CACERTS="$jdk/lib/security/cacerts"; \
-    #     if [ ! -f "$CACERTS" ] && [ -f "$jdk/jre/lib/security/cacerts" ]; then \
-    #         CACERTS="$jdk/jre/lib/security/cacerts"; \
-    #     fi; \
-    #     if [ ! -f "$CACERTS" ]; then echo "  [SKIP] $jdk (no cacerts)"; continue; fi; \
-    #     if [ ! -w "$CACERTS" ]; then echo "  [SKIP] $jdk (cacerts not writable)"; continue; fi; \
-    #     KEYTOOL="$jdk/bin/keytool"; \
-    #     if [ ! -x "$KEYTOOL" ]; then KEYTOOL=keytool; fi; \
-    #     if "$KEYTOOL" -list -keystore "$CACERTS" -storepass changeit -alias netskope-ca >/dev/null 2>&1; then \
-    #         echo "  [OK] $jdk (already imported)"; \
-    #     else \
-    #         "$KEYTOOL" -importcert -trustcacerts -alias netskope-ca \
-    #             -file "$CERT" -keystore "$CACERTS" -storepass changeit -noprompt >/dev/null 2>&1 && \
-    #         echo "  [OK] $jdk (imported)" || \
-    #         echo "  [FAIL] $jdk"; \
-    #     fi; \
-    # done; \
+    @echo "[CERTS] Importing Netskope CA into JDK trust stores..."
+    @CERT="/Library/Application Support/Netskope/STAgent/data/nscacert.pem"; \
+    if [ ! -f "$CERT" ]; then \
+        echo "[SKIP] Netskope cert not found — not behind SSL inspection proxy"; \
+        exit 0; \
+    fi; \
+    JDK_CANDIDATES=$( { \
+        ls -d /opt/homebrew/opt/openjdk*/libexec/openjdk.jdk/Contents/Home 2>/dev/null; \
+        ls -d /opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home 2>/dev/null; \
+        ls -d $HOME/Library/Java/JavaVirtualMachines/*/Contents/Home 2>/dev/null; \
+        ls -d $HOME/Library/Caches/Coursier/jvm/*/Contents/Home 2>/dev/null; \
+        ls -d $HOME/Library/Caches/Homebrew/java_cache/*/Contents/Home 2>/dev/null; \
+    } | sort -u ); \
+    for jdk in $JDK_CANDIDATES; do \
+        case "$jdk" in /nix/store/*) echo "  [SKIP] $jdk (read-only nix store)"; continue;; esac; \
+        CACERTS="$jdk/lib/security/cacerts"; \
+        if [ ! -f "$CACERTS" ] && [ -f "$jdk/jre/lib/security/cacerts" ]; then \
+            CACERTS="$jdk/jre/lib/security/cacerts"; \
+        fi; \
+        if [ ! -f "$CACERTS" ]; then echo "  [SKIP] $jdk (no cacerts)"; continue; fi; \
+        if [ ! -w "$CACERTS" ]; then echo "  [SKIP] $jdk (cacerts not writable)"; continue; fi; \
+        KEYTOOL="$jdk/bin/keytool"; \
+        if [ ! -x "$KEYTOOL" ]; then KEYTOOL=keytool; fi; \
+        if "$KEYTOOL" -list -keystore "$CACERTS" -storepass changeit -alias netskope-ca >/dev/null 2>&1; then \
+            echo "  [OK] $jdk (already imported)"; \
+        else \
+            "$KEYTOOL" -importcert -trustcacerts -alias netskope-ca \
+                -file "$CERT" -keystore "$CACERTS" -storepass changeit -noprompt >/dev/null 2>&1 && \
+            echo "  [OK] $jdk (imported)" || \
+            echo "  [FAIL] $jdk"; \
+        fi; \
+    done; \
     echo "[SUCCESS] JDK trust stores updated!"
 
 # List all backup directories
