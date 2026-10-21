@@ -7,7 +7,7 @@
 # symlinks for compatibility.
 # ============================================
 
-set -e  # Exit on error
+set -e # Exit on error
 
 # Colors for output
 RED='\033[0;31m'
@@ -111,6 +111,7 @@ PACKAGES=(
     "bash"
     "claude"
     "direnv"
+    "emacs"
     "fish"
     "ghostty"
     "git"
@@ -173,9 +174,13 @@ SYMLINKS=(
     "$HOME/.vimrc:$HOME/.config/vim/.vimrc"
     "$HOME/.gitconfig:$HOME/.config/git/.gitconfig"
 
+    # emacs symlinks
+    "$HOME/.emacs:$HOME/.config/emacs/emacs.el"
+
     # Claude symlinks. These need to be one-off to not overwrite Claude generated items
-    "$HOME/.claude/skills:$HOME/.config/claude/skills"
-    "$HOME/.claude/settings.json:$HOME/.config/claude/settings.json"
+    "$HOME/.claude:$HOME/.config/claude"
+    # "$HOME/.claude/skills:$HOME/.config/claude/skills"
+    # "$HOME/.claude/settings.json:$HOME/.config/claude/settings.json"
 
     # AI symlinks
     "$HOME/.AGENTS.md:$HOME/.config/ai/AGENTS.MD"
@@ -183,7 +188,7 @@ SYMLINKS=(
 )
 
 for link_def in "${SYMLINKS[@]}"; do
-    IFS=':' read -r link_path target_path <<< "$link_def"
+    IFS=':' read -r link_path target_path <<<"$link_def"
 
     # Remove existing file/link if it exists
     if [ -e "$link_path" ] || [ -L "$link_path" ]; then
