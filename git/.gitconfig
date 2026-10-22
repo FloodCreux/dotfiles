@@ -9,33 +9,7 @@
 [includeIf "gitdir:~/.config/**"]
   path = ~/.gitconfig-codeberg
 
-[commit]
-  gpgsign = true
-
-[tag]
-  forceSignAnnotated = false
-
-[rerere]
-  enabled = true
-
-[safe]
-  directory = ~/.local/share/nvim/lazy/fidget.nvim
-  directory = ~/.local/share/nvim/lazy/mason-lspconfig.nvim
-
-[init]
-  defaultBranch = main
-
-[core]
-  symlinks = true
-
 [alias]
-  # Note: These aliases reference environment variables for security.
-  # Set in your shell or git config:
-  #   export GIT_PERSONAL_EMAIL="your@email.com"
-  #   export GIT_PERSONAL_KEY="YOUR_KEY_ID"
-  #   export GIT_CODEBERG_EMAIL="your@codeberg.email"
-  #   export GIT_CODEBERG_KEY="YOUR_KEY_ID"
-
   # Push to GitHub with personal identity
   push-github = "!f() { \
       if [ -z \"$GIT_PERSONAL_EMAIL\" ] || [ -z \"$GIT_PERSONAL_KEY\" ]; then \
@@ -60,3 +34,59 @@
 
   # Push to both
   push-all = "!git push-github && git push-codeberg"
+
+[branch]
+  sort = -committerdate
+
+[column]
+  ui = auto
+
+[commit]
+  gpgsign = true
+
+[core]
+  symlinks = true
+  pager    = delta
+
+[delta]
+  navigate     = true
+  side-by-side = true
+
+[diff]
+  algorithm  = histogram
+  colorMoved = default
+
+[fetch]
+  prune = true
+
+[help]
+  autocorrect = prompt
+
+[init]
+  defaultBranch = main
+
+[interactive]
+  diffFilter = delta --color-only
+
+[merge]
+  conflictstyle = zdiff3
+
+[pull]
+  rebase = true
+
+[push]
+  autoSetupRemote = true
+
+[rebase]
+  autoSquash = true
+  updateRefs = true
+
+[rerere]
+  enabled = true
+
+[safe]
+  directory = ~/.local/share/nvim/lazy/fidget.nvim
+  directory = ~/.local/share/nvim/lazy/mason-lspconfig.nvim
+
+[tag]
+  forceSignAnnotated = false
