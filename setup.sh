@@ -241,6 +241,11 @@ if [ -d "$HOME/.config/sketchybar/plugins" ]; then
 fi
 
 # ============================================
+# INSTALL TMUX PLUGINS
+# ============================================
+~/.tmux/plugins/tpm/bin/install_plugins
+
+# ============================================
 # POST-INSTALL INSTRUCTIONS
 # ============================================
 echo ""

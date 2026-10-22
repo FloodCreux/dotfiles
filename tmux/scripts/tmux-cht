@@ -1,25 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-selected=$(cat ~/.config/tmux/.tmux-cht-languages ~/.config/tmux/.tmux-cht-command | fzf)
-if [[ -z "$selected" ]]; then
-    exit 0
-fi
+dir=~/.config/tmux
+selected=$(cat "$dir/.tmux-cht-languages" "$dir/.tmux-cht-command" | fzf) || exit 0
+[[ -z "$selected" ]] && exit 0
 
 read -rp "Enter Query: " query
+query=${query// /+}
 
-if grep -qs "$selected" ~/.config/tmux/.tmux-cht-languages; then
-    query=$(echo "$query" | tr ' ' '+')
-    if [[ -n "$query" ]]; then
-        tmux neww bash -c "echo 'curl cht.sh/$selected/$query/'; curl -s 'cht.sh/$selected/$query' | less -R"
-    else
-        tmux neww bash -c "curl -s 'cht.sh/$selected' | less -R"
-    fi
+if grep -qxF "$selected" "$dir/.tmux-cht-languages"; then
+    url="cht.sh/$selected${query:+/$query}"
 else
-    if [[ -n "$query" ]]; then
-        tmux neww bash -c "curl -s 'cht.sh/$selected~$query' | less -R"
-    else
-        tmux neww bash -c "curl -s 'cht.sh/$selected' | less -R"
-    fi
+    url="cht.sh/$selected${query:+~$query}"
 fi
 
+curl -s "$url" | less -R
