@@ -1,5 +1,4 @@
 gui:
-  showIcons: true
   theme:
     activeBorderColor:
       - '#ffdd33' # Gruber darker yellow accent
@@ -51,6 +50,7 @@ gui:
   scrollHeight: 2
   scrollOffMargin: 2
   sidePanelWidth: 0.3333
+  showDivergenceFromBaseBranch: arrowAndNumber
   expandFocusedSidePanel: false
   mainPanelSplitMode: 'flexible'
   language: 'auto'
@@ -72,6 +72,10 @@ git:
     signOff: false
     autoWrapCommitMessage: true
     autoWrapWidth: 72
+  commitPrefixes:
+    "*":
+      - pattern: "^\\w+/([A-Za-Z]+-\\d+).*"
+        replace: "$1: "
   log:
     order: 'topo-order'
     showGraph: 'always'
