@@ -4,16 +4,20 @@ description = "List and manage tmux sessions"
 requirements = ["tmux"]
 
 [source]
-command = "tmux list-sessions -F '#{session_name}\t#{session_windows} windows\t#{session_created_string}'"
-display = "{split:\t:0} ({split:\t:1})"
+command = "tmux list-sessions -F '#{session_name}\t#{session_windows} windows\t#{?session_attached,(attached),}'"
+display = "{split:\t:0} ({split:\t:1}) {split:\t:2}"
 output = "{split:\t:0}"
 
 [preview]
-command = "tmux capture-pane -t '{split:\t:0}' -p 2>/dev/null || echo 'No preview available'"
+command = "tmux capture-pane -e -p -t '{split:\t:0}' 2>/dev/null || echo 'No preview available'"
 
-[actions.attach]
-description = "Attach to the selected session"
-command = "tmux attach-session -t '{split:\t:0}'"
+[keybindings]
+enter = "actions:switch"
+ctrl-d = ["actions:kill", "reload_source"]
+
+[actions.switch]
+description = "Switch to the selected session (attaches when outside tmux)"
+command = "if [ -n \"$TMUX\" ]; then tmux switch-client -t '{split:\t:0}'; else tmux attach-session -t '{split:\t:0}'; fi"
 mode = "execute"
 
 [actions.kill]

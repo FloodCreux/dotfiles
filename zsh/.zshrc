@@ -73,6 +73,11 @@ if command -v fzf >/dev/null 2>&1; then
     eval "$(fzf --zsh)"
 fi
 
+# Television
+if command -v tv >/dev/null 2>&1; then
+    eval "$(tv init zsh)"
+fi
+
 # Zoxide
 if command -v zoxide >/dev/null 2>&1; then
     eval "$(zoxide init zsh)"

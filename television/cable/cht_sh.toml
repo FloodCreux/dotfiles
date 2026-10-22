@@ -1,0 +1,10 @@
+[metadata]
+name         = "cheat"
+description  = "cht.sh cheat sheets"
+requirements = ["curl"]
+
+[source]
+command = "cat ~/.config/tmux/.tmux-cht-languages ~/.config/tmux/.tmux-cht-command"
+
+[preview]
+command = "curl -s 'cht.sh/{}?T'"
