@@ -109,3 +109,14 @@ export PATH="/opt/homebrew/opt/util-linux/bin:$PATH"
 
 # Added by bifrost installer
 export PATH="$HOME/.bifrost/bin:$PATH"
+
+
+HISTSIZE=100000
+SAVEHIST=100000
+HISTFILE=~/.zsh_history
+
+setopt share_history hist_ignore_all_dups hist_ignore_space extended_history
+
+if [ -f "$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
+    source "$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi
