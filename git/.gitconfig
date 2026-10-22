@@ -84,9 +84,5 @@
 [rerere]
   enabled = true
 
-[safe]
-  directory = ~/.local/share/nvim/lazy/fidget.nvim
-  directory = ~/.local/share/nvim/lazy/mason-lspconfig.nvim
-
 [tag]
   forceSignAnnotated = false
