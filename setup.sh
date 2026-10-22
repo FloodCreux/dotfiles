@@ -75,7 +75,6 @@ BACKUP_TARGETS=(
     "$HOME/.config/fish/config.fish"
     "$HOME/.config/git"
     "$HOME/.config/starship"
-    "$HOME/.config/zellij"
 )
 
 BACKED_UP=0
@@ -124,7 +123,6 @@ PACKAGES=(
     "opencode"
     "sesh"
     "shell"
-    "sketchybar"
     "ssh"
     "starship"
     "television"
@@ -132,7 +130,6 @@ PACKAGES=(
     "vim"
     "worktrunk"
     "yazi"
-    "zellij"
     "zsh"
 )
 

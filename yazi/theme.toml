@@ -1,0 +1,14 @@
+[mgr]
+cwd          = { fg = "#ffdd33" }
+hovered      = { bg = "#453d41" }
+find_keyword = { fg = "#ffdd33", bold = true }
+border_style = { fg = "#52494e" }
+
+[status]
+mode_normal = { fg = "#181818", bg = "#ffdd33", bold = true }
+
+[git]
+unstaged  = { fg = "#ffdd33" }
+untracked = { fg = "#cc8c3c" }
+staged    = { fg = "#73c936" }
+deleted   = { fg = "#f43841", bold = true }

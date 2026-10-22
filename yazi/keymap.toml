@@ -1,0 +1,34 @@
+[[mgr.prepend_keymap]]
+on   = ["g", "d"]
+run  = "cd ~/personal/dotfiles"
+desc = "Go to dotfiles"
+
+[[mgr.prepend_keymap]]
+on   = ["g", "p"]
+run  = "cd ~/personal"
+desc = "Go to personal"
+
+[[mgr.prepend_keymap]]
+on   = ["g", "w"]
+run  = "cd ~/work"
+desc = "Go to work"
+
+[[mgr.prepend_keymap]]
+on   = "!"
+run  = 'shell "$SHELL" --block'
+desc = "Open a shell here"
+
+[[mgr.prepend_keymap]]
+on   = "l"
+run  = "plugin smart-enter"
+desc = "Enter folder or open file"
+
+[[mgr.prepend_keymap]]
+on   = "f"
+run  = "plugin jump-to-char"
+desc = "Jump to file by first letter"
+
+[[mgr.prepend_keymap]]
+on   = ["c", "m"]
+run  = "plugin chmod"
+desc = "Change permissions"
