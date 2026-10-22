@@ -1,30 +1,32 @@
-add_newline = false
-# A minimal left prompt
-format  = """$directory$character"""
-palette = "catppuccin_mocha"
-# move the rest of the prompt to the right
-right_format    = """$all"""
-command_timeout = 1000
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline         = false
+continuation_prompt = '[∙](bg4)'
+format              = """$directory$character """
+palette             = "gruber_darker"
+right_format        = """$all"""
+command_timeout     = 1000
+scan_timeout        = 30
 
 [character]
-success_symbol = '[➜](bold green)'
-error_symbol   = '[✗](bold red)'
-vicmd_symbol   = '[N](bold blue)'
+success_symbol            = '[➜](bold green)'
+error_symbol              = '[✗](bold red1)'
+vimcmd_symbol             = '[N](bold wisteria)'
+vimcmd_visual_symbol      = '[V](bold yellow)'
+vimcmd_replace_symbol     = '[R](bold brown)'
+vimcmd_replace_one_symbol = '[r](bold brown)'
 
 [cmd_duration]
 min_time = 500
 format   = 'took [$duration]($style) '
-style    = 'bold yellow'
+style    = 'bold brown'
 
 [directory]
 truncation_length = 3
 truncate_to_repo  = true
 format            = '[$path]($style)[$read_only]($read_only_style) '
-style             = 'bold cyan'
+style             = 'bold niagara'
 read_only         = ' 🔒'
-
-[directory.substitutions]
-'~/tests/starship-custom' = 'work-project'
 
 [aws]
 disabled = true
@@ -34,9 +36,19 @@ disabled = true
 
 [git_branch]
 format = '[$symbol$branch(:$remote_branch)]($style)'
+style  = 'bold yellow'
+
+[git_metrics]
+disabled      = false
+added_style   = 'green'
+deleted_style = 'red1'
+
+[git_state]
+style = 'bold brown'
 
 [git_status]
 format     = '([\[$all_status$ahead_behind\]]($style) )'
+style      = 'red1'
 conflicted = '🏳'
 ahead      = '⇡${count}'
 behind     = '⇣${count}'
@@ -48,8 +60,28 @@ staged     = '+${count}'
 renamed    = '»${count}'
 deleted    = '✘${count}'
 
+[status]
+disabled = false
+format   = '[$status]($style) '
+style    = 'red1'
+
+[env_var.DATABRICKS_CONFIG_PROFILE]
+format = '[ $env_value]($style) '
+style  = 'quartz'
+
+[jobs]
+symbol = '✦'
+style  = 'bold wisteria'
+
+[sudo]
+disabled = false
+style    = 'bold red1'
+
+# -----------------------------#
+#         LANGUAGES            #
+# -----------------------------#
 [golang]
-format = '[ ](bold cyan)'
+symbol = ' ' 
 
 [scala]
 symbol = ' '
@@ -61,8 +93,16 @@ symbol = '󰬷 '
 disabled = true
 
 [kubernetes]
-disabled = true
-format   = '[$symbol$context( \($namespace\))]($style) '
+disabled       = false
+format         = '[$symbol$context( \($namespace\))]($style) '
+style          = 'wisteria'
+detect_files   = ['Chart.yaml', 'kustomization.yaml', 'skaffold.yaml']
+detect_folders = ['k8s', 'helm', 'charts']
+
+[[kubernetes.contexts]]
+context_pattern = '.*prod.*'
+style           = 'bold red1'
+context_alias   = 'PROD'
 
 [nodejs]
 format = '[$symbol($version )]($style)'
@@ -76,6 +116,9 @@ symbol = ' '
 format = '[$symbol($version )]($style)'
 symbol = ' '
 
+# -----------------------------#
+#          PALETTES            #
+# -----------------------------#
 [palettes.catppuccin_mocha]
 rosewater = "#f5e0dc"
 flamingo  = "#f2cdcd"
@@ -103,3 +146,31 @@ surface0  = "#313244"
 base      = "#1e1e2e"
 mantle    = "#181825"
 crust     = "#11111b"
+
+
+[palettes.gruber_darker]
+red         = "#f43841"
+green       = "#73c936"
+yellow      = "#ffdd33"
+blue        = "#96a6c8" # niagara
+purple      = "#9e95c7" # wisteria
+cyan        = "#95a99f" # quartz
+white       = "#e4e4ef"
+black       = "#181818"
+fg          = "#e4e4ef"
+fg1         = "#f4f4ff"
+fg2         = "#f5f5f5"
+bg_1        = "#101010"
+bg          = "#181818"
+bg1         = "#282828"
+bg2         = "#453d41"
+bg3         = "#484848"
+bg4         = "#52494e"
+red_1       = "#c73c3f"
+red1        = "#ff4f58"
+brown       = "#cc8c3c"
+quartz      = "#95a99f"
+niagara_2   = "#303540"
+niagara_1   = "#565f73"
+niagara     = "#96a6c8"
+wisteria    = "#9e95c7"

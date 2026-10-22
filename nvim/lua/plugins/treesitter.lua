@@ -87,6 +87,7 @@ vim.filetype.add({
 	pattern = {
 		[".*/etc/.*%.conf"] = "bash",
 		[".*tmux%.conf"] = "tmux",
+		["ghostty/config"] = "ghostty",
 	},
 })
 

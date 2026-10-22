@@ -111,6 +111,7 @@ PACKAGES=(
     "bash"
     "claude"
     "direnv"
+    "doom"
     "emacs"
     "fish"
     "ghostty"
@@ -173,9 +174,8 @@ SYMLINKS=(
     "$HOME/.zshrc:$HOME/.config/zsh/.zshrc"
     "$HOME/.vimrc:$HOME/.config/vim/.vimrc"
     "$HOME/.gitconfig:$HOME/.config/git/.gitconfig"
-
-    # emacs symlinks
     "$HOME/.emacs:$HOME/.config/emacs/emacs.el"
+    "$HOME/.emacs.d/early-init.el:$HOME/.config/emacs/early-init.el"
 
     # Claude symlinks. These need to be one-off to not overwrite Claude generated items
     "$HOME/.claude:$HOME/.config/claude"
@@ -197,6 +197,7 @@ for link_def in "${SYMLINKS[@]}"; do
 
     # Create symlink
     if [ -e "$target_path" ]; then
+        mkdir -p "$(dirname "$link_path")"
         ln -sf "$target_path" "$link_path"
         success "Linked: $(basename "$link_path")"
     else

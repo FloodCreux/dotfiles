@@ -62,7 +62,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     export STARSHIP_DISTRO=""
 fi
 
-if command -v starship >/dev/null 2>&1; then
+if command -v starship >/dev/null 2>&1 && (( ! ${+functions[prompt_starship_precmd]} )); then
     eval "$(starship init zsh)"
     export STARSHIP_CONFIG=~/.config/starship/starship.toml
 fi
