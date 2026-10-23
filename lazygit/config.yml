@@ -102,6 +102,7 @@ customCommands:
   - key: 'X'
     description: 'Custom Command'
     commandMenu:
+
       - key: 'c'
         context: 'files'
         description: 'Conventional commit'
@@ -134,3 +135,14 @@ customCommands:
         command: >-
           {{ $scope := "" }}{{ if .Form.Scope }}{{ $scope = printf "(%s)" .Form.Scope }}{{ end }}
           git commit -m {{ printf "%s%s%s: %s" .Form.Type $scope .Form.Breaking .Form.Message | quote }}
+
+      - key: 'a'
+        context: 'files'
+        description: 'AI commit message (opencode)'
+        output: terminal
+        command: >-
+          diff=$(mktemp) &&
+          git diff --cached > "$diff" &&
+          msg=$(opencode run -f "$diff" "Write a conventional commit message for this staged diff. Output only the commit message, no code fences, no explanation.") &&
+          rm -f "$diff" &&
+          git commit -e -m "$msg"
