@@ -184,6 +184,7 @@ SYMLINKS=(
     # AI symlinks
     "$HOME/.AGENTS.md:$HOME/.config/ai/AGENTS.MD"
     "$HOME/.claude/.CLAUDE.md:$HOME/.config/ai/AGENTS.MD"
+    "$HOME/opencode.jsonc:$HOME/.config/opencode/opencode.work.jsonc"
 )
 
 for link_def in "${SYMLINKS[@]}"; do
@@ -237,6 +238,16 @@ fi
 if [ -d "$HOME/.config/sketchybar/plugins" ]; then
     chmod +x "$HOME/.config/sketchybar/plugins"/*
     success "Set permissions: sketchybar plugins"
+fi
+
+# ============================================
+# OPENCODE
+# ============================================
+if [ -e "$HOME/.config/opencode/opencode.work.jsonc" ]; then
+    ln -sfn "$HOME/.config/opencode/opencode.work.jsonc" "$HOME/opencode.jsonc"
+    success "Linked: opencode.jsonc (work)"
+elif [ -L "$HOME/opencode.jsonc" ]; then
+    rm -f "$HOME/opencode.jsonc"
 fi
 
 # ============================================
