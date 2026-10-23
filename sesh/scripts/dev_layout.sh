@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
-tmux send-keys 'wt switch ^' Enter
-
-tmux send-keys 'nvim' Enter
-tmux split-window -h -c '#{pane_current_path}'
-tmux send-keys 'opencode' Enter
-tmux split-window -v -c '#{pane_current_path}'
-tmux send-keys 'lazygit' Enter
-tmux select-pane -t 0
+pane="${TMUX_PANE:?must run inside tmux}"
+right=$(tmux split-window -h -t "$pane" -c "$PWD" -P -F '#{pane_id}')
+tmux send-keys -t "$right" opencode Enter
+tmux select-pane -t "$pane"
+nvim

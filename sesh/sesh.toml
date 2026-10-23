@@ -1,16 +1,46 @@
 #:schema https://github.com/joshmedeski/sesh/raw/main/sesh.schema.json
 
-blacklist = [ "scratch" ]
-cache = true
+strict_mode = true
+cache       = true
+blacklist   = [ "scratch" ]
+sort_order  = ["tmux", ["config", "zoxide"]]
+
+# foo.git/.worktrees/feat-x -> foo/feat-x
+[[name_substitution]]
+find    = '^~/work/([^/]+)\.git/\.worktrees/(.+)$'
+replace = '$1/$2'
+regex   = true
+
+# foo.git -> foo
+[[name_substitution]]
+find    = '^~/work/([^/]+)\.git$'
+replace = '$1'
+regex   = true
+
+[default_session]
+preview_command = "eza --tree --level=1 --icons --color=always --git-ignore {}"
+
+[tui]
+preview         = true
+show_windows    = true
+group_separator = true
 
 [[session]]
-name = "nvimconf"
-path = "~/personal/dotfiles/nvim"
-windows = [ "dev" ]
+name            = "dotfiles"
+path            = "~/personal/dotfiles"
+alias           = "df"
+startup_command = "~/.config/sesh/scripts/dev_layout.sh"
+
+
+[[session]]
+name            = "nvimconf"
+path            = "~/personal/dotfiles/nvim"
+alias           = "nv"
+startup_command = "nvim"
 
 [[wildcard]]
 pattern = "~/personal/*"
-windows = [ "dev" ]
+startup_command = "~/.config/sesh/scripts/dev_layout.sh"
 
 [[wildcard]]
 pattern = "~/work/*"
