@@ -225,7 +225,6 @@ test -x $HOME/.config/tmux/scripts/tmux-cht; and alias tmux-chat 'sh ~/.config/t
 command -q tmux; and alias mat 'osascript -e "tell application \"System Events\" to key code 126 using {command down}" && tmux neww "cmatrix"'
 test -x $HOME/.config/sesh/scripts/dev_layout.sh; and alias dev 'sh ~/.config/sesh/scripts/dev_layout.sh'
 
-# Python / nmap
 command -q nmap; and alias nm 'nmap -sC -sV -oN nmap'
 
 # --------------------------------------------
