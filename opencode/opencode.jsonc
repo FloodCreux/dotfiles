@@ -4,14 +4,6 @@
   "model": "anthropic/claude-opus-5-5",
   "mcp": {
     "servers": {
-      "ado-mcp": {
-        "type": "remote",
-        "url": "https://r1ado-mcp.r1rcm.com/mcp",
-      },
-      "github-mcp": {
-        "type": "remote",
-        "url": "https://r1github-mcp.r1rcm.com/mcp",
-      },
       "linear-server": {
         "type": "remote",
         "url": "https://mcp.linear.app/mcp",
@@ -19,21 +11,6 @@
       "sentry-mcp": {
         "type": "remote",
         "url": "https://mcp.sentry.dev/mcp",
-      },
-      "pagerduty-mcp": {
-        "type": "remote",
-        "url": "https://pagerduty-mcp.r1rcm.com/mcp",
-      },
-      "argocd-mcp": {
-        "type": "local",
-        "command": [
-          "npx",
-          "argocd-mcp@latest",
-          "stdio"
-        ],
-        "environment": {
-          "ARGOCD_BASE_URL": "https://argocd.sharedscf.r1rcm.com/",
-        }
       },
       "asdste100": {
         "type": "local",
