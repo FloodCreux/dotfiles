@@ -139,6 +139,17 @@ if [ -x "$HOME/.config/sesh/scripts/dev_layout.sh" ]; then
 fi
 
 # ============================================
+# BIFROST GATEWAY
+# ============================================
+if command -v bifrost-gateway >/dev/null 2>&1; then
+    alias bfgw='bifrost-gateway'
+    # zsh needs bashcompinit for `complete` (loaded in .zshrc)
+    if command -v complete >/dev/null 2>&1; then
+        complete -W "up down dash status logs doctor start stop restart secrets secret upgrade install cli-sync setup open help" bifrost-gateway bfgw
+    fi
+fi
+
+# ============================================
 # NMAP
 # ============================================
 if command -v nmap >/dev/null 2>&1; then

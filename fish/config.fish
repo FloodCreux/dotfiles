@@ -154,6 +154,9 @@ else
 end
 alias vv '~/nvim-macos-arm64/bin/nvim'
 
+# Bifrost gateway
+command -q bifrost-gateway; and alias bfgw bifrost-gateway
+
 # Navigation
 alias .. 'cd ..'
 alias ... 'cd ../..'

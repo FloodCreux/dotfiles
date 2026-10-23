@@ -1,5 +1,7 @@
 ^/\.stow-local-ignore$
 ^/bin$
 ^/cli\.json$
+^/completions$
 ^/gateway\.version$
 ^/launchd$
+^/README\.md$

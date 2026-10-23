@@ -110,6 +110,7 @@ Each directory represents a stow package that maps to `~/.config/<package>/`:
 dotfiles/
 ├── aerospace/          # Aerospace window manager config
 ├── bash/              # Bash configuration
+├── bifrost/           # Local Bifrost AI gateway (see bifrost/README.md)
 ├── direnv/            # Direnv configuration
 ├── ghostty/           # Ghostty terminal config
 ├── git/               # Git config with multi-identity support
@@ -191,6 +192,19 @@ work              # Jump to ~/work projects
 ```
 
 Bound to `<C-f>` in tmux for quick access.
+
+### Bifrost AI Gateway
+
+A local Bifrost gateway runs at login via launchd and forwards to the company
+gateway, adding logs, caching, budgets and a shared MCP hub:
+
+```bash
+bfgw up       # start or repair
+bfgw dash     # open dashboard (setup token copied)
+bfgw doctor   # check everything
+```
+
+See [`bifrost/README.md`](bifrost/README.md) for how the pieces fit together.
 
 ### Nix Integration
 
