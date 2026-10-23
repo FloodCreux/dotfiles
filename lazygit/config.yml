@@ -98,3 +98,39 @@ refresher:
   fetchInterval: 60
 os:
   editPreset: 'nvim'
+customCommands:
+  - key: 'X'
+    description: 'Custom Command'
+    commandMenu:
+      - key: 'c'
+        context: 'files'
+        description: 'Conventional commit'
+        loadingText: 'Commiting'
+        prompts:
+          - type: 'menu'
+            key: 'Type'
+            title: 'Commit type'
+            options:
+              - { value: 'feat',     description: 'New feature',     key: 'f' }
+              - { value: 'fix',      description: 'Bug fix',         key: 'x' }
+              - { value: 'refactor', description: 'Refactor',        key: 'r' }
+              - { value: 'docs',     description: 'Documentation',   key: 'd' }
+              - { value: 'chore',    description: 'Chore / tooling', key: 'c' }
+              - { value: 'test',     description: 'Tests',           key: 't' }
+              - { value: 'perf',     description: 'Performance',     key: 'p' }
+              - { value: 'ci',       description: 'CI',              key: 'i' }
+          - type: 'input'
+            key: 'Scope'
+            title: 'Scope (optional, e.g. tmux)'
+          - type: 'menu'
+            key: 'Breaking'
+            title: 'Breaking change?'
+            options:
+              - { value: '',  description: 'No',  key: 'n' }
+              - { value: '!', description: 'Yes', key: 'y' }
+          - type: 'input'
+            key: 'Message'
+            title: 'Message'
+        command: >-
+          {{ $scope := "" }}{{ if .Form.Scope }}{{ $scope = printf "(%s)" .Form.Scope }}{{ end }}
+          git commit -m {{ printf "%s%s%s: %s" .Form.Type $scope .Form.Breaking .Form.Message | quote }}
