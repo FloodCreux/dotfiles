@@ -39,7 +39,7 @@ format = '[$symbol$branch(:$remote_branch)]($style)'
 style  = 'bold yellow'
 
 [git_metrics]
-disabled      = false
+disabled      = true
 added_style   = 'green'
 deleted_style = 'red1'
 
@@ -74,7 +74,7 @@ symbol = '✦'
 style  = 'bold wisteria'
 
 [sudo]
-disabled = false
+disabled = true
 style    = 'bold red1'
 
 # -----------------------------#

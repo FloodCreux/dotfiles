@@ -3,13 +3,18 @@
 # ============================================
 setopt prompt_subst
 
+HISTSIZE=100000
+SAVEHIST=100000
+HISTFILE=~/.zsh_history
+
+
 # ============================================
 # COMPLETIONS
 # ============================================
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 autoload bashcompinit && bashcompinit
 autoload -Uz compinit
-compinit
+() { if (( $# )); then compinit; else compinit -C; fi } ~/.zcompdump(N.mh+24)
 
 # PLUGINS & EXTERNAL TOOLS
 # ============================================
@@ -39,13 +44,15 @@ if [ -f "$BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then
     bindkey '^L' vi-forward-word
 fi
 
+if [ -f "$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
+    source "$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi
+
 # Navigation
 bindkey '^k' up-line-or-search
 bindkey '^j' down-line-or-search
 bindkey jj vi-cmd-mode
 
-# ============================================
-# Starship prompt - with device detection for macOS
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # Cache device type (only detect once)
     DEVICE_CACHE="$HOME/.cache/starship_device"
@@ -62,36 +69,24 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     export STARSHIP_DISTRO=""
 fi
 
-if command -v starship >/dev/null 2>&1 && (( ! ${+functions[prompt_starship_precmd]} )); then
-    eval "$(starship init zsh)"
-    export STARSHIP_CONFIG=~/.config/starship/starship.toml
-fi
+_cached_init() {
+    local name=$1; shift
+    local bin=${commands[$1]} cache=${XDG_CACHE_HOME:-$HOME/.cache}/zsh/$name.zsh
+    [[ -n $bin ]] || return
+    if [[ ! -s $cache || $bin -nt $cache ]]; then
+        mkdir -p ${cache:h}
+        "$@" >| $cache
+    fi
+    source $cache
+}
 
-# FZF
-if command -v fzf >/dev/null 2>&1; then
-    [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-    eval "$(fzf --zsh)"
-fi
-
-# Television
-if command -v tv >/dev/null 2>&1; then
-    eval "$(tv init zsh)"
-fi
-
-# Zoxide
-if command -v zoxide >/dev/null 2>&1; then
-    eval "$(zoxide init zsh)"
-fi
-
-# Direnv
-if command -v direnv >/dev/null 2>&1; then
-    eval "$(direnv hook zsh)"
-fi
-
-# Mise
-if command -v mise >/dev/null 2>&1; then
-    eval "$(mise activate zsh)"
-fi
+_cached_init starship starship init zsh
+_cached_init fzf      fzf --zsh
+_cached_init tv       tv init zsh
+_cached_init zoxide   zoxide init zsh
+_cached_init direnv   direnv hook zsh
+_cached_init mise     mise activate zsh
+_cached_init wt       wt config shell init zsh
 
 # Cert Setup
 # export REQUESTS_CA_BUNDLE="$HOME/nscacert_combined.pem"
@@ -102,21 +97,7 @@ export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1
 # Docker/Podman
 # export DOCKER_HOST="unix://$HOME/.local/share/containers/podman/machine/podman.sock"
 
-if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
-export PATH="$HOME/personal/Odin:$PATH"
-
 export PATH="/opt/homebrew/opt/util-linux/bin:$PATH"
-
-# Added by bifrost installer
 export PATH="$HOME/.bifrost/bin:$PATH"
 
-
-HISTSIZE=100000
-SAVEHIST=100000
-HISTFILE=~/.zsh_history
-
 setopt share_history hist_ignore_all_dups hist_ignore_space extended_history
-
-if [ -f "$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
-    source "$BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-fi
