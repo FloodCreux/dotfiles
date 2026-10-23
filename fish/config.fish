@@ -226,7 +226,6 @@ command -q tmux; and alias mat 'osascript -e "tell application \"System Events\"
 test -x $HOME/.config/sesh/scripts/dev_layout.sh; and alias dev 'sh ~/.config/sesh/scripts/dev_layout.sh'
 
 # Python / nmap
-command -q python3; and alias python python3
 command -q nmap; and alias nm 'nmap -sC -sV -oN nmap'
 
 # --------------------------------------------

@@ -139,13 +139,6 @@ if [ -x "$HOME/.config/sesh/scripts/dev_layout.sh" ]; then
 fi
 
 # ============================================
-# PYTHON
-# ============================================
-if command -v python3 >/dev/null 2>&1; then
-    alias python='python3'
-fi
-
-# ============================================
 # NMAP
 # ============================================
 if command -v nmap >/dev/null 2>&1; then
