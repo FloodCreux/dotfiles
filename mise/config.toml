@@ -26,6 +26,7 @@ awscli      = "latest"
 tree-sitter = "latest"
 jj          = "latest"
 xh          = "latest"
+argocd      = "latest"
 
 "pipx:poetry" = "latest"
 "pipx:mypy"   = "latest"
