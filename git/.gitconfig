@@ -1,9 +1,5 @@
 [includeIf "gitdir:~/work/**"]
   path = ~/.gitconfig-work
-[includeIf "gitdir:~/work/phare/**"]
-  path = ~/.gitconfig-work
-[includeIf "gitdir:~/work/palantir/**"]
-  path = ~/.gitconfig-palantir
 [includeIf "gitdir:~/personal/**"]
   path = ~/.gitconfig-codeberg
 [includeIf "gitdir:~/.config/**"]
