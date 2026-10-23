@@ -146,3 +146,39 @@ customCommands:
           msg=$(opencode run -f "$diff" "Write a conventional commit message for this staged diff. Output only the commit message, no code fences, no explanation.") &&
           rm -f "$diff" &&
           git commit -e -m "$msg"
+
+      - key: 'w'
+        context: 'localBranches'
+        description: 'Open worktree for branch (worktrunk)'
+        output: 'log'
+        loadingText: 'Creating worktree'
+        command: 'wt switch {{ .SelectedLocalBranch.Name | quote }}'
+
+      - key: p
+        context: 'global'
+        description: 'Check out a PR'
+        prompts:
+          - type: 'menuFromCommand'
+            key: 'PR'
+            title: 'Pull request'
+            command: >-
+              gh pr list --limit 50 --json number,title,author
+              --jq '.[]' | "\(.number)\t\(.title)\t\(.author.login)"'
+            filter: '^(?P<number>\d+)\t(?P<title>[^\t]*)\t(?P<author>.*)$'
+            valueFormat: "{{ .number }}"
+            labelFormat: "{{ .number | yellow }} {{ .title }} {{ .author | blue }}"
+          - type: 'menu'
+            key: 'Where'
+            title: 'Check out where?'
+            options:
+              - { value: 'here',     name: 'This worktree',            key: 'h' }
+              - { value: 'worktree', name: 'New worktree (worktrunk)', key: 'w' }
+        loadingText: 'Checking out PR'
+        output: 'log'
+        command: >-
+          {{ if eq .Form.Where "here" }}gh pr checkout {{ .Form.PR }}{{ else }} wt switch pr:{{ .Form.PR }}{{ end }}
+
+      - key: 't'
+        context: 'global'
+        description: 'tmux split at repo root'
+        command: 'tmux split-window -h -c "$(git rev-parse --show-toplevel)"'
