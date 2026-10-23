@@ -44,8 +44,4 @@ startup_command = "~/.config/sesh/scripts/dev_layout.sh"
 
 [[wildcard]]
 pattern = "~/work/*"
-windows = [ "dev" ]
-
-[[window]]
-name = "dev" 
-startup_script = "~/.config/sesh/scripts/dev_layout.sh"
+startup_command = "~/.config/sesh/scripts/dev_layout.sh"
