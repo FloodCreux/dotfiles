@@ -1,0 +1,24 @@
+[tasks.install]
+description = "Stow all packages"
+run         = "bash setup.sh"
+
+[tasks.bootstrap]
+description = "Fresh machine: brew, packages, stow"
+run         = "bash install.sh"
+
+[tasks.restow]
+description = "Restow one package"
+usage       = 'arg "<pkg>"' 
+run         = 'stow -d . -t ~/.config/{{arg(name="pkg")}} {{arg(name="pkg")}}'
+
+[tasks.lint]
+description = "Shellcheck all scripts"
+run         = "shellcheck setup.sh install.sh tmux/scripts/* sesh/scripts/*"
+
+[tasks.check-links]
+description = "Find broken synlinks in ~/.config"
+run         = 'find ~/.config -maxdepth 2 -type l ! -exec test -e {} \; -print'
+
+[tasks.plugins]
+description = "Install tpm, yazi and other plugins"
+run         = ["~/.config/tmux/plugins/tpm/bin/install_plugins", "ya pkg install"]

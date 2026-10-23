@@ -1,3 +1,17 @@
 [settings]
-experimental = true
-trusted_config_paths = ["~/personal", "~/work"]
+experimental                        = true
+idiomatic_version_file_enable_tools = ["python", "node"]  				# respect .python-version /.nvmrc
+trusted_config_paths                = ["~/personal", "~/work"]
+
+[tools]
+node       = "lts"
+python     = "3.12"
+uv         = "latest"
+just       = "latest"
+terraform  = "latest"
+kubectl    = "latest"
+helm       = "latest"
+ruff       = "latest"
+gum        = "latest"
+shellcheck = "latest"
+actionlint = "latest"
