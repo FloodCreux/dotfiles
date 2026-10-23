@@ -65,6 +65,7 @@ BACKUP_TARGETS=(
     "$HOME/.zshrc"
     "$HOME/.vimrc"
     "$HOME/.claude"
+    "$HOME/.bifrost"
     "$HOME/.gitconfig"
     "$HOME/.ssh/config"
     "$HOME/.config/mise"
@@ -236,6 +237,19 @@ fi
 if [ -d "$HOME/.config/sketchybar/plugins" ]; then
     chmod +x "$HOME/.config/sketchybar/plugins"/*
     success "Set permissions: sketchybar plugins"
+fi
+
+# ============================================
+# BIFROST GATEWAY
+# ============================================
+# Launcher config is merged (not symlinked) because the launcher rewrites it;
+# the gateway runs as a launchd agent. Missing keychain secrets are reported.
+info "Setting up Bifrost gateway..."
+chmod +x "$DOTFILES_DIR/bifrost/bin/bifrost-gateway"
+if "$DOTFILES_DIR/bifrost/bin/bifrost-gateway" setup; then
+    success "Bifrost gateway installed (check with: bifrost-gateway doctor)"
+else
+    warn "Bifrost gateway setup incomplete (run: bifrost-gateway doctor)"
 fi
 
 # ============================================

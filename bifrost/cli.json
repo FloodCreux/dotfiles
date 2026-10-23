@@ -1,0 +1,6 @@
+{
+	"default_harness": "opencode",
+	"default_model": "anthropic/claude-opus-5-5",
+	"auto_install_harness": true,
+	"auto_attach_mcp": true
+}

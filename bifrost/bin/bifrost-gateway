@@ -1,0 +1,302 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SELF="$(realpath "${BASH_SOURCE[0]}")"
+PKG_DIR="$(dirname "$(dirname "$SELF")")"
+APP_DIR="${BIFROST_APP_DIR:-$HOME/.config/bifrost}"
+HOST=127.0.0.1
+PORT="${BIFROST_PORT:-8080}"
+LABEL=ai.getbifrost.gateway
+PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
+LOG_DIR="$HOME/Library/Logs"
+CLI_CONFIG="$HOME/.bifrost/config.json"
+LAUNCHER="$HOME/.bifrost/bin/bifrost"
+CLI_CONTEXT=local
+UPSTREAM=https://bifrost.r1rcm.com
+VERSION="${BIFROST_VERSION:-$(<"$PKG_DIR/gateway.version")}"
+ARCH=$([[ $(uname -m) == arm64 ]] && echo arm64 || echo amd64)
+bin_path() { echo "$HOME/Library/Caches/bifrost/$1/bin/bifrost-http-0"; }
+
+# keychain service suffix : env var : required|optional : generated locally
+SECRETS=(
+	r1rcm-vk:BIFROST_R1RCM_VK:req:no
+	setup-token:BIFROST_SETUP_TOKEN:req:yes
+	vk-opencode:BIFROST_VK_OPENCODE:req:yes
+	vk-claude:BIFROST_VK_CLAUDE:req:yes
+	vk-codex:BIFROST_VK_CODEX:req:yes
+	vk-scripts:BIFROST_VK_SCRIPTS:req:yes
+)
+
+secret() { security find-generic-password -s "bifrost-$1" -a "$USER" -w 2>/dev/null; }
+has_secret() { security find-generic-password -s "bifrost-$1" -a "$USER" >/dev/null 2>&1; }
+store_secret() { security add-generic-password -U -s "bifrost-$1" -a "$USER" -w "$2"; }
+
+if [[ -t 1 ]]; then
+	OK=$'\e[32m✓\e[0m' BAD=$'\e[31m✗\e[0m' WARN=$'\e[33m!\e[0m' DIM=$'\e[2m' RST=$'\e[0m'
+else
+	OK='ok' BAD='FAIL' WARN='warn' DIM='' RST=''
+fi
+
+load_secrets() {
+	local missing=() name var need _
+	for s in "${SECRETS[@]}"; do
+		IFS=: read -r name var need _ <<<"$s"
+		if v=$(secret "$name"); then
+			export "$var=$v"
+		elif [[ $need == req ]]; then missing+=("bifrost-$name"); fi
+	done
+	if ((${#missing[@]})); then
+		echo "missing keychain items: ${missing[*]} -- run: bifrost-gateway secrets" >&2
+		exit 0 # clean exit so launchd's KeepAlive doesn't loop
+	fi
+}
+
+install() {
+	local ver="${1:-$VERSION}" dest
+	dest=$(bin_path "$ver")
+	[[ -x $dest ]] && return
+	mkdir -p "$(dirname "$dest")"
+	curl -fL --progress-bar -o "$dest.tmp" \
+		"https://downloads.getmaxim.ai/bifrost/$ver/darwin/$ARCH/bifrost-http"
+	chmod +x "$dest.tmp" && mv "$dest.tmp" "$dest"
+}
+
+run() {
+	load_secrets
+	install
+	if lsof -nP -iTCP:"$PORT" -sTCP:LISTEN >/dev/null; then
+		echo "port $PORT busy" >&2
+		exit 1
+	fi
+	# local stdio MCP servers (uvx, npx) need mise shims
+	export PATH="$HOME/.local/share/mise/shims:/opt/homebrew/bin:$PATH"
+	cd "$APP_DIR"
+	exec "$(bin_path "$VERSION")" -app-dir "$APP_DIR" -host "$HOST" -port "$PORT" \
+		-log-level "${BIFROST_LOG_LEVEL:-info}" -log-style json
+}
+
+# The launcher regenerates its config.json from the current context (state.json)
+# and keeps virtual keys in the keychain, so point it at the local gateway through
+# its own CLI. The upstream "default" context stays available via --context default.
+cli_sync() {
+	local base="http://localhost:$PORT" model vk existing='{}' tmp
+	[[ -x $LAUNCHER ]] || { echo "$BAD launcher not installed at $LAUNCHER" >&2; return 1; }
+	model=$(jq -r '.default_model // ""' "$PKG_DIR/cli.json")
+
+	if ! "$LAUNCHER" context show "$CLI_CONTEXT" >/dev/null 2>&1; then
+		"$LAUNCHER" context add "$CLI_CONTEXT" --base-url "$base" ${model:+--default-model "$model"} >/dev/null
+	fi
+	"$LAUNCHER" context use "$CLI_CONTEXT" >/dev/null
+	[[ -n $model ]] && "$LAUNCHER" config set default-model "$model" >/dev/null
+	if vk=$(secret vk-opencode); then
+		"$LAUNCHER" --context "$CLI_CONTEXT" auth set-virtual-key --stdin <<<"$vk" >/dev/null
+	else
+		echo "$WARN bifrost-vk-opencode missing; launcher has no key for $CLI_CONTEXT" >&2
+	fi
+
+	# Remaining launcher preferences (harness, auto install/attach) live in config.json
+	mkdir -p "$(dirname "$CLI_CONFIG")"
+	[[ -f $CLI_CONFIG ]] && existing=$(<"$CLI_CONFIG")
+	tmp=$(mktemp "$CLI_CONFIG.XXXXXX")
+	jq -n --argjson cur "$existing" --slurpfile want "$PKG_DIR/cli.json" '$cur * $want[0]' >"$tmp"
+	chmod 600 "$tmp"
+	rm -f "$CLI_CONFIG"
+	mv "$tmp" "$CLI_CONFIG"
+	echo "$OK launcher using context '$CLI_CONTEXT' ($base)"
+}
+
+launchd_install() {
+	mkdir -p "$(dirname "$PLIST")" "$HOME/.local/bin"
+	ln -sf "$SELF" "$HOME/.local/bin/bifrost-gateway"
+	sed "s|__HOME__|$HOME|g" "$PKG_DIR/launchd/$LABEL.plist" >"$PLIST"
+	launchctl bootout "gui/$UID/$LABEL" 2>/dev/null || true
+	launchctl bootstrap "gui/$UID" "$PLIST"
+	echo "$OK loaded $LABEL"
+}
+
+secrets_list() {
+	local name var need gen incomplete=0
+	for s in "${SECRETS[@]}"; do
+		IFS=: read -r name var need gen <<<"$s"
+		if has_secret "$name"; then
+			printf '%s %-24s %s%s%s\n' "$OK" "bifrost-$name" "$DIM" "$var" "$RST"
+		else
+			[[ $need == req ]] && incomplete=1
+			printf '%s %-24s %s%s (%s)%s\n' "$([[ $need == req ]] && echo "$BAD" || echo "$WARN")" \
+				"bifrost-$name" "$DIM" "$var" "$([[ $need == req ]] && echo required || echo optional)" "$RST"
+		fi
+	done
+	if ((incomplete)); then
+		echo
+		echo "Fix with:"
+		has_secret r1rcm-vk || echo "  bifrost-gateway secrets set r1rcm-vk   # paste your r1rcm virtual key"
+		echo "  bifrost-gateway secrets --generate      # create missing local keys and setup token"
+	fi
+	return "$incomplete"
+}
+
+secrets_generate() {
+	local name var need gen
+	for s in "${SECRETS[@]}"; do
+		IFS=: read -r name var need gen <<<"$s"
+		[[ $gen == yes ]] || continue
+		has_secret "$name" && continue
+		if [[ $name == vk-* ]]; then
+			store_secret "$name" "sk-bf-$(openssl rand -hex 24)"
+		else
+			store_secret "$name" "$(openssl rand -hex 32)"
+		fi
+		echo "$OK generated bifrost-$name"
+	done
+}
+
+secrets_set() {
+	local name="${1:?usage: bifrost-gateway secrets set <name>}" value
+	read -rsp "value for bifrost-$name: " value
+	echo
+	[[ -n $value ]] || {
+		echo "empty value, nothing stored" >&2
+		exit 1
+	}
+	store_secret "$name" "$value"
+	echo "$OK stored bifrost-$name"
+}
+
+secrets_cmd() {
+	case "${1:-list}" in
+	list) secrets_list ;;
+	--generate | generate) secrets_generate ;;
+	set) secrets_set "${2:-}" ;;
+	*)
+		echo "usage: bifrost-gateway secrets [list|--generate|set <name>]" >&2
+		exit 2
+		;;
+	esac
+}
+
+http_code() { curl -s -o /dev/null -w '%{http_code}' --max-time 8 "$@" || true; }
+
+doctor() {
+	local fails=0 warns=0
+	pass() { echo "$OK $*"; }
+	fail() {
+		echo "$BAD $*"
+		fails=$((fails + 1))
+	}
+	warn() {
+		echo "$WARN $*"
+		warns=$((warns + 1))
+	}
+
+	echo "tools"
+	for t in curl jq lsof openssl security uvx; do
+		command -v "$t" >/dev/null && pass "$t" || fail "$t not found"
+	done
+
+	echo
+	echo "secrets"
+	secrets_list | sed 's/^/  /' || fails=$((fails + 1))
+
+	echo
+	echo "config"
+	local cfg="$APP_DIR/config.json"
+	if jq -e . "$cfg" >/dev/null 2>&1; then
+		pass "$cfg is valid JSON"
+		local known ref
+		known=$(printf '%s\n' "${SECRETS[@]}" | cut -d: -f2)
+		while read -r ref; do
+			[[ -z $ref ]] && continue
+			grep -qx "$ref" <<<"$known" && pass "env.$ref backed by keychain" || fail "env.$ref has no keychain entry in SECRETS"
+		done < <(grep -oE '"env\.[A-Z0-9_]+"' "$cfg" | tr -d '"' | sed 's/^env\.//' | sort -u)
+	else
+		fail "$cfg missing or invalid JSON"
+	fi
+
+	echo
+	echo "binary"
+	if [[ -x $(bin_path "$VERSION") ]]; then pass "bifrost-http $VERSION cached"; else fail "bifrost-http $VERSION not cached (bifrost-gateway install)"; fi
+	local latest
+	latest=$(curl -fsS --max-time 5 https://getbifrost.ai/latest-release 2>/dev/null | jq -r .name 2>/dev/null || true)
+	if [[ -n $latest && $latest != "$VERSION" ]]; then warn "newer release $latest available (bifrost-gateway upgrade)"; fi
+
+	echo
+	echo "launchd"
+	[[ -f $PLIST ]] && pass "plist installed" || fail "plist not installed (bifrost-gateway setup)"
+	if launchctl print "gui/$UID/$LABEL" >/dev/null 2>&1; then pass "$LABEL loaded"; else fail "$LABEL not loaded"; fi
+	if [[ $(http_code "http://$HOST:$PORT/health") == 200 ]]; then pass "gateway healthy on :$PORT"; else fail "gateway not answering on :$PORT (bifrost-gateway logs)"; fi
+
+	echo
+	echo "upstream"
+	if [[ $(http_code "$UPSTREAM/health") == 200 ]]; then pass "$UPSTREAM reachable"; else fail "$UPSTREAM unreachable"; fi
+	local vk
+	if vk=$(secret r1rcm-vk); then
+		[[ $(http_code -H "Authorization: Bearer $vk" "$UPSTREAM/v1/models") == 200 ]] &&
+			pass "r1rcm key accepted (openai route)" || fail "r1rcm key rejected on /v1/models"
+		[[ $(http_code -H "x-api-key: $vk" -H "anthropic-version: 2023-06-01" "$UPSTREAM/anthropic/v1/models") == 200 ]] &&
+			pass "r1rcm key accepted via x-api-key (anthropic route)" ||
+			warn "r1rcm rejects x-api-key on /anthropic; add network_config.extra_headers x-bf-vk"
+	fi
+
+	echo
+	echo "local auth"
+	if vk=$(secret vk-opencode); then
+		[[ $(http_code -H "Authorization: Bearer $vk" "http://$HOST:$PORT/v1/models") == 200 ]] &&
+			pass "vk-opencode accepted by local gateway" || fail "vk-opencode rejected by local gateway"
+	fi
+
+	echo
+	echo "launcher"
+	if [[ ! -x $LAUNCHER ]]; then
+		fail "launcher not installed at $LAUNCHER"
+	else
+		local ctx base
+		ctx=$("$LAUNCHER" config get context 2>/dev/null || true)
+		base=$("$LAUNCHER" config get base-url 2>/dev/null || true)
+		[[ $ctx == "$CLI_CONTEXT" ]] && pass "launcher context is '$CLI_CONTEXT'" || warn "launcher context is '$ctx' (bifrost-gateway cli-sync)"
+		[[ $base == "http://localhost:$PORT" ]] && pass "launcher points at local gateway" || warn "launcher base_url is $base (bifrost-gateway cli-sync)"
+		[[ $("$LAUNCHER" --context "$CLI_CONTEXT" --output json auth status 2>/dev/null | jq -r '.has_virtual_key // false') == true ]] &&
+			pass "launcher has a virtual key for '$CLI_CONTEXT'" || fail "launcher has no virtual key for '$CLI_CONTEXT' (bifrost-gateway cli-sync)"
+	fi
+
+	echo
+	echo "$fails failed, $warns warnings"
+	((fails == 0))
+}
+
+case "${1:-run}" in
+run) run ;;
+install) install "${2:-}" ;;
+upgrade)
+	ver="${2:-$(curl -fsS https://getbifrost.ai/latest-release | jq -r .name)}"
+	install "$ver" && echo "$ver" >"$PKG_DIR/gateway.version" && "$SELF" restart
+	;;
+setup)
+	install
+	cli_sync
+	launchd_install
+	secrets_list || true
+	;;
+cli-sync) cli_sync ;;
+start) launchctl bootstrap "gui/$UID" "$PLIST" ;;
+stop) launchctl bootout "gui/$UID/$LABEL" ;;
+restart | reload) launchctl kickstart -k "gui/$UID/$LABEL" ;;
+status)
+	launchctl print "gui/$UID/$LABEL" | grep -E 'state|pid|last exit' || true
+	curl -fsS "http://$HOST:$PORT/health" && echo
+	;;
+logs)
+	shift
+	tail "$@" -n 100 "$LOG_DIR/bifrost-gateway.out.log" "$LOG_DIR/bifrost-gateway.err.log"
+	;;
+open) open "http://localhost:$PORT" ;;
+secret) secret "${2:?usage: bifrost-gateway secret <name>}" ;;
+secrets)
+	shift
+	secrets_cmd "$@"
+	;;
+doctor) doctor ;;
+*)
+	echo "usage: bifrost-gateway {run|setup|install|upgrade|cli-sync|start|stop|restart|status|logs|open|secret|secrets|doctor}" >&2
+	exit 2
+	;;
+esac

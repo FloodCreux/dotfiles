@@ -1,13 +1,137 @@
 {
 	"$schema": "https://www.getbifrost.ai/schema",
 	"client": {
-		"drop_excess_requests": false
+		"drop_excess_requests": false,
+		"enable_logging": true,
+		"log_retention_days": 30,
+		"disable_content_logging": false,
+		"enforce_auth_on_inference": true,
+		"allowed_origins": ["http://localhost:8080"]
 	},
+	"env_label": "local",
 	"providers": {
 		"r1rcm": {
+			"custom_provider_config": {
+				"base_provider_type": "openai"
+			},
 			"network_config": {
 				"base_url": "https://bifrost.r1rcm.com"
+			},
+			"keys": [{ "name": "r1rcm", "value": "env.BIFROST_R1RCM_VK", "models": ["*"], "weight": 1 }]
+		},
+		"anthropic": {
+			"network_config": {
+				"base_url": "https://bifrost.r1rcm.com/anthropic"
+			},
+			"keys": [{ "name": "r1rcm", "value": "env.BIFROST_R1RCM_VK", "models": ["*"], "weight": 1 }]
+		}
+	},
+	"vector_store": {
+		"enabled": true,
+		"type": "chromem",
+		"config": {
+			"path": "./vectorstore",
+			"compress": true
+		}
+	},
+	"plugins": [
+		{
+			"enabled": true,
+			"name": "semantic_cache",
+			"config": {
+				"dimension": 1,
+				"ttl": "1h",
+				"default_cache_key": "local",
+				"conversation_history_threshold": 3,
+				"cache_tool_call_responses": false
 			}
 		}
+	],
+	"mcp": {
+		"client_configs": [
+			{
+				"name": "linear",
+				"connection_type": "http",
+				"connection_string": "https://mcp.linear.app/mcp",
+				"auth_type": "oauth",
+				"tools_to_execute": ["*"],
+				"allow_by_default": true
+			},
+			{
+				"name": "sentry",
+				"connection_type": "http",
+				"connection_string": "https://mcp.sentry.dev/mcp",
+				"auth_type": "oauth",
+				"tools_to_execute": ["*"],
+				"allow_by_default": true
+			},
+			{
+				"name": "asdste100",
+				"connection_type": "stdio",
+				"stdio_config": {
+					"command": "uvx",
+					"args": ["--from", "biz-dfch-asdste100mcp", "asdste100-mcp"]
+				},
+				"tools_to_execute": ["*"],
+				"allow_by_default": true
+			}
+		]
+	},
+	"governance": {
+		"budgets": [
+			{ "id": "budget-opencode", "max_limit": 300, "reset_duration": "1M", "virtual_key_id": "vk-opencode" },
+			{ "id": "budget-claude", "max_limit": 300, "reset_duration": "1M", "virtual_key_id": "vk-claude" },
+			{ "id": "budget-codex", "max_limit": 100, "reset_duration": "1M", "virtual_key_id": "vk-codex" },
+			{ "id": "budget-scripts", "max_limit": 25, "reset_duration": "1M", "virtual_key_id": "vk-scripts" }
+		],
+		"rate_limits": [
+			{ "id": "rl-scripts", "request_max_limit": 60, "request_reset_duration": "1m" }
+		],
+		"virtual_keys": [
+			{
+				"id": "vk-opencode",
+				"name": "opencode",
+				"value": "env.BIFROST_VK_OPENCODE",
+				"is_active": true,
+				"calendar_aligned": true,
+				"provider_configs": [
+					{ "provider": "anthropic", "allowed_models": ["*"], "key_ids": ["*"] },
+					{ "provider": "r1rcm", "allowed_models": ["*"], "key_ids": ["*"] }
+				]
+			},
+			{
+				"id": "vk-claude",
+				"name": "claude",
+				"value": "env.BIFROST_VK_CLAUDE",
+				"is_active": true,
+				"calendar_aligned": true,
+				"provider_configs": [
+					{ "provider": "anthropic", "allowed_models": ["*"], "key_ids": ["*"] },
+					{ "provider": "r1rcm", "allowed_models": ["*"], "key_ids": ["*"] }
+				]
+			},
+			{
+				"id": "vk-codex",
+				"name": "codex",
+				"value": "env.BIFROST_VK_CODEX",
+				"is_active": true,
+				"calendar_aligned": true,
+				"provider_configs": [
+					{ "provider": "r1rcm", "allowed_models": ["*"], "key_ids": ["*"] }
+				]
+			},
+			{
+				"id": "vk-scripts",
+				"name": "scripts",
+				"value": "env.BIFROST_VK_SCRIPTS",
+				"is_active": true,
+				"calendar_aligned": true,
+				"rate_limit_id": "rl-scripts",
+				"provider_configs": [
+					{ "provider": "anthropic", "allowed_models": ["*"], "key_ids": ["*"] },
+					{ "provider": "r1rcm", "allowed_models": ["*"], "key_ids": ["*"] }
+				]
+			}
+		]
 	}
 }

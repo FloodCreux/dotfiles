@@ -1,0 +1,5 @@
+^/\.stow-local-ignore$
+^/bin$
+^/cli\.json$
+^/gateway\.version$
+^/launchd$
