@@ -31,7 +31,6 @@ path            = "~/personal/dotfiles"
 alias           = "df"
 startup_command = "~/.config/sesh/scripts/dev_layout.sh"
 
-
 [[session]]
 name            = "nvimconf"
 path            = "~/personal/dotfiles/nvim"
