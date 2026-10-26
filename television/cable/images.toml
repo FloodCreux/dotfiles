@@ -1,12 +1,12 @@
 [metadata]
-name = "images"
-description = "Browse image files with preview"
+name         = "images"
+description  = "Browse image files with preview"
 requirements = ["fd", "chafa"]
 
 [source]
 command = [
-  "fd -t f -e png -e jpg -e jpeg -e gif -e webp -e bmp -e svg .",
-  "fd -t f -e png -e jpg -e jpeg -e gif -e webp -e bmp -e svg -H .",
+    "fd -t f -e png -e jpg -e jpeg -e gif -e webp -e bmp -e svg .",
+    "fd -t f -e png -e jpg -e jpeg -e gif -e webp -e bmp -e svg -H .",
 ]
 
 [preview]
@@ -17,5 +17,5 @@ enter = "actions:open"
 
 [actions.open]
 description = "Open the selected image with default viewer"
-command = "xdg-open '{}' 2>/dev/null || open '{}'"
-mode = "fork"
+command     = "xdg-open '{}' 2>/dev/null || open '{}'"
+mode        = "fork"

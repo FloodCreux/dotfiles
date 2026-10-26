@@ -1,7 +1,10 @@
 [settings]
-experimental                        = true
-idiomatic_version_file_enable_tools = ["python", "node"]  				# respect .python-version /.nvmrc
-trusted_config_paths                = ["~/personal", "~/work"]
+experimental = true
+idiomatic_version_file_enable_tools = [
+    "python",
+    "node",
+] # respect .python-version /.nvmrc
+trusted_config_paths = ["~/personal", "~/work"]
 
 [tools]
 node        = "lts"

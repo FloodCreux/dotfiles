@@ -40,4 +40,4 @@ awk -F';' '
 '''
 
 display = "{split:|:0}    {split:|:1}    {split:|:2}"
-output = "{split:|:1}"
+output  = "{split:|:1}"

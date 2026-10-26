@@ -117,9 +117,24 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = "python",
 	callback = function(args)
 		local opts = { buffer = args.buf }
-		vim.keymap.set("n", "<leader>dn", dappy.test_method, vim.tbl_extend("force", opts, { desc = "Python: Test Method" }))
-		vim.keymap.set("n", "<leader>df", dappy.test_class, vim.tbl_extend("force", opts, { desc = "Python: Test Class" }))
-		vim.keymap.set("n", "<leader>ds", dappy.debug_selection, vim.tbl_extend("force", opts, { desc = "Python: Debug Selection" }))
+		vim.keymap.set(
+			"n",
+			"<leader>dn",
+			dappy.test_method,
+			vim.tbl_extend("force", opts, { desc = "Python: Test Method" })
+		)
+		vim.keymap.set(
+			"n",
+			"<leader>df",
+			dappy.test_class,
+			vim.tbl_extend("force", opts, { desc = "Python: Test Class" })
+		)
+		vim.keymap.set(
+			"n",
+			"<leader>ds",
+			dappy.debug_selection,
+			vim.tbl_extend("force", opts, { desc = "Python: Debug Selection" })
+		)
 	end,
 })
 

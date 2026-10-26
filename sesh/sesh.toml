@@ -2,7 +2,7 @@
 
 strict_mode = true
 cache       = true
-blacklist   = [ "scratch" ]
+blacklist   = ["scratch"]
 sort_order  = ["tmux", ["config", "zoxide"]]
 
 # foo.git/.worktrees/feat-x -> foo/feat-x
@@ -38,9 +38,9 @@ alias           = "nv"
 startup_command = "nvim"
 
 [[wildcard]]
-pattern = "~/personal/*"
+pattern         = "~/personal/*"
 startup_command = "~/.config/sesh/scripts/dev_layout.sh"
 
 [[wildcard]]
-pattern = "~/work/*"
+pattern         = "~/work/*"
 startup_command = "~/.config/sesh/scripts/dev_layout.sh"

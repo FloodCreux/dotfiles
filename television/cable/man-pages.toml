@@ -1,6 +1,6 @@
 [metadata]
-name = "man-pages"
-description = "Browse and preview system manual pages"
+name         = "man-pages"
+description  = "Browse and preview system manual pages"
 requirements = ["apropos", "man"]
 
 [source]
@@ -10,16 +10,16 @@ command = "apropos ."
 [preview]
 # Show the man page for the selected entry
 command = "man '{0}'"
-env = { "MANWIDTH" = "80" }
+env     = { "MANWIDTH" = "80" }
 
 [keybindings]
 enter = "actions:open"
 
 [actions.open]
 description = "Open the selected man page in the system pager"
-command = "man '{0}'"
-mode = "execute"
+command     = "man '{0}'"
+mode        = "execute"
 
 [ui]
-layout = "portrait"
+layout        = "portrait"
 preview_panel = { header = "{0}" }

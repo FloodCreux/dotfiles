@@ -1,6 +1,6 @@
 [metadata]
-name = "path"
-description = "Investigate PATH contents"
+name         = "path"
+description  = "Investigate PATH contents"
 requirements = ["fd", "bat"]
 
 [source]
@@ -11,5 +11,5 @@ command = "fd -tx -d1 . \"{}\" -X printf \"%s\n\" \"{/}\" | sort -f | bat -n --c
 
 [actions.cd]
 description = "Open a shell in the selected PATH directory"
-command = "cd '{}' && $SHELL"
-mode = "execute"
+command     = "cd '{}' && $SHELL"
+mode        = "execute"

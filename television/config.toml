@@ -112,53 +112,52 @@ fallback_channel = "files"
 
 [shell_integration.channel_triggers]
 "alias" = ["alias", "unalias"]
-"env"   = ["export", "unset"]
-"dirs"  = ["cd", "ls", "rmdir", "z"]
+"env" = ["export", "unset"]
+"dirs" = ["cd", "ls", "rmdir", "z"]
 "files" = [
-  "cat",
-  "less",
-  "head",
-  "tail",
-  "vim",
-  "nvim",
-  "nano",
-  "bat",
-  "cp",
-  "mv",
-  "rm",
-  "touch",
-  "chmod",
-  "chown",
-  "ln",
-  "tar",
-  "zip",
-  "unzip",
-  "gzip",
-  "gunzip",
-  "xz",
+    "cat",
+    "less",
+    "head",
+    "tail",
+    "vim",
+    "nvim",
+    "nano",
+    "bat",
+    "cp",
+    "mv",
+    "rm",
+    "touch",
+    "chmod",
+    "chown",
+    "ln",
+    "tar",
+    "zip",
+    "unzip",
+    "gzip",
+    "gunzip",
+    "xz",
 ]
-"git-diff"   = ["git add", "git restore"]
+"git-diff" = ["git add", "git restore"]
 "git-branch" = [
-  "git checkout",
-  "git branch",
-  "git merge",
-  "git rebase",
-  "git pull",
-  "git push",
+    "git checkout",
+    "git branch",
+    "git merge",
+    "git rebase",
+    "git pull",
+    "git push",
 ]
-"git-log"       = ["git log", "git show"]
+"git-log" = ["git log", "git show"]
 "docker-images" = ["docker run"]
-"git-repos"     = ["code", "hx", "git clone"]
-"just-recipes"  = ["just"]
-"make-targets"  = ["make"]
-"ssh-hosts"     = ["ssh"]
-"procs"         = ["kill"]
-"man-pages"     = ["man"]
+"git-repos" = ["code", "hx", "git clone"]
+"just-recipes" = ["just"]
+"make-targets" = ["make"]
+"ssh-hosts" = ["ssh"]
+"procs" = ["kill"]
+"man-pages" = ["man"]
 "git-worktrees" = ["git worktree"]
-"sesh"          = ["sesh connect"]
+"sesh" = ["sesh connect"]
 
 
 [shell_integration.keybindings]
 "smart_autocomplete" = "ctrl-t"
-"command_history" = "ctrl-r"
-
+"command_history"    = "ctrl-r"

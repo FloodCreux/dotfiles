@@ -1,6 +1,6 @@
 [metadata]
-name = "gh-issues"
-description = "List GitHub issues for the current repo"
+name         = "gh-issues"
+description  = "List GitHub issues for the current repo"
 requirements = ["gh", "jq"]
 
 [source]
@@ -10,7 +10,7 @@ ansi = true
 output = "{strip_ansi|split:#:1|split: :0}"
 
 [ui]
-layout = "portrait"
+layout        = "portrait"
 preview_panel = { header = '{strip_ansi|split:#:1|split: :0}' }
 
 [preview]
@@ -32,16 +32,15 @@ command = '''gh issue view '{strip_ansi|split:#:1|split:   :0}' --json number,ti
 
 [actions.open]
 description = "Open the issue in the browser"
-command = "gh issue view {strip_ansi|split:#:1|split: :0} --web"
-mode = "fork"
+command     = "gh issue view {strip_ansi|split:#:1|split: :0} --web"
+mode        = "fork"
 
 [actions.close]
 description = "Close the selected issue"
-command = "gh issue close {strip_ansi|split:#:1|split: :0}"
-mode = "fork"
+command     = "gh issue close {strip_ansi|split:#:1|split: :0}"
+mode        = "fork"
 
 [actions.comment]
 description = "Add a comment to the selected issue"
-command = "gh issue comment {strip_ansi|split:#:1|split: :0}"
-mode = "execute"
-
+command     = "gh issue comment {strip_ansi|split:#:1|split: :0}"
+mode        = "execute"

@@ -1,6 +1,6 @@
 [metadata]
-name = "channels"
-description = "Select a television channel"
+name         = "channels"
+description  = "Select a television channel"
 requirements = ["tv", "bat"]
 
 [source]
@@ -14,5 +14,5 @@ enter = "actions:channel-enter"
 
 [actions.channel-enter]
 description = "Enter a television channel"
-command = "tv {}"
-mode = "execute"
+command     = "tv {}"
+mode        = "execute"

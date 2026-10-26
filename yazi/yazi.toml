@@ -11,7 +11,7 @@ max_width  = 1200
 max_height = 1800
 
 [opener]
-edit =[{ run = '${EDITOR:-nvim} "$@"', block = true, for = "unix" }]
+edit = [{ run = '${EDITOR:-nvim} "$@"', block = true, for = "unix" }]
 
 [[plugin.prepend_fetchers]]
 url   = "*"

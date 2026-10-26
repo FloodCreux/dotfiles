@@ -12,10 +12,10 @@ requirements = ["kubectl"]
 
 [source]
 command = [
-  '''
+    '''
   kubectl get services -o go-template --template '{{range .items}}{{.metadata.namespace}} {{.metadata.name}}{{"\n"}}{{end}}'
   ''',
-  '''
+    '''
   kubectl get services -o go-template --template '{{range .items}}{{.metadata.namespace}} {{.metadata.name}}{{"\n"}}{{end}}' --all-namespaces
   ''',
 ]
@@ -25,7 +25,7 @@ output = "{1}"
 command = "kubectl describe -n {0} services/{1}"
 
 [ui]
-layout = "portrait"
+layout        = "portrait"
 preview_panel = { size = 60 }
 
 [keybindings]
@@ -33,5 +33,5 @@ ctrl-d = "actions:delete"
 
 [actions.delete]
 description = "Delete the selected Service"
-command = "kubectl delete -n {0} services/{1}"
-mode = "execute"
+command     = "kubectl delete -n {0} services/{1}"
+mode        = "execute"

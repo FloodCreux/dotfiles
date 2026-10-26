@@ -1,6 +1,6 @@
 [metadata]
-name = "npm-packages"
-description = "List globally installed npm packages"
+name         = "npm-packages"
+description  = "List globally installed npm packages"
 requirements = ["npm"]
 
 [source]
@@ -11,10 +11,10 @@ command = "npm info '{}' 2>/dev/null | head -30"
 
 [actions.uninstall]
 description = "Uninstall the selected global package"
-command = "npm uninstall -g '{}'"
-mode = "execute"
+command     = "npm uninstall -g '{}'"
+mode        = "execute"
 
 [actions.update]
 description = "Update the selected global package"
-command = "npm update -g '{}'"
-mode = "execute"
+command     = "npm update -g '{}'"
+mode        = "execute"

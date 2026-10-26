@@ -1,6 +1,6 @@
 [metadata]
-name = "fonts"
-description = "List installed system fonts"
+name         = "fonts"
+description  = "List installed system fonts"
 requirements = ["fc-list"]
 
 [source]

@@ -1,6 +1,6 @@
 [metadata]
-name = "aws-profiles"
-description = "List and switch AWS CLI profiles"
+name         = "aws-profiles"
+description  = "List and switch AWS CLI profiles"
 requirements = ["aws", "grep"]
 
 [source]
@@ -17,5 +17,5 @@ enter = "actions:export"
 
 [actions.export]
 description = "Export the selected profile (sets AWS_PROFILE)"
-command = "export AWS_PROFILE='{}' && echo \"AWS_PROFILE set to '{}'\" && $SHELL"
-mode = "execute"
+command     = "export AWS_PROFILE='{}' && echo \"AWS_PROFILE set to '{}'\" && $SHELL"
+mode        = "execute"

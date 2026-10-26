@@ -1,6 +1,6 @@
 [metadata]
-name = "make-targets"
-description = "List and run Makefile targets"
+name         = "make-targets"
+description  = "List and run Makefile targets"
 requirements = ["make", "awk"]
 
 [source]
@@ -14,5 +14,5 @@ enter = "actions:run"
 
 [actions.run]
 description = "Run the selected make target"
-command = "make {}"
-mode = "execute"
+command     = "make {}"
+mode        = "execute"

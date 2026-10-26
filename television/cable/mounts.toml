@@ -1,6 +1,6 @@
 [metadata]
-name = "mounts"
-description = "List mounted filesystems"
+name         = "mounts"
+description  = "List mounted filesystems"
 requirements = ["df", "awk"]
 
 [source]
@@ -15,5 +15,5 @@ enter = "actions:cd"
 
 [actions.cd]
 description = "Open a shell in the selected mount point"
-command = "cd '{}' && $SHELL"
-mode = "execute"
+command     = "cd '{}' && $SHELL"
+mode        = "execute"

@@ -1,6 +1,6 @@
 [metadata]
-name = "cargo-commands"
-description = "List available cargo commands and extensions"
+name         = "cargo-commands"
+description  = "List available cargo commands and extensions"
 requirements = ["cargo"]
 
 [source]
@@ -10,7 +10,7 @@ command = "cargo --list 2>/dev/null | tail -n +2 | awk '{print $1}'"
 command = "cargo {} --help 2>/dev/null | head -50"
 
 [ui]
-layout = "portrait"
+layout        = "portrait"
 preview_panel = { size = 60 }
 
 [keybindings]
@@ -18,5 +18,5 @@ enter = "actions:run"
 
 [actions.run]
 description = "Run the selected cargo command"
-command = "cargo '{}'"
-mode = "execute"
+command     = "cargo '{}'"
+mode        = "execute"

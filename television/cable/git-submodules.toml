@@ -1,6 +1,6 @@
 [metadata]
-name = "git-submodules"
-description = "List and manage git submodules"
+name         = "git-submodules"
+description  = "List and manage git submodules"
 requirements = ["git"]
 
 [source]
@@ -11,10 +11,10 @@ command = "git -C '{}' log --oneline -10 --color=always"
 
 [actions.update]
 description = "Update the selected submodule"
-command = "git submodule update --init --recursive '{}'"
-mode = "execute"
+command     = "git submodule update --init --recursive '{}'"
+mode        = "execute"
 
 [actions.sync]
 description = "Sync the selected submodule URL"
-command = "git submodule sync '{}'"
-mode = "execute"
+command     = "git submodule sync '{}'"
+mode        = "execute"

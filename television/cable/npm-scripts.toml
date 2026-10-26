@@ -1,6 +1,6 @@
 [metadata]
-name = "npm-scripts"
-description = "List and run npm scripts from package.json"
+name         = "npm-scripts"
+description  = "List and run npm scripts from package.json"
 requirements = ["jq"]
 
 [source]
@@ -18,5 +18,5 @@ enter = "actions:run"
 
 [actions.run]
 description = "Run the selected npm script"
-command = "npm run '{split:\\t:0}'"
-mode = "execute"
+command     = "npm run '{split:\\t:0}'"
+mode        = "execute"

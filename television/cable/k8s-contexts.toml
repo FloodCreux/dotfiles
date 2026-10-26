@@ -1,6 +1,6 @@
 [metadata]
-name = "k8s-contexts"
-description = "List and switch kubectl contexts"
+name         = "k8s-contexts"
+description  = "List and switch kubectl contexts"
 requirements = ["kubectl"]
 
 [source]
@@ -13,15 +13,15 @@ command = "kubectl config view --minify --context='{}' -o yaml"
 layout = "portrait"
 
 [keybindings]
-enter = "actions:use"
+enter  = "actions:use"
 ctrl-d = "actions:delete"
 
 [actions.use]
 description = "Switch to the selected context"
-command = "kubectl config use-context '{}'"
-mode = "execute"
+command     = "kubectl config use-context '{}'"
+mode        = "execute"
 
 [actions.delete]
 description = "Delete the selected context"
-command = "kubectl config delete-context '{}'"
-mode = "execute"
+command     = "kubectl config delete-context '{}'"
+mode        = "execute"

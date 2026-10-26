@@ -1,6 +1,6 @@
 [metadata]
-name = "just-recipes"
-description = "A channel to select recipes from Justfiles"
+name         = "just-recipes"
+description  = "A channel to select recipes from Justfiles"
 requirements = ["just"]
 
 [source]
@@ -14,5 +14,5 @@ f5 = "actions:execute-recipe"
 
 [actions.execute-recipe]
 description = "Execute a justfile recipe"
-command = "just {}"
-mode = "execute"
+command     = "just {}"
+mode        = "execute"
