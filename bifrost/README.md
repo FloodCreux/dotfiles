@@ -27,39 +27,39 @@ pasting the r1rcm virtual key when it asks.
 
 This is the main source of confusion.
 
-| | Bifrost **launcher** | Bifrost **gateway** |
-|---|---|---|
-| What | CLI that starts opencode/claude/codex pointed at a gateway | The HTTP gateway server (`bifrost-http`) |
-| Binary | `~/.bifrost/bin/bifrost`, updates itself | `~/Library/Caches/bifrost/<version>/bin/bifrost-http-0` |
-| Config | `~/.bifrost/state.json` (contexts) + `~/.bifrost/config.json` | `~/.config/bifrost/config.json`, the stowed `bifrost/config.json` |
-| Managed by | `bifrost-gateway cli-sync` | `bifrost-gateway` + launchd |
+|            | Bifrost **launcher**                                          | Bifrost **gateway**                                               |
+| ---------- | ------------------------------------------------------------- | ----------------------------------------------------------------- |
+| What       | CLI that starts opencode/claude/codex pointed at a gateway    | The HTTP gateway server (`bifrost-http`)                          |
+| Binary     | `~/.bifrost/bin/bifrost`, updates itself                      | `~/Library/Caches/bifrost/<version>/bin/bifrost-http-0`           |
+| Config     | `~/.bifrost/state.json` (contexts) + `~/.bifrost/config.json` | `~/.config/bifrost/config.json`, the stowed `bifrost/config.json` |
+| Managed by | `bifrost-gateway cli-sync`                                    | `bifrost-gateway` + launchd                                       |
 
 The npm package `@maximhq/bifrost` also installs a command called `bifrost`
 (the gateway). We don't use it; see [Why not npx](#why-not-npx).
 
 ## Files
 
-| File | Goes to | Purpose |
-|---|---|---|
-| `config.json` | `~/.config/bifrost/config.json` (stow) | Gateway config: providers, cache, MCP, budgets |
-| `cli.json` | merged into `~/.bifrost/config.json` | Launcher preferences (harness, model, auto install/attach) |
-| `bin/bifrost-gateway` | `~/.local/bin/bifrost-gateway` (symlink) | Management script |
-| `launchd/ai.getbifrost.gateway.plist` | `~/Library/LaunchAgents/` (rendered copy) | Runs the gateway at login. `__HOME__` is replaced on install |
-| `completions/bifrost-gateway.fish` | `~/.config/fish/completions/` (symlink) | Tab completion; `bfgw` inherits it |
-| `gateway.version` | read by the script | Pinned gateway release, e.g. `v2.3.2` |
-| `.stow-local-ignore` | n/a | Keeps everything except `config.json` out of `~/.config/bifrost` |
+| File                                  | Goes to                                   | Purpose                                                          |
+| ------------------------------------- | ----------------------------------------- | ---------------------------------------------------------------- |
+| `config.json`                         | `~/.config/bifrost/config.json` (stow)    | Gateway config: providers, cache, MCP, budgets                   |
+| `cli.json`                            | merged into `~/.bifrost/config.json`      | Launcher preferences (harness, model, auto install/attach)       |
+| `bin/bifrost-gateway`                 | `~/.local/bin/bifrost-gateway` (symlink)  | Management script                                                |
+| `launchd/ai.getbifrost.gateway.plist` | `~/Library/LaunchAgents/` (rendered copy) | Runs the gateway at login. `__HOME__` is replaced on install     |
+| `completions/bifrost-gateway.fish`    | `~/.config/fish/completions/` (symlink)   | Tab completion; `bfgw` inherits it                               |
+| `gateway.version`                     | read by the script                        | Pinned gateway release, e.g. `v2.3.2`                            |
+| `.stow-local-ignore`                  | n/a                                       | Keeps everything except `config.json` out of `~/.config/bifrost` |
 
 Aliases live in `fish/config.fish` and `shell/aliases.sh`.
 
 Runtime state, not in git:
 
-| Path | What |
-|---|---|
-| `~/.config/bifrost/config.db` | Gateway database (config in use, virtual keys, MCP OAuth tokens) |
-| `~/.config/bifrost/logs.db` | Request logs shown in the dashboard |
-| `~/.config/bifrost/vectorstore/` | Cache storage (chromem) |
-| `~/.config/bifrost/.gateway-started` | Touched on every start; used to detect config changes |
-| `~/Library/Logs/bifrost-gateway.{out,err}.log` | Gateway stdout/stderr |
+| Path                                           | What                                                             |
+| ---------------------------------------------- | ---------------------------------------------------------------- |
+| `~/.config/bifrost/config.db`                  | Gateway database (config in use, virtual keys, MCP OAuth tokens) |
+| `~/.config/bifrost/logs.db`                    | Request logs shown in the dashboard                              |
+| `~/.config/bifrost/vectorstore/`               | Cache storage (chromem)                                          |
+| `~/.config/bifrost/.gateway-started`           | Touched on every start; used to detect config changes            |
+| `~/Library/Logs/bifrost-gateway.{out,err}.log` | Gateway stdout/stderr                                            |
 
 ## Commands
 
@@ -99,14 +99,14 @@ All secrets live in the macOS Keychain (service `bifrost-<name>`, account
 `$USER`), never in git. The script exports them as env vars before starting the
 gateway, and `config.json` refers to them as `env.VAR`.
 
-| Keychain item | Env var | Source | Used for |
-|---|---|---|---|
-| `bifrost-r1rcm-vk` | `BIFROST_R1RCM_VK` | **you** (from r1rcm) | Upstream auth to bifrost.r1rcm.com |
-| `bifrost-setup-token` | `BIFROST_SETUP_TOKEN` | generated | Unlocks the dashboard until an admin account exists |
-| `bifrost-vk-opencode` | `BIFROST_VK_OPENCODE` | generated | Local virtual key; also what the launcher uses |
-| `bifrost-vk-claude` | `BIFROST_VK_CLAUDE` | generated | Local virtual key |
-| `bifrost-vk-codex` | `BIFROST_VK_CODEX` | generated | Local virtual key |
-| `bifrost-vk-scripts` | `BIFROST_VK_SCRIPTS` | generated | Local virtual key for ad-hoc scripts (rate limited) |
+| Keychain item         | Env var               | Source               | Used for                                            |
+| --------------------- | --------------------- | -------------------- | --------------------------------------------------- |
+| `bifrost-r1rcm-vk`    | `BIFROST_R1RCM_VK`    | **you** (from r1rcm) | Upstream auth to bifrost.r1rcm.com                  |
+| `bifrost-setup-token` | `BIFROST_SETUP_TOKEN` | generated            | Unlocks the dashboard until an admin account exists |
+| `bifrost-vk-opencode` | `BIFROST_VK_OPENCODE` | generated            | Local virtual key; also what the launcher uses      |
+| `bifrost-vk-claude`   | `BIFROST_VK_CLAUDE`   | generated            | Local virtual key                                   |
+| `bifrost-vk-codex`    | `BIFROST_VK_CODEX`    | generated            | Local virtual key                                   |
+| `bifrost-vk-scripts`  | `BIFROST_VK_SCRIPTS`  | generated            | Local virtual key for ad-hoc scripts (rate limited) |
 
 ```bash
 bfgw secrets                  # what exists (never prints values)
@@ -223,16 +223,16 @@ cache path npx uses, then runs the binary directly with `exec`.
 
 Start with `bfgw doctor` (or `bfgw doctor --fix`).
 
-| Symptom | Cause / fix |
-|---|---|
-| Dashboard: "No setup token is configured" | `bfgw up` (creates the token), then `bfgw dash` and paste it |
-| Dashboard requests return 401 | Token not pasted, or wrong; `bfgw dash` copies it again |
-| Launcher goes to r1rcm instead of local | Launcher context changed or it updated itself: `bfgw cli-sync` |
-| `bfgw status`: loaded but not healthy | `bfgw logs`; often port 8080 busy (`lsof -iTCP:8080`) or a bad config |
-| Gateway exits right after start, no error | A required secret is missing: `bfgw secrets` |
-| Config edit has no effect | `bfgw up`; if the dashboard changed the same item, the database copy may win until the file content changes |
-| MCP tools show up twice in opencode | Remove the `mcp` block from `opencode/opencode.jsonc`; the gateway serves them |
-| Anthropic route rejected upstream | Add `network_config.extra_headers` with `x-bf-vk` to the `anthropic` provider |
+| Symptom                                   | Cause / fix                                                                                                 |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| Dashboard: "No setup token is configured" | `bfgw up` (creates the token), then `bfgw dash` and paste it                                                |
+| Dashboard requests return 401             | Token not pasted, or wrong; `bfgw dash` copies it again                                                     |
+| Launcher goes to r1rcm instead of local   | Launcher context changed or it updated itself: `bfgw cli-sync`                                              |
+| `bfgw status`: loaded but not healthy     | `bfgw logs`; often port 8080 busy (`lsof -iTCP:8080`) or a bad config                                       |
+| Gateway exits right after start, no error | A required secret is missing: `bfgw secrets`                                                                |
+| Config edit has no effect                 | `bfgw up`; if the dashboard changed the same item, the database copy may win until the file content changes |
+| MCP tools show up twice in opencode       | Remove the `mcp` block from `opencode/opencode.jsonc`; the gateway serves them                              |
+| Anthropic route rejected upstream         | Add `network_config.extra_headers` with `x-bf-vk` to the `anthropic` provider                               |
 
 To reset local state, run `bfgw down`, then delete `config.db`, `logs.db` and
 `vectorstore/` in `~/.config/bifrost` (keep `config.json`), then `bfgw up`.
