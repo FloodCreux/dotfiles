@@ -1,5 +1,4 @@
-Include /Users/chmc-h022fl97xj/.colima/ssh_config
-
+Include ~/.colima/ssh_config
 Include ~/.config/colima/ssh_config
 
 # ~/.ssh/config

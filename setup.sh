@@ -2,247 +2,99 @@
 # ============================================
 # DOTFILES INSTALLATION SCRIPT
 # ============================================
-# This script uses GNU Stow to symlink dotfiles
-# to ~/.config and creates necessary home directory
-# symlinks for compatibility.
+# Stows every package into ~/.config/<package>,
+# creates the links that must live outside
+# ~/.config, and installs plugins. Safe to re-run.
 # ============================================
 
-set -e # Exit on error
+set -euo pipefail
 
-# Colors for output
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-NC='\033[0m' # No Color
-
-# Helper functions
-info() {
-    echo -e "${BLUE}[INFO]${NC} $1"
-}
-
-success() {
-    echo -e "${GREEN}[SUCCESS]${NC} $1"
-}
-
-warn() {
-    echo -e "${YELLOW}[WARN]${NC} $1"
-}
-
-error() {
-    echo -e "${RED}[ERROR]${NC} $1"
-}
-
-# Check if a command exists
-command_exists() {
-    command -v "$1" >/dev/null 2>&1
-}
+# shellcheck source=lib.sh
+source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
+cd "$DOTFILES_DIR"
 
 # ============================================
 # DEPENDENCY CHECKS
 # ============================================
-info "Checking dependencies..."
-
 if ! command_exists stow; then
     error "GNU Stow is not installed!"
     info "Install with: brew install stow"
     exit 1
 fi
 
-success "All required dependencies found"
-
-# ============================================
-# BACKUP EXISTING CONFIGS
-# ============================================
-info "Backing up existing configurations..."
-
 BACKUP_DIR="$HOME/.dotfiles-backup-$(date +%Y%m%d-%H%M%S)"
-mkdir -p "$BACKUP_DIR"
 
-# Files/directories to check for backup
-BACKUP_TARGETS=(
-    "$HOME/.bashrc"
-    "$HOME/.zshrc"
-    "$HOME/.vimrc"
-    "$HOME/.claude"
-    "$HOME/.bifrost"
-    "$HOME/.gitconfig"
-    "$HOME/.ssh/config"
-    "$HOME/.config/mise"
-    "$HOME/.config/nvim"
-    "$HOME/.config/tmux"
-    "$HOME/.config/zsh"
-    "$HOME/.config/bash"
-    "$HOME/.config/fish/config.fish"
-    "$HOME/.config/git"
-    "$HOME/.config/starship"
-)
-
-BACKED_UP=0
-for target in "${BACKUP_TARGETS[@]}"; do
-    if [ -e "$target" ] && [ ! -L "$target" ]; then
-        info "Backing up: $target"
-        mkdir -p "$BACKUP_DIR/$(dirname "$target")"
-        cp -r "$target" "$BACKUP_DIR/$target"
-        BACKED_UP=$((BACKED_UP + 1))
-    fi
-done
-
-if [ $BACKED_UP -gt 0 ]; then
-    success "Backed up $BACKED_UP items to: $BACKUP_DIR"
-else
-    info "No existing configs found to backup"
-    rmdir "$BACKUP_DIR" 2>/dev/null || true
-fi
+# Copy a path into the backup dir, keeping its location relative to $HOME.
+backup() {
+    local path="$1"
+    local dest="$BACKUP_DIR/${path#"$HOME"/}"
+    mkdir -p "$(dirname "$dest")"
+    cp -R "$path" "$dest"
+    info "Backed up: $path"
+}
 
 # ============================================
 # STOW PACKAGES
 # ============================================
-info "Installing dotfiles with GNU Stow..."
+header "Stowing packages"
 
-# Get the directory where this script is located
-DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$DOTFILES_DIR"
-
-# Array of packages to stow
-PACKAGES=(
-    "aerospace"
-    "ai"
-    "bash"
-    "bifrost"
-    "claude"
-    "direnv"
-    "doom"
-    "emacs"
-    "fish"
-    "ghostty"
-    "git"
-    "lazygit"
-    "mac"
-    "mise"
-    "nvim"
-    "opencode"
-    "sesh"
-    "shell"
-    "ssh"
-    "starship"
-    "television"
-    "tmux"
-    "tuicr"
-    "vim"
-    "worktrunk"
-    "yazi"
-    "zsh"
-)
-
-# Stow each package into its own subdirectory
 STOWED=0
-FAILED=0
-for package in "${PACKAGES[@]}"; do
-    if [ -d "$package" ]; then
-        info "Stowing $package..."
+FAILED=()
+while IFS= read -r package; do
+    target_dir="$HOME/.config/$package"
+    mkdir -p "$target_dir"
 
-        # Create target directory if it doesn't exist
-        target_dir="$HOME/.config/$package"
-        mkdir -p "$target_dir"
-
-        # Stow into ~/.config/<package> to preserve directory structure
-        if stow -d . -t "$target_dir" "$package" 2>/dev/null; then
-            success "✓ $package"
-            STOWED=$((STOWED + 1))
-        else
-            warn "✗ $package (conflicts exist, use 'stow -d . -t ~/.config/$package $package' to see details)"
-            FAILED=$((FAILED + 1))
-        fi
+    if output="$(stow -d . -t "$target_dir" "$package" 2>&1)"; then
+        success "✓ $package"
+        STOWED=$((STOWED + 1))
+    else
+        warn "✗ $package"
+        printf '    %s\n' "${output//$'\n'/$'\n'    }"
+        FAILED+=("$package")
     fi
-done
+done < <(discover_packages)
 
-success "Stowed $STOWED packages successfully"
-if [ $FAILED -gt 0 ]; then
-    warn "$FAILED packages had conflicts"
+success "Stowed $STOWED packages"
+if [ ${#FAILED[@]} -gt 0 ]; then
+    warn "Conflicts in: ${FAILED[*]}"
+    info "Move the listed files out of the way, then re-run. Details:"
+    info "  stow -n -v -d $DOTFILES_DIR -t ~/.config/<pkg> <pkg>"
 fi
 
 # ============================================
-# CREATE HOME DIRECTORY SYMLINKS
+# HOME DIRECTORY LINKS
 # ============================================
-info "Creating home directory symlinks..."
+header "Linking files outside ~/.config"
 
-# Create symlinks for configs that need to be in home directory
-SYMLINKS=(
-    "$HOME/.bashrc:$HOME/.config/bash/.bashrc"
-    "$HOME/.zshrc:$HOME/.config/zsh/.zshrc"
-    "$HOME/.vimrc:$HOME/.config/vim/.vimrc"
-    "$HOME/.gitconfig:$HOME/.config/git/.gitconfig"
-    "$HOME/.emacs:$HOME/.config/emacs/emacs.el"
-    "$HOME/.emacs.d/early-init.el:$HOME/.config/emacs/early-init.el"
+mkdir -p "$HOME/.ssh"
+chmod 700 "$HOME/.ssh"
 
-    # Claude symlinks. These need to be one-off to not overwrite Claude generated items
-    "$HOME/.claude:$HOME/.config/claude"
-    # "$HOME/.claude/skills:$HOME/.config/claude/skills"
-    # "$HOME/.claude/settings.json:$HOME/.config/claude/settings.json"
+# Left behind by older versions of this script.
+if [ -L "$HOME/.claude/.CLAUDE.md" ]; then
+    rm -f "$HOME/.claude/.CLAUDE.md"
+fi
 
-    # AI symlinks
-    "$HOME/.AGENTS.md:$HOME/.config/ai/AGENTS.MD"
-    "$HOME/.claude/.CLAUDE.md:$HOME/.config/ai/AGENTS.MD"
-    "$HOME/opencode.jsonc:$HOME/.config/opencode/opencode.work.jsonc"
-)
-
-for link_def in "${SYMLINKS[@]}"; do
+for link_def in "${HOME_LINKS[@]}"; do
     IFS=':' read -r link_path target_path <<<"$link_def"
 
-    # Remove existing file/link if it exists
-    if [ -e "$link_path" ] || [ -L "$link_path" ]; then
-        rm -f "$link_path"
+    if [ ! -e "$target_path" ]; then
+        warn "Target does not exist, skipping: $target_path"
+        continue
     fi
 
-    # Create symlink
-    if [ -e "$target_path" ]; then
-        mkdir -p "$(dirname "$link_path")"
-        ln -sf "$target_path" "$link_path"
-        success "Linked: $(basename "$link_path")"
-    else
-        warn "Target does not exist: $target_path"
+    if [ -L "$link_path" ]; then
+        rm -f "$link_path"
+    elif [ -e "$link_path" ]; then
+        backup "$link_path"
+        rm -rf "$link_path"
     fi
+
+    mkdir -p "$(dirname "$link_path")"
+    ln -s "$target_path" "$link_path"
+    success "Linked: ${link_path#"$HOME"/}"
 done
 
-# SSH config requires the directory to exist
-if [ ! -d "$HOME/.ssh" ]; then
-    mkdir -p "$HOME/.ssh"
-    chmod 700 "$HOME/.ssh"
-fi
-
-if [ -e "$HOME/.config/ssh/config" ]; then
-    ln -sf "$HOME/.config/ssh/config" "$HOME/.ssh/config"
-    success "Linked: .ssh/config"
-fi
-
-# Vim colors directory
-if [ -e "$HOME/.config/vim/colors" ] && [ ! -e "$HOME/.vim/colors" ]; then
-    mkdir -p "$HOME/.vim"
-    ln -sf "$HOME/.config/vim/colors" "$HOME/.vim/colors"
-    success "Linked: .vim/colors"
-fi
-
-# ============================================
-# SET PERMISSIONS
-# ============================================
-info "Setting executable permissions..."
-
-# Make tmux sessionizer executable
-if [ -f "$HOME/.config/tmux/scripts/tmux-sessionizer" ]; then
-    chmod +x "$HOME/.config/tmux/scripts/tmux-sessionizer"
-    success "Set permissions: tmux-sessionizer"
-fi
-
-# Make all sketchybar plugins executable
-if [ -d "$HOME/.config/sketchybar/plugins" ]; then
-    chmod +x "$HOME/.config/sketchybar/plugins"/*
-    success "Set permissions: sketchybar plugins"
-fi
-
-# ============================================
-# OPENCODE
-# ============================================
+# Only present on machines with the work opencode config.
 if [ -e "$HOME/.config/opencode/opencode.work.jsonc" ]; then
     ln -sfn "$HOME/.config/opencode/opencode.work.jsonc" "$HOME/opencode.jsonc"
     success "Linked: opencode.jsonc (work)"
@@ -251,44 +103,62 @@ elif [ -L "$HOME/opencode.jsonc" ]; then
 fi
 
 # ============================================
-# BIFROST GATEWAY
+# DOOM EMACS
 # ============================================
-# Launcher config is merged (not symlinked) because the launcher rewrites it;
-# the gateway runs as a launchd agent. Missing keychain secrets are reported.
-info "Setting up Bifrost gateway..."
-chmod +x "$DOTFILES_DIR/bifrost/bin/bifrost-gateway"
-if "$DOTFILES_DIR/bifrost/bin/bifrost-gateway" setup; then
-    success "Bifrost gateway installed (check with: bifrost-gateway doctor)"
-else
-    warn "Bifrost gateway setup incomplete (run: bifrost-gateway doctor)"
+header "Doom Emacs"
+
+if [ -d "$DOOM_DIR" ]; then
+    success "Doom Emacs present at $DOOM_DIR"
+elif command_exists git; then
+    info "Cloning Doom Emacs into $DOOM_DIR..."
+    if git clone --depth 1 https://github.com/doomemacs/core "$DOOM_DIR"; then
+        success "Cloned Doom Emacs (run: $DOOM_DIR/bin/doom install)"
+    else
+        warn "Could not clone Doom Emacs"
+    fi
 fi
 
 # ============================================
-# INSTALL TMUX PLUGINS
+# TMUX PLUGINS
 # ============================================
-~/.tmux/plugins/tpm/bin/install_plugins
+header "Tmux plugins"
+
+if [ ! -d "$TPM_DIR" ] && command_exists git; then
+    info "Cloning tpm into $TPM_DIR..."
+    git clone --depth 1 https://github.com/tmux-plugins/tpm "$TPM_DIR" || warn "Could not clone tpm"
+fi
+
+if [ -x "$TPM_DIR/bin/install_plugins" ]; then
+    "$TPM_DIR/bin/install_plugins" || warn "tpm plugin install failed"
+fi
 
 # ============================================
-# POST-INSTALL INSTRUCTIONS
+# BIFROST GATEWAY
+# ============================================
+# Work machines only. The launcher config is merged (not symlinked) because
+# the launcher rewrites it; the gateway runs as a launchd agent.
+if [ -e "$HOME/.config/opencode/opencode.work.jsonc" ]; then
+    header "Bifrost gateway"
+    if "$DOTFILES_DIR/bifrost/bin/bifrost-gateway" setup; then
+        success "Bifrost gateway installed (check with: bifrost-gateway doctor)"
+    else
+        warn "Bifrost gateway setup incomplete (run: bifrost-gateway doctor)"
+    fi
+fi
+
+# ============================================
+# DONE
 # ============================================
 echo ""
 success "Dotfiles installation complete!"
 echo ""
 info "Next steps:"
-echo "  1. Install dependencies: brew bundle"
+echo "  1. Install packages:  mise run brew && mise install"
 echo "  2. Restart your shell: exec \$SHELL"
-echo "  3. Review shell config: ~/.config/shell/*.sh"
+echo "  3. Git identities:    copy git/.gitconfig-*.example to git/.gitconfig-* and fill them in"
+echo "  4. SSH keys:          add them to ~/.ssh/"
 echo ""
 
 if [ -d "$BACKUP_DIR" ]; then
-    info "Your old configs are backed up at:"
-    echo "  $BACKUP_DIR"
-    echo ""
+    info "Replaced files were backed up to: $BACKUP_DIR"
 fi
-
-warn "Note: Some configurations may require additional setup:"
-echo "  - Git: Configure identities in ~/.config/git/.gitconfig-*"
-echo "  - SSH: Add your SSH keys to ~/.ssh/"
-echo "  - GPG: Import your GPG keys if using signed commits"
-echo "  - Nix: Set up nix-darwin if using Nix (optional)"
-echo ""

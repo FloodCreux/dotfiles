@@ -1,9 +1,9 @@
 [includeIf "gitdir:~/work/**"]
-  path = ~/.gitconfig-work
+  path = ~/.config/git/.gitconfig-work
 [includeIf "gitdir:~/personal/**"]
-  path = ~/.gitconfig-codeberg
+  path = ~/.config/git/.gitconfig-codeberg
 [includeIf "gitdir:~/.config/**"]
-  path = ~/.gitconfig-codeberg
+  path = ~/.config/git/.gitconfig-codeberg
 
 [alias]
   # Push to GitHub with personal identity
@@ -12,9 +12,8 @@
           echo \"Error: Set GIT_PERSONAL_EMAIL and GIT_PERSONAL_KEY environment variables\"; \
           return 1; \
       fi; \
-      git config user.email \"$GIT_PERSONAL_EMAIL\" && \
-      git config user.signingkey \"$GIT_PERSONAL_KEY\" && \
-      git push origin \"$@\"; \
+      git -c user.email=\"$GIT_PERSONAL_EMAIL\" -c user.signingkey=\"$GIT_PERSONAL_KEY\" \
+          push origin \"$@\"; \
   }; f"
 
   # Push to Codeberg with codeberg identity
@@ -23,9 +22,8 @@
           echo \"Error: Set GIT_CODEBERG_EMAIL and GIT_CODEBERG_KEY environment variables\"; \
           return 1; \
       fi; \
-      git config user.email \"$GIT_CODEBERG_EMAIL\" && \
-      git config user.signingkey \"$GIT_CODEBERG_KEY\" && \
-      git push codeberg \"$@\"; \
+      git -c user.email=\"$GIT_CODEBERG_EMAIL\" -c user.signingkey=\"$GIT_CODEBERG_KEY\" \
+          push codeberg \"$@\"; \
   }; f"
 
   # Push to both

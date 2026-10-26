@@ -12,8 +12,6 @@
 # Git identity files (use .example templates instead)
 git/.gitconfig-personal
 git/.gitconfig-work
-git/.gitconfig-palantir
-git/.gitconfig-phare
 git/.gitconfig-codeberg
 
 # SSH keys and sensitive config
@@ -53,6 +51,12 @@ history.txt
 tmux/plugins/
 raycast/
 fzf/
+
+# Doom Emacs is cloned to ~/.config/doom-emacs by setup.sh
+doom/
+
+# Machine-local links created by the Databricks AI tools installer
+claude/skills/databricks-*
 
 # ============================================
 # Build/Generated Files
