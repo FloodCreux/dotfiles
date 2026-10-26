@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Manage the local Bifrost gateway (launchd) and the launcher's link to it.
 # See bifrost/README.md for how the pieces fit together.
+# shellcheck disable=SC2015  # `check && pass || fail`: pass never fails
 set -euo pipefail
 
 SELF="$(realpath "${BASH_SOURCE[0]}")"
