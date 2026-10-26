@@ -1,24 +1,105 @@
+# Repo-local tools and tasks. Run `mise tasks` to list them.
+
+[tools]
+shellcheck = "latest"
+taplo      = "latest"
+stylua     = "latest"
+gitleaks   = "latest"
+
+[vars]
+shell_scripts = "*.sh scripts/*.sh shell/*.sh mac/*.sh bifrost/bin/* tmux/scripts/* sesh/scripts/*"
+
+# ============================================
+# Install
+# ============================================
+
 [tasks.install]
-description = "Stow all packages"
+description = "Stow all packages and create home links"
 run         = "bash setup.sh"
 
 [tasks.bootstrap]
-description = "Fresh machine: brew, packages, stow"
+description = "Fresh machine: Homebrew, mise, stow, packages"
 run         = "bash install.sh"
+
+[tasks.uninstall]
+description = "Remove all dotfile links"
+run         = "bash uninstall.sh"
+
+[tasks.update]
+description = "Pull latest dotfiles and re-run setup"
+run         = ["git pull --rebase", "bash setup.sh"]
 
 [tasks.restow]
 description = "Restow one package"
-usage       = 'arg "<pkg>"' 
-run         = 'stow -d . -t ~/.config/{{arg(name="pkg")}} {{arg(name="pkg")}}'
+usage       = 'arg "<pkg>"'
+run         = 'stow -R -d . -t ~/.config/{{arg(name="pkg")}} {{arg(name="pkg")}}'
 
-[tasks.lint]
-description = "Shellcheck all scripts"
-run         = "shellcheck setup.sh install.sh tmux/scripts/* sesh/scripts/*"
-
-[tasks.check-links]
-description = "Find broken synlinks in ~/.config"
-run         = 'find ~/.config -maxdepth 2 -type l ! -exec test -e {} \; -print'
+[tasks.mac-defaults]
+description = "Apply macOS system defaults"
+run         = "bash mac/defaults.sh"
 
 [tasks.plugins]
-description = "Install tpm, yazi and other plugins"
+description = "Install tmux and yazi plugins"
 run         = ["~/.config/tmux/plugins/tpm/bin/install_plugins", "ya pkg install"]
+
+# ============================================
+# Status
+# ============================================
+
+[tasks.status]
+description = "Show git status, home links and broken links"
+run         = "bash scripts/status.sh"
+
+[tasks.check-links]
+description = "Find broken symlinks in ~/.config"
+run         = 'find ~/.config -maxdepth 3 -type l ! -exec test -e {} \; -print'
+
+[tasks.clean]
+description = "Delete setup backups older than 30 days"
+run         = 'find ~ -maxdepth 1 -type d -name ".dotfiles-backup-*" -mtime +30 -print -exec rm -rf {} +'
+
+# ============================================
+# Homebrew
+# ============================================
+
+[tasks.brew]
+description = "Install Brewfile packages"
+run         = "brew bundle install --file ./Brewfile --verbose"
+
+[tasks.brew-update]
+description = "Update and upgrade Homebrew packages"
+depends     = ["fix-java-certs"]
+run         = ["brew update", "brew upgrade", "brew cleanup"]
+
+[tasks.brew-dump]
+description = "Regenerate the Brewfile from installed packages"
+run         = "brew bundle dump --file ./Brewfile --force --describe"
+
+[tasks.brew-cleanup]
+description = "Remove old versions, unused deps and the download cache"
+run         = ["brew cleanup -s", "brew autoremove", 'rm -rf "$(brew --cache)"']
+
+[tasks.fix-java-certs]
+description = "Import the Netskope CA into JDK trust stores"
+run         = "bash scripts/fix-java-certs.sh"
+
+# ============================================
+# Checks
+# ============================================
+
+[tasks.lint]
+description = "Lint shell scripts, TOML, Lua and check for secrets"
+run = [
+    "shellcheck {{vars.shell_scripts}}",
+    "taplo fmt --check",
+    "stylua --check nvim",
+    "gitleaks git --no-banner --redact",
+]
+
+[tasks.fmt]
+description = "Format TOML and Lua"
+run         = ["taplo fmt", "stylua nvim"]
+
+[tasks.hooks]
+description = "Install a git pre-commit hook that runs the lint task"
+run         = "mise generate git-pre-commit --write --task=lint"
