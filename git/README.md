@@ -7,23 +7,22 @@ Multi-identity git configuration using conditional includes based on directory p
 The main `.gitconfig` file uses `includeIf` directives to automatically load different configurations based on which directory you're working in:
 
 - `~/work/**` → Uses `.gitconfig-work`
-- `~/work/phare/**` → Uses `.gitconfig-phare`
-- `~/work/palantir/**` → Uses `.gitconfig-palantir`
 - `~/personal/**` → Uses `.gitconfig-codeberg`
 - `~/.config/**` → Uses `.gitconfig-codeberg`
+
+The identity files are read from `~/.config/git/`, where stow links them. They are gitignored; only the `.example` templates are committed.
 
 ## Setup
 
 1. **Copy the example templates:**
    ```bash
-   cp git/.gitconfig-personal.example git/.gitconfig-personal
    cp git/.gitconfig-work.example git/.gitconfig-work
    cp git/.gitconfig-codeberg.example git/.gitconfig-codeberg
    ```
 
 2. **Edit each file with your information:**
    ```bash
-   nvim ~/.config/git/.gitconfig-personal
+   nvim ~/.config/git/.gitconfig-work
    ```
 
 3. **Add your details:**
@@ -36,7 +35,7 @@ The main `.gitconfig` file uses `includeIf` directives to automatically load dif
 The configuration includes custom aliases for managing multiple remotes:
 
 ### push-github
-Pushes to GitHub with personal identity. Requires environment variables:
+Pushes to GitHub with personal identity. The identity is passed with `git -c` for that push only; repo config is not changed. Requires environment variables:
 ```bash
 export GIT_PERSONAL_EMAIL="your@email.com"
 export GIT_PERSONAL_KEY="YOUR_GPG_KEY_ID"

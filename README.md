@@ -1,324 +1,133 @@
 # Dotfiles
 
-Personal configuration files for macOS, managed with [GNU Stow](https://www.gnu.org/software/stow/).
+Personal macOS configuration, linked into place with [GNU Stow](https://www.gnu.org/software/stow/) and managed with [mise](https://mise.jdx.dev/) tasks.
 
-## Overview
+## Install
 
-This repository contains configuration files for:
-
-- **Shell**: Bash, Zsh, Nushell
-- **Editor**: Neovim, Vim
-- **Terminal**: Ghostty, Tmux
-- **Tools**: Git, SSH, Starship, Lazygit, Yazi, Direnv
-- **macOS**: Aerospace (window manager), SketchyBar (status bar)
-
-## Prerequisites
-
-### Required
-
-- [GNU Stow](https://www.gnu.org/software/stow/) - Symlink manager
-- [Homebrew](https://brew.sh/) - Package manager for macOS
-
-### Recommended Tools
-
-Install via Homebrew after setup:
+Fresh Mac:
 
 ```bash
-brew bundle
-```
-
-See [Brewfile.md](Brewfile.md) for the complete documentation of ~95 packages including:
-- **Development:** Python, Rust, Scala, Java tooling
-- **Cloud:** AWS, Azure, Databricks, Docker, Kubernetes
-- **Shell:** fzf, eza, zoxide, tmux, starship
-- **Editors:** Neovim LSP servers and dependencies
-- **macOS:** Aerospace, SketchyBar, Ghostty
-
-Quick reference: `make brew` to install all packages.
-
-### Optional
-
-- [Nix](https://nixos.org/) with [nix-darwin](https://github.com/LnL7/nix-darwin) - Declarative system configuration
-- [lazygit](https://github.com/jesseduffield/lazygit) - Git TUI
-- [yazi](https://github.com/sxyazi/yazi) - Terminal file manager
-
-## Installation
-
-### Quick Start (Fresh macOS System)
-
-Bootstrap everything automatically:
-
-```bash
-# Clone the repository
-git clone <your-repo-url> ~/personal/dotfiles
+git clone git@github-personal:FloodCreux/dotfiles.git ~/personal/dotfiles
 cd ~/personal/dotfiles
-
-# Run the bootstrap script (installs Homebrew, packages, and configs)
 ./install.sh
 ```
 
-The `install.sh` script will:
-- Install Homebrew if missing
-- Install GNU Stow
-- Install all packages from Brewfile (~100 packages, optional)
-- Run setup.sh to configure dotfiles
-- Backup existing configs automatically
+`install.sh` installs Homebrew, Stow and mise, runs `setup.sh`, then (if you say yes) installs the Brewfile packages and mise tools.
 
-### Manual Install (Existing System)
-
-If you already have Homebrew and Stow:
+Existing machine with Stow already installed:
 
 ```bash
-# Clone the repository
-git clone <your-repo-url> ~/personal/dotfiles
-cd ~/personal/dotfiles
-
-# Install dotfiles only
-make install
-# or
-./setup.sh
-
-# Install brew packages
-make brew
-# or
-brew bundle
-
-# Restart your shell
-exec $SHELL
+./setup.sh        # or: mise run install
 ```
 
-### Selective Installation
+`setup.sh` is safe to re-run. Anything it would replace is copied to `~/.dotfiles-backup-<timestamp>/` first.
 
-To install only specific configurations:
+After installing:
+
+1. Copy `git/.gitconfig-work.example` and `git/.gitconfig-codeberg.example` to the same names without `.example` and fill them in (see [git/README.md](git/README.md)).
+2. Add SSH keys to `~/.ssh/` (see [ssh/README.md](ssh/README.md)).
+3. Optionally run `mise run mac-defaults` and `mise run hooks`.
+
+## How it works
+
+Every top-level directory is a stow package, linked into `~/.config/<package>/`. For example, `nvim/init.lua` becomes `~/.config/nvim/init.lua`. Directories listed in `.stow-packages-ignore` are skipped.
+
+A few tools expect files outside `~/.config`. `setup.sh` links those from the `HOME_LINKS` table in `lib.sh`:
+
+| Link                                   | Points to                  |
+| -------------------------------------- | -------------------------- |
+| `~/.bashrc`                            | `~/.config/bash/.bashrc`   |
+| `~/.zshrc`                             | `~/.config/zsh/.zshrc`     |
+| `~/.vimrc`, `~/.vim/colors`            | `~/.config/vim/`           |
+| `~/.gitconfig`                         | `~/.config/git/.gitconfig` |
+| `~/.ssh/config`                        | `~/.config/ssh/config`     |
+| `~/.emacs`, `~/.emacs.d/early-init.el` | `~/.config/emacs/`         |
+| `~/.claude`                            | `~/.config/claude`         |
+| `~/.AGENTS.md`, `~/.claude/CLAUDE.md`  | `~/.config/ai/AGENTS.md`   |
+
+`setup.sh` also:
+
+- links `~/opencode.jsonc` to the work opencode config, if `opencode/opencode.work.jsonc` exists (gitignored);
+- clones [Doom Emacs](https://github.com/doomemacs/core) into `~/.config/doom-emacs` if missing (start it with `emacs --init-directory ~/.config/doom-emacs`);
+- clones tpm into `~/.config/tmux/plugins/tpm` and installs tmux plugins;
+- sets up the Bifrost gateway on work machines (see [bifrost/README.md](bifrost/README.md)).
+
+## Packages
+
+| Package      | What                                                        |
+| ------------ | ----------------------------------------------------------- |
+| `aerospace`  | Aerospace tiling window manager                             |
+| `ai`         | Shared agent instructions (`AGENTS.md`)                     |
+| `bash`       | Bash config                                                 |
+| `bifrost`    | Local Bifrost AI gateway and its management script          |
+| `claude`     | Claude Code settings and skills                             |
+| `direnv`     | direnv config                                               |
+| `emacs`      | Vanilla Emacs config                                        |
+| `fish`       | Fish config                                                 |
+| `ghostty`    | Ghostty terminal config and shaders                         |
+| `git`        | Git config with per-directory identities                    |
+| `lazygit`    | lazygit config                                              |
+| `mise`       | Global mise tools (languages, CLIs, LSP servers)            |
+| `nvim`       | Neovim config (native `vim.pack`, `lsp/` server configs)    |
+| `opencode`   | opencode config                                             |
+| `sesh`       | sesh tmux session manager config                            |
+| `shell`      | Env, aliases and functions shared by Bash and Zsh           |
+| `ssh`        | SSH config with per-account GitHub/Codeberg hosts           |
+| `starship`   | Starship prompt                                             |
+| `television` | television fuzzy finder and its channels                    |
+| `tmux`       | tmux config and scripts (sessionizer, cht.sh)               |
+| `tuicr`      | tuicr review tool config                                    |
+| `vim`        | Vim config and colorschemes                                 |
+| `worktrunk`  | worktrunk git worktree manager config                       |
+| `yazi`       | yazi file manager config                                    |
+| `zsh`        | Zsh config                                                  |
+
+Not stowed: `mac/` (macOS defaults script) and `scripts/` (helpers for mise tasks).
+
+## Tasks
+
+Run `mise tasks` for the full list. The common ones:
 
 ```bash
-stow -t ~/.config <package-name>
+mise run install       # stow everything and create home links
+mise run update        # git pull, then re-run setup
+mise run restow nvim   # restow one package
+mise run status        # git status, home links, broken links
+mise run uninstall     # remove every link (repo files are kept)
+mise run brew          # install Brewfile packages
+mise run brew-update   # update Homebrew packages
+mise run lint          # shellcheck, taplo, stylua, gitleaks
+mise run fmt           # format TOML and Lua
 ```
 
-For example:
-```bash
-stow -t ~/.config zsh
-stow -t ~/.config nvim
-stow -t ~/.config tmux
-```
+## Packages and tools
 
-## Structure
+- **Homebrew** (`Brewfile`): system tools, libraries and GUI apps. Regenerate with `mise run brew-dump`.
+- **mise** (`mise/config.toml`): language runtimes and dev CLIs. Install with `mise install`.
+- **mise, repo-local** (`mise.toml`): only the linters used by `mise run lint`.
 
-Each directory represents a stow package that maps to `~/.config/<package>/`:
+## Adding a package
 
-```
-dotfiles/
-├── aerospace/          # Aerospace window manager config
-├── bash/              # Bash configuration
-├── bifrost/           # Local Bifrost AI gateway (see bifrost/README.md)
-├── direnv/            # Direnv configuration
-├── ghostty/           # Ghostty terminal config
-├── git/               # Git config with multi-identity support
-├── lazygit/           # Lazygit config
-├── nushell/           # Nushell config
-├── nvim/              # Neovim configuration
-├── ohmyposh/          # Oh My Posh themes
-├── sketchybar/        # SketchyBar config and plugins
-├── ssh/               # SSH config
-├── starship/          # Starship prompt config
-├── tmux/              # Tmux config and scripts
-├── vim/               # Vim config and colors
-├── yazi/              # Yazi file manager config
-├── zsh/               # Zsh configuration
-├── setup.sh           # Installation script
-├── uninstall.sh       # Uninstallation script
-├── install.sh         # Bootstrap script for fresh systems
-├── Makefile           # Convenient management commands
-├── Brewfile           # Homebrew dependencies
-├── Brewfile.md        # Brewfile documentation
-└── README.md          # This file
-```
+1. Create a top-level directory named after the tool's `~/.config` directory, e.g. `mytool/`.
+2. Put the files in it exactly as they should appear under `~/.config/mytool/`.
+3. Run `mise run restow mytool` (or `./setup.sh`).
+4. If the tool needs a file outside `~/.config`, add it to `HOME_LINKS` in `lib.sh`.
 
-## Makefile Commands
+## Git identities
 
-Convenient commands for managing dotfiles:
+`git/.gitconfig` picks an identity by directory:
 
-```bash
-make help          # Show all available commands
-make install       # Install dotfiles (stow configs)
-make bootstrap     # Full bootstrap (Homebrew + packages + configs)
-make update        # Pull from git and restow
-make brew          # Install/update Brewfile packages
-make brew-update   # Update all Homebrew packages
-make test          # Validate configurations
-make status        # Show dotfiles and git status
-make uninstall     # Remove all symlinks
-```
-
-See `make help` for all 22+ available commands.
-
-## Configuration Highlights
-
-### Multi-Identity Git Setup
-
-The git configuration supports multiple identities based on directory:
-
-- `~/work/**` → Work identity
-- `~/work/phare/**` → Phare-specific identity
-- `~/work/palantir/**` → Palantir-specific identity
-- `~/personal/**` → Personal identity
-- `~/.config/**` → Personal identity
-
-Configure your identities in:
-- `~/.config/git/.gitconfig-work`
-- `~/.config/git/.gitconfig-personal`
-- etc.
-
-### Shell Features
-
-Both Bash and Zsh configs include:
-
-- **Vi mode** with `jj` to enter command mode
-- **Smart completions** with case-insensitive matching
-- **Modern CLI tools** (bat, eza, fzf, zoxide)
-- **Kubernetes shortcuts** (k, kg, kd, etc.)
-- **Docker aliases** (dco, dps, dx, etc.)
-- **Tmux session management** (`sesh` command)
-- **FZF integration** for fuzzy finding
-
-### Tmux Session Manager
-
-Quick session switching with `tmux-sessionizer`:
-
-```bash
-sesh              # Interactive project selector
-personal          # Jump to ~/personal projects
-work              # Jump to ~/work projects
-```
-
-Bound to `<C-f>` in tmux for quick access.
-
-### Bifrost AI Gateway
-
-A local Bifrost gateway runs at login via launchd and forwards to the company
-gateway, adding logs, caching, budgets and a shared MCP hub:
-
-```bash
-bfgw up       # start or repair
-bfgw dash     # open dashboard (setup token copied)
-bfgw doctor   # check everything
-```
-
-See [`bifrost/README.md`](bifrost/README.md) for how the pieces fit together.
-
-### Nix Integration
-
-If using nix-darwin, helper functions are included:
-
-```bash
-nixswitch <config>  # Switch to a configuration
-nixup <config>      # Update flake and switch
-```
-
-## Customization
-
-### Adding New Configurations
-
-1. Create a new directory: `mkdir -p <package>/.config/<tool>`
-2. Add your config files
-3. Run: `stow <package>`
-
-### Modifying Existing Configs
-
-Configs are symlinked, so edit them directly:
-
-```bash
-nvim ~/.config/nvim/init.lua  # Edits the repo file
-```
-
-Changes are immediately reflected in the repository.
-
-## Shell-Specific Notes
-
-### Shared Configuration
-
-Common aliases, functions, and environment variables are shared between Bash and Zsh via:
-- `~/.config/shell/aliases.sh`
-- `~/.config/shell/functions.sh`
-- `~/.config/shell/env.sh`
-
-Shell-specific settings remain in their respective `.bashrc` or `.zshrc` files.
-
-### Environment Detection
-
-Configs detect:
-- **macOS device type** (MacBook, Mac mini) for prompt customization
-- **Nix installation** for proper PATH setup
-- **Available tools** with graceful fallbacks
-
-## Uninstalling
-
-To remove all symlinks:
-
-```bash
-./uninstall.sh
-```
-
-This will:
-- Remove all stow-managed symlinks
-- Keep your config files in the repository
-- Not delete any backups
-
-To fully remove:
-```bash
-./uninstall.sh
-rm -rf ~/personal/dotfiles
-```
+- `~/work/**` → `~/.config/git/.gitconfig-work`
+- `~/personal/**` and `~/.config/**` → `~/.config/git/.gitconfig-codeberg`
 
 ## Troubleshooting
 
-### Stow Conflicts
+**Stow reports a conflict.** A real file exists where a link should go. `setup.sh` prints the conflicting paths; move them out of the way and re-run. To preview: `stow -n -v -d ~/personal/dotfiles -t ~/.config/<pkg> <pkg>`.
 
-If stow reports conflicts:
+**A config isn't loading.** Run `mise run status` to check links, and `mise run check-links` for broken ones.
 
-```bash
-# Remove conflicting files (after backing up!)
-rm ~/.config/<conflicting-file>
-
-# Re-run setup
-./setup.sh
-```
-
-### Missing Dependencies
-
-Check which tools are missing:
-
-```bash
-command -v nvim fzf bat eza zoxide starship | grep -q "not found"
-```
-
-Install missing tools:
-```bash
-brew bundle
-```
-
-### Shell Not Loading Config
-
-Ensure symlinks are correct:
-
-```bash
-ls -la ~/.bashrc ~/.zshrc ~/.config
-```
-
-For Bash, check that `~/.bashrc` links to `~/.config/bash/.bashrc`.
-For Zsh, check that `~/.zshrc` links to `~/.config/zsh/.zshrc`.
-
-## Contributing
-
-This is a personal dotfiles repository, but feel free to fork and adapt to your needs!
+**Restoring a backup.** Backups keep paths relative to `$HOME`, e.g. `cp -R ~/.dotfiles-backup-<timestamp>/.zshrc ~/.zshrc`.
 
 ## License
 
-MIT - Feel free to use and modify as needed.
-
-## Acknowledgments
-
-Inspired by the dotfiles community and various configurations from:
-- ThePrimeagen (tmux sessionizer)
-- Neovim community
-- r/unixporn
+MIT
