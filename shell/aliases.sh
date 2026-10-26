@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+# shellcheck shell=bash
 # ============================================
 # SHARED ALIASES
 # Sourced by both Bash and Zsh

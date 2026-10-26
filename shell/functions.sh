@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+# shellcheck shell=bash
 # ============================================
 # SHARED FUNCTIONS
 # Sourced by both Bash and Zsh
@@ -30,7 +31,8 @@ fcd() {
         return 1
     fi
 
-    local dir=$(find . -type d -not -path '*/.*' 2>/dev/null | fzf)
+    local dir
+    dir=$(find . -type d -not -path '*/.*' 2>/dev/null | fzf)
     if [ -n "$dir" ]; then
         cd "$dir" && ls
     fi
@@ -43,7 +45,8 @@ f() {
         return 1
     fi
 
-    local file=$(find . -type f -not -path '*/.*' 2>/dev/null | fzf)
+    local file
+    file=$(find . -type f -not -path '*/.*' 2>/dev/null | fzf)
     if [ -n "$file" ]; then
         echo "$file" | pbcopy
         echo "Copied: $file"
@@ -57,7 +60,8 @@ fv() {
         return 1
     fi
 
-    local file=$(find . -type f -not -path '*/.*' 2>/dev/null | fzf)
+    local file
+    file=$(find . -type f -not -path '*/.*' 2>/dev/null | fzf)
     if [ -n "$file" ]; then
         ${EDITOR:-vim} "$file"
     fi
@@ -130,14 +134,12 @@ nixup() {
 
     pushd ~/personal/nix >/dev/null || return 1
     echo "Updating flake..."
-    nix flake update
-
-    if [ $? -eq 0 ]; then
+    if nix flake update; then
         echo "Switching to configuration: $1"
         nixswitch "$1"
-        local status=$?
+        local rc=$?
         popd >/dev/null || return 1
-        return $status
+        return $rc
     else
         echo "Error: Failed to update flake"
         popd >/dev/null || return 1
@@ -151,7 +153,7 @@ y() {
     yazi "$@" --cwd-file="$tmp"
 
     IFS= read -r -d '' cwd <"$tmp"
-    [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+    [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd" || return
 
     rm -f -- "$tmp"
 }

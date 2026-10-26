@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+# shellcheck shell=bash
 # ============================================
 # SHARED ENVIRONMENT VARIABLES
 # Sourced by both Bash and Zsh
@@ -6,15 +7,18 @@
 
 export LANG=en_US.UTF-8
 export XDG_CONFIG_HOME="$HOME/.config"
-export GPG_TTY=$(tty)
+GPG_TTY=$(tty)
+export GPG_TTY
 
 # ============================================
 # EDITOR
 # ============================================
 if command -v nvim >/dev/null 2>&1; then
-    export EDITOR="$(command -v nvim)"
+    EDITOR="$(command -v nvim)"
+    export EDITOR
 elif command -v vim >/dev/null 2>&1; then
-    export EDITOR="$(command -v vim)"
+    EDITOR="$(command -v vim)"
+    export EDITOR
 else
     export EDITOR="vi"
 fi
