@@ -1,1 +1,13 @@
 worktree-path = "{{ repo_path }}/.worktrees/{{ branch | sanitize }}"
+
+[post-start]
+tmux = """
+name='{{ repo }}/{{ branch | sanitize }}'
+tmux has-session -t "=$name" 2>/dev/null || {
+    tmux new-session -d -s "$name" -c '{{ worktree_path }}'
+    tmux send-keys -t "=$name" '~/.config/sesh/scripts/dev_layout.sh' Enter
+}
+"""
+
+[post-remove]
+tmux = "tmux kill-session - '={{ repo }}/{{ branch | sanitize }}' 2>/dev/null || true"
