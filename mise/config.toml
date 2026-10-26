@@ -1,3 +1,5 @@
+min_version = "2026.10.17"
+
 [settings]
 experimental = true
 idiomatic_version_file_enable_tools = [
@@ -8,11 +10,14 @@ trusted_config_paths = ["~/personal", "~/work"]
 
 [tools]
 node        = "lts"
-python      = "3.12"
 dotnet      = "latest"
+java        = "21"
+lua         = "latest"
+scala       = "2.13"
+sqlite      = "latest"
+# rust        = "lastest"
 zig         = "latest"
 opam        = "latest"
-uv          = "latest"
 just        = "latest"
 terraform   = "latest"
 k9s         = "latest"
@@ -31,8 +36,28 @@ jj          = "latest"
 xh          = "latest"
 argocd      = "latest"
 
+# C tools
+clang = "latest"
+cmake = "latest"
+
+# go tools
+go  = "latest"
+air = "latest"
+
+# haskell tools
+ghcup            = "latest"
+"mise-ghcup:ghc" = "latest"
+"mise-ghcup:hls" = "latest"
+
+# python tools
+python = "3.13"
+uv     = "latest"
+
 "pipx:poetry" = "latest"
 "pipx:mypy"   = "latest"
 
 "npm:prettier"           = "latest"
 "npm:@google/gemini-cli" = "latest"
+
+[plugins]
+"vfox-backend:mise-ghcup" = "packslip:wasp-lang/mise-ghcup#latest"

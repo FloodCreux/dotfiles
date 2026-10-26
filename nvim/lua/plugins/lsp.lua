@@ -52,6 +52,7 @@ local servers = {
 	"terraformls",
 	"html",
 	"nixd",
+	"nil",
 	"hls",
 	"zls",
 	"ty",
