@@ -4,8 +4,7 @@ worktree-path = "{{ repo_path }}/.worktrees/{{ branch | sanitize }}"
 sesh = "sesh connect --switch --command '~/.config/sesh/scripts/dev_layout.sh' '{{ worktree_path }}'"
 
 [post-remove]
-git = "git pull --autostash --rebase origin main"
-
+git  = "git pull --autostash --rebase origin main"
 tmux = """
 tmux list-sessions -F '#{session_name}\t#{session_path}' 2>/dev/null \
     | awk -F'\t' '$2 == "{{ worktree_path }}" {print $1' \
