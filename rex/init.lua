@@ -1,3 +1,4 @@
 require("keymaps")
 require("lazygit")
-require("sesh")
+require("tv")
+require("yazi")
