@@ -21,7 +21,7 @@ end
 function FLOAT_COMMAND(command, opts)
 	opts = opts or {}
 
-	return function(ctx, args)
+	return function(_, _)
 		local options = { command = command }
 		if opts.cwd then
 			options.cwd = CURRENT_CWD()

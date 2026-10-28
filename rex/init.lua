@@ -1,4 +1,6 @@
+require("cht")
 require("keymaps")
 require("lazygit")
+require("resize")
 require("tv")
 require("yazi")

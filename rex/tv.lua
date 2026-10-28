@@ -7,6 +7,12 @@ rex.action({
 })
 
 rex.action({
+	name = "tv",
+	title = "TV",
+	run = FLOAT_COMMAND({ "tv" }, { bounds = { 0.05, 0.05, 0.9, 0.9 }, cwd = true }),
+})
+
+rex.action({
 	name = "tv_text",
 	title = "TV Text",
 	run = FLOAT_COMMAND({ "tv", "text" }, { bounds = { 0.05, 0.05, 0.9, 0.9 }, cwd = true }),
@@ -22,7 +28,10 @@ rex.action({
 rex.bind("ctrl+a>s", "sesh_picker")
 
 ---@diagnostic disable-next-line: param-type-mismatch
-rex.bind("ctrl+a>t", "tv_text")
+rex.bind("ctrl+a>t", "tv")
+
+---@diagnostic disable-next-line: param-type-mismatch
+rex.bind("ctrl+a>x", "tv_text")
 
 ---@diagnostic disable-next-line: param-type-mismatch
 rex.bind("ctrl+a>shift+t", "new_session")
