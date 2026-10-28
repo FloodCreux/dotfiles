@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+dir="${1%/}"
+name="$(basename "$dir")"
+
+if common=$(git -C "$dir" rev-parse --path-format=absolute --git-common-dir 2>/dev/null); then
+	gitdir=$(git -C "$dir" rev-parse --path-format=absolute --git-dir)
+	project="$(basename "$common")"
+
+	[ "$project" = ".git" ] && project="$(basename "$(dirname "$common")")"
+	project="${project%.git}"
+
+	if [ "$gitdir" != "$common" ]; then
+		name="$project/$name"
+	else
+		name="$project"
+	fi
+fi
+
+name="$(printf '%s' "$name" | tr '.:' '__')"
+id=$(rex ls --json | jq -r --arg n "$name" '.sessions[] | select(.label==$n) | .session_id' | head -1)
+
+[ -z "$id" ] && id=$(rex new "$name" --cwd "$dir" --json | jq -r .session_id)
+[ -n "$id" ] && [ "$id" != "null" ] || exit 69
+
+rex do session.select session_id="$id"

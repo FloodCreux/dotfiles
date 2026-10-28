@@ -1,0 +1,23 @@
+[metadata]
+name         = "rex-new-session"
+description  = "Create (or switch to) a Rex session for a directory"
+requirements = ["rex", "jq", "zoxide", "fd", "eza"]
+
+[source]
+command = [
+	"zoxide query -l",
+	"fd -H -d 2 -t d -E .Trash -E .git . ~",
+]
+no_sort  = true
+frecency = false
+
+[preview]
+command = "eza -la --icons --group-directories-first --color=always '{}'"
+
+[keybindings]
+enter  = "actions:connect"
+
+[actions.connect]
+description = "Switch to the directory's Rex session, creating it if needed"
+command     = "rex-connect '{}'"
+mode        = "execute"
