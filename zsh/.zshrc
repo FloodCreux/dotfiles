@@ -100,4 +100,8 @@ export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1
 export PATH="/opt/homebrew/opt/util-linux/bin:$PATH"
 export PATH="$HOME/.bifrost/bin:$PATH"
 
+if [ -n "$REX_BIN_DIR" ]; then
+    export PATH="$REX_BIN_DIR:$PATH"
+fi
+
 setopt share_history hist_ignore_all_dups hist_ignore_space extended_history

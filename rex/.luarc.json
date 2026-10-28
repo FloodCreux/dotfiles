@@ -1,0 +1,6 @@
+{
+	"runtime.version": "Lua 5.1",
+	"diagnostics.globals": ["rex"],
+	"workspace.library": ["~/.local/share/rex/types"],
+	"workspace.checkThirdParty": true
+}

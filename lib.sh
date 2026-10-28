@@ -57,6 +57,8 @@ HOME_LINKS=(
     "$HOME/.claude:$HOME/.config/claude"
     "$HOME/.AGENTS.md:$HOME/.config/ai/AGENTS.md"
     "$HOME/.claude/CLAUDE.md:$HOME/.config/ai/AGENTS.md"
+    "$HOME/.local/bin/rex:$HOME/Library/Application Support/com.superlogical.rex/RexServer/Versions/Current/Rex Server.app/Contents/MacOS/rex"
+    "$HOME/.zshenv:$HOME/.config/zsh/.zshenv"
 )
 
 DOOM_DIR="$HOME/.config/doom-emacs"

@@ -84,6 +84,14 @@ description = "Import the Netskope CA into JDK trust stores"
 run         = "bash scripts/fix-java-certs.sh"
 
 # ============================================
+# Rex
+# ============================================
+
+[tasks.rex-sync-docs]
+description = "Download the Rex docs and generate Lua type stubs (args: --offline, --print)"
+run         = "python3 scripts/rex-sync-docs.py"
+
+# ============================================
 # Checks
 # ============================================
 

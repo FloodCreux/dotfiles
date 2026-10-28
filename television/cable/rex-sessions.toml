@@ -1,0 +1,27 @@
+[metadata]
+name         = "rex-sessions"
+description  = "Switch between Rex sessions"
+requirements = ["rex", "jq"]
+
+[source]
+command = "rex ls --json | jq -r '.sessions[] | \"\\(.session_id) \\(.label)\"'"
+display = "{split: :1..|join: }"
+output  = "{split: :0}"
+
+[preview]
+command = "rex session inspect '{split: :0}'"
+
+[keybindings]
+enter  = "actions:select"
+ctrl-d = ["actions:kill", "reload_source"]
+
+[actions.select]
+description = "Switch to the selected Rex session"
+command     = "rex do session.select session_id='{split: :0}'"
+mode        = "execute"
+
+
+[actions.kill]
+description = "Kill the selected Rex session"
+command     = "rex kill '{split: :0}'"
+mode        = "fork"

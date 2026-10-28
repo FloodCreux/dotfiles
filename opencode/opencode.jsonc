@@ -20,7 +20,12 @@
           "biz-dfch-asdste100mcp",
           "asdste100-mcp"
         ]
+      },
+      "rex-mcp": {
+        "type": "remote",
+        "url": "https://www.superlogical.com/rex/community-mcp",
       }
+
     }
   },
   "permissions": [
