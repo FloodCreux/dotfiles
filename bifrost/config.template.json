@@ -9,25 +9,7 @@
 		"allowed_origins": ["http://localhost:8080"]
 	},
 	"env_label": "local",
-	"providers": {
-		"r1rcm": {
-			"custom_provider_config": {
-				"base_provider_type": "openai"
-			},
-			"network_config": {
-				"base_url": "https://bifrost.r1rcm.com",
-				"allow_private_network": true
-			},
-			"keys": [{ "name": "r1rcm", "value": "env.BIFROST_R1RCM_VK", "models": ["*"], "weight": 1 }]
-		},
-		"anthropic": {
-			"network_config": {
-				"base_url": "https://bifrost.r1rcm.com/anthropic",
-				"allow_private_network": true
-			},
-			"keys": [{ "name": "r1rcm", "value": "env.BIFROST_R1RCM_VK", "models": ["*"], "weight": 1 }]
-		}
-	},
+	"providers": {},
 	"vector_store": {
 		"enabled": true,
 		"type": "chromem",
