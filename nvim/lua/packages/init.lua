@@ -12,9 +12,6 @@ local M = {
 	gh("igorlfs/nvim-dap-view"),
 	gh("nvim-neotest/nvim-nio"),
 
-	-- Package Manager
-	gh("adriankarlen/plugin-view.nvim"),
-
 	-- LSP
 	gh("mason-org/mason.nvim"),
 	gh("scalameta/nvim-metals"),
@@ -34,10 +31,6 @@ local M = {
 	-- TPope
 	gh("tpope/vim-fugitive"),
 	gh("tpope/vim-sleuth"),
-	gh("tpope/vim-obsession"),
-	gh("tpope/vim-dadbod"),
-	gh("kristijanhusak/vim-dadbod-completion"),
-	gh("kristijanhusak/vim-dadbod-ui"),
 
 	-- Git
 	gh("lewis6991/gitsigns.nvim"),
@@ -69,16 +62,8 @@ local M = {
 	-- Notifications
 	gh("folke/noice.nvim"),
 
-	-- AI Assist
-	gh("NickvanDyke/opencode.nvim"),
-
 	-- Buffer Management
 	gh("mistweaverco/bafa.nvim", { version = "v1.10.1" }),
-
-	-- Multicursor
-	gh("brenton-leighton/multiple-cursors.nvim", {
-		version = "main",
-	}),
 
 	-- Treesitter
 	gh("bezhermoso/tree-sitter-ghostty", { build = "make nvim_install" }),
