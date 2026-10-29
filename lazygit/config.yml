@@ -182,3 +182,10 @@ customCommands:
         context: 'global'
         description: 'tmux split at repo root'
         command: 'tmux split-window -h -c "$(git rev-parse --show-toplevel)"'
+
+      - key: 'g'
+        context: 'files'
+        description: 'AI open PR (opencode)'
+        output: terminal
+        command: >-
+          opencode run --agent -f "/pr_creation "
