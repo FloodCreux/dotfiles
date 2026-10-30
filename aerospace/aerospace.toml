@@ -152,9 +152,9 @@ run       = "move-node-to-workspace O"
 if.app-id = 'com.apple.Music'
 run       = "move-node-to-workspace M"
 
-# [[on-window-detected]]
-# if.app-id = 'com.superlogical.rex'
-# run       = "move-node-to-workspace X"
+[[on-window-detected]]
+if.app-id = 'com.superlogical.rex'
+run       = "move-node-to-workspace T"
 
 [[on-window-detected]]
 if.window-title-regex-substring = 'rayray'
