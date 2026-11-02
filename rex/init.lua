@@ -1,4 +1,5 @@
 require("cht")
+require("help")
 require("keymaps")
 require("lazygit")
 require("resize")

@@ -1,0 +1,22 @@
+[metadata]
+name         = "rex-keys"
+description  = "Browse Rex key bindings"
+requirements = ["rex", "jq", "column"]
+
+[source]
+command = """
+rex keymap --json | jq -r '
+	(.actions // [] | map({(.name): .title}) | add // {}) as $t
+	| .bindings[]
+	| [ ((if .mode then .mode + "/" else "" end) + (.keys | join(" "))),
+			($t[.action] // .action),
+			(.args // {} | if . == {} then "" else tostring end),
+			 .source ]
+	| @tsv' | column -t -s "$(printf '\\t')"
+"""
+
+display = "{}"
+output  = "{}"
+
+[preview]
+command = "echo '{}'"
