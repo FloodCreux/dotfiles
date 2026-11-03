@@ -111,3 +111,11 @@ run         = ["taplo fmt", "stylua nvim"]
 [tasks.hooks]
 description = "Install a git pre-commit hook that runs the lint task"
 run         = "mise generate git-pre-commit --write --task=lint"
+
+# ============================================
+# Neovim
+# ============================================
+
+[tasks.nvim-update]
+description = "Install the latest Neovim nightly into ~/nvim-macos-arm64 (args: --force)"
+run         = "bash scripts/nvim-nightly-update.sh"

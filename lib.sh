@@ -60,6 +60,7 @@ HOME_LINKS=(
     "$HOME/.local/bin/rex:$HOME/Library/Application Support/com.superlogical.rex/RexServer/Versions/Current/Rex Server.app/Contents/MacOS/rex"
     "$HOME/.zshenv:$HOME/.config/zsh/.zshenv"
     "$HOME/.local/bin/rex-connect:$DOTFILES_DIR/scripts/rex-connect"
+    "$HOME/.local/bin/wt-prune-gone:$DOTFILES_DIR/worktrunk/bin/wt-prune-gone"
 )
 
 DOOM_DIR="$HOME/.config/doom-emacs"

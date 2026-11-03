@@ -1,0 +1,120 @@
+#!/usr/bin/env bash
+# Remove worktrunk worktrees whose upstream branch no longer exists.
+set -euo pipefail
+
+usage() {
+	cat <<'EOF'
+Usage: wt-prune-gone [-n|--dry-run] [-y|--yes] [-D|--force-delete] [-h|--help]
+
+Removes worktrees (via `wt remove`) whose branch tracks an upstream that has
+been deleted on the remote. The main and current worktrees are never touched.
+
+  -n, --dry-run       Show what would be removed, change nothing
+  -y, --yes           Do not ask for confirmation
+  -D, --force-delete  Also delete branches that are not merged
+                      (needed for squash-merged PR branches)
+EOF
+}
+
+dry_run=0
+assume_yes=0
+force_delete=0
+
+for arg in "$@"; do
+	case "$arg" in
+	-n | --dry-run) dry_run=1 ;;
+	-y | --yes) assume_yes=1 ;;
+	-D | --force-delete) force_delete=1 ;;
+	-h | --help)
+		usage
+		exit 0
+		;;
+	*)
+		echo "wt-prune-gone: unknown option: $arg" >&2
+		usage >&2
+		exit 2
+		;;
+	esac
+done
+
+for cmd in git wt jq; do
+	command -v "$cmd" >/dev/null 2>&1 || {
+		echo "wt-prune-gone: '$cmd' not found" >&2
+		exit 1
+	}
+done
+
+git rev-parse --git-dir >/dev/null 2>&1 || {
+	echo "wt-prune-gone: not inside a git repository" >&2
+	exit 1
+}
+
+echo "Fetching and pruning remotes..."
+git fetch --prune --all --quiet
+
+gone=$(git for-each-ref --format='%(refname:short)%09%(upstream:track)' refs/heads |
+	awk -F '\t' '$2 == "[gone]" { print $1 }')
+
+if [ -z "$gone" ]; then
+	echo "No branches with a gone upstream."
+	exit 0
+fi
+
+candidates=$(wt list --format=json |
+	jq -r --arg gone "$gone" '
+		($gone | split("\n")) as $g
+		| .items[]
+		| select(.branch != null and .worktree != null)
+		| select((.worktree.main | not) and (.worktree.current | not))
+		| select(.branch as $b | $g | index($b))
+		| "\(.branch)\t\(.worktree.path)"')
+
+if [ -z "$candidates" ]; then
+	echo "No removable worktrees with a gone upstream."
+	exit 0
+fi
+
+echo
+echo "Worktrees whose upstream is gone:"
+while IFS=$'\t' read -r branch path; do
+	printf ' %s (%s)\n' "$branch" "$path"
+done <<<"$candidates"
+echo
+
+if [ "$dry_run" -eq 1 ]; then
+	echo "Dry run, nothing removed."
+	exit 0
+fi
+
+if [ "$assume_yes" -eq 0 ]; then
+	read -r -p "Remove these worktrees? [y/N] " reply </dev/tty
+	case "$reply" in
+	[yY] | [yY][eE][sS]) ;;
+	*)
+		echo "Aborted."
+		exit 1
+		;;
+	esac
+fi
+
+remove_flags=(--foreground)
+[ "$force_delete" -eq 1 ] && remove_flags+=(--force-delete)
+
+removed=()
+failed=()
+
+while IFS=$'\t' read -r branch _path; do
+	if wt remove "${remove_flags[@]}" "$branch"; then
+		removed+=("$branch")
+	else
+		failed+=("$branch")
+	fi
+done <<<"$candidates"
+
+echo
+echo "Removed: ${#removed[@]}"
+if [ "${#failed[@]}" -gt 0 ]; then
+	echo "Skipped or failed: ${#failed[@]} (dirty worktree or other error):"
+	printf ' %s\n' "${failed[@]}"
+	exit 1
+fi
