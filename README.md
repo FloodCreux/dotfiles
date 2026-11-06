@@ -54,33 +54,32 @@ A few tools expect files outside `~/.config`. `setup.sh` links those from the `H
 
 ## Packages
 
-| Package      | What                                                        |
-| ------------ | ----------------------------------------------------------- |
-| `aerospace`  | Aerospace tiling window manager                             |
-| `ai`         | Shared agent instructions (`AGENTS.md`)                     |
-| `bash`       | Bash config                                                 |
-| `bifrost`    | Local Bifrost AI gateway and its management script          |
-| `claude`     | Claude Code settings and skills                             |
-| `direnv`     | direnv config                                               |
-| `emacs`      | Vanilla Emacs config                                        |
-| `fish`       | Fish config                                                 |
-| `ghostty`    | Ghostty terminal config and shaders                         |
-| `git`        | Git config with per-directory identities                    |
-| `lazygit`    | lazygit config                                              |
-| `mise`       | Global mise tools (languages, CLIs, LSP servers)            |
-| `nvim`       | Neovim config (native `vim.pack`, `lsp/` server configs)    |
-| `opencode`   | opencode config                                             |
-| `sesh`       | sesh tmux session manager config                            |
-| `shell`      | Env, aliases and functions shared by Bash and Zsh           |
-| `ssh`        | SSH config with per-account GitHub/Codeberg hosts           |
-| `starship`   | Starship prompt                                             |
-| `television` | television fuzzy finder and its channels                    |
-| `tmux`       | tmux config and scripts (sessionizer, cht.sh)               |
-| `tuicr`      | tuicr review tool config                                    |
-| `vim`        | Vim config and colorschemes                                 |
-| `worktrunk`  | worktrunk git worktree manager config                       |
-| `yazi`       | yazi file manager config                                    |
-| `zsh`        | Zsh config                                                  |
+| Package      | What                                                     |
+| ------------ | -------------------------------------------------------- |
+| `aerospace`  | Aerospace tiling window manager                          |
+| `ai`         | Shared agent instructions (`AGENTS.md`)                  |
+| `bash`       | Bash config                                              |
+| `bifrost`    | Local Bifrost AI gateway and its management script       |
+| `claude`     | Claude Code settings and skills                          |
+| `emacs`      | Vanilla Emacs config                                     |
+| `fish`       | Fish config                                              |
+| `ghostty`    | Ghostty terminal config and shaders                      |
+| `git`        | Git config with per-directory identities                 |
+| `lazygit`    | lazygit config                                           |
+| `mise`       | Global mise tools (languages, CLIs, LSP servers)         |
+| `nvim`       | Neovim config (native `vim.pack`, `lsp/` server configs) |
+| `opencode`   | opencode config                                          |
+| `sesh`       | sesh tmux session manager config                         |
+| `shell`      | Env, aliases and functions shared by Bash and Zsh        |
+| `ssh`        | SSH config with per-account GitHub/Codeberg hosts        |
+| `starship`   | Starship prompt                                          |
+| `television` | television fuzzy finder and its channels                 |
+| `tmux`       | tmux config and scripts (sessionizer, cht.sh)            |
+| `tuicr`      | tuicr review tool config                                 |
+| `vim`        | Vim config and colorschemes                              |
+| `worktrunk`  | worktrunk git worktree manager config                    |
+| `yazi`       | yazi file manager config                                 |
+| `zsh`        | Zsh config                                               |
 
 Not stowed: `mac/` (macOS defaults script) and `scripts/` (helpers for mise tasks).
 

@@ -131,7 +131,6 @@ end
 # --------------------------------------------
 command -q fzf; and fzf --fish | source
 command -q zoxide; and zoxide init fish | source
-command -q direnv; and direnv hook fish | source
 command -q mise; and mise activate fish | source
 command -q wt; and command wt config shell init fish | source
 
