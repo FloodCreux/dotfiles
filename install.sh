@@ -98,6 +98,13 @@ else
     warn "Skipped. Install later with: mise run brew && mise install"
 fi
 
+# ============================================
+# YAZI
+# ============================================
+header "Yazi"
+
+ya pkg install
+
 header "Bootstrap complete"
 info "Run 'mise tasks' to see available commands."
 warn "Aerospace and shell changes may need a logout or a new terminal."

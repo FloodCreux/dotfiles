@@ -84,7 +84,6 @@ _cached_init starship starship init zsh
 _cached_init fzf      fzf --zsh
 _cached_init tv       tv init zsh
 _cached_init zoxide   zoxide init zsh
-_cached_init direnv   direnv hook zsh
 _cached_init mise     mise activate zsh
 _cached_init wt       wt config shell init zsh
 
@@ -99,9 +98,5 @@ export AZURE_CLI_DISABLE_CONNECTION_VERIFICATION=1
 
 export PATH="/opt/homebrew/opt/util-linux/bin:$PATH"
 export PATH="$HOME/.bifrost/bin:$PATH"
-
-if [ -n "$REX_BIN_DIR" ]; then
-    export PATH="$REX_BIN_DIR:$PATH"
-fi
 
 setopt share_history hist_ignore_all_dups hist_ignore_space extended_history

@@ -103,9 +103,4 @@ if command -v zoxide >/dev/null 2>&1; then
     eval "$(zoxide init bash)"
 fi
 
-# Direnv
-if command -v direnv >/dev/null 2>&1; then
-    eval "$(direnv hook bash)"
-fi
-
 if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init bash)"; fi

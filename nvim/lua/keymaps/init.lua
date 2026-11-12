@@ -23,7 +23,5 @@ map("n", "<leader>bo", function()
 end)
 
 require("keymaps.align")
-require("keymaps.opencode")
 require("keymaps.snacks")
 require("keymaps.trouble")
-require("keymaps.multicursor")

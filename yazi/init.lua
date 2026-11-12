@@ -1,6 +1,5 @@
 require("full-border"):setup({
-	---@diagnostic disable-next-line: undefined-field
-	type = ui.Border.ROUNDED, -- or ui.Border.PLAIN
+	set = "rounded", -- or "plain"
 })
 
 require("git"):setup({

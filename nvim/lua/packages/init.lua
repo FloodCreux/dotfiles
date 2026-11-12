@@ -57,7 +57,7 @@ local M = {
 	-- File Manager
 	gh("mikavilpas/yazi.nvim"),
 	gh("nvim-treesitter/nvim-treesitter", { version = "main", build = ":TSUpdate" }),
-	gh("nvim-treesitter/nvim-treesitter-textobjects"),
+	gh("nvim-treesitter/nvim-treesitter-textobjects", { version = "main" }),
 
 	-- Notifications
 	gh("folke/noice.nvim"),

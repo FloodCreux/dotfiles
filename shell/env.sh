@@ -60,6 +60,10 @@ export KUBECONFIG=~/.kube/config
 # FZF
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
 
+# STARSHIP
+export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
+
+
 # ============================================
 # PATH CONSTRUCTION
 # ============================================
