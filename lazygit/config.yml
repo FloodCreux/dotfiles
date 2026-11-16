@@ -189,3 +189,10 @@ customCommands:
         output: terminal
         command: >-
           opencode run --agent build "/pr_creation "
+
+      - key: 'D'
+        context: 'localBranches'
+        description: 'Prune and delete local branches with gone upstream'
+        command: |
+          git fetch --prune && git branch -vv | grep -v '^[+*]' | awk '/: gone]/{print $1}' | xargs -r git branch -D
+        loadingText: 'Cleaning up gone branches...'
