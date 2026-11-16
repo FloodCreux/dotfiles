@@ -13,6 +13,9 @@ rex.bind("ctrl+a>x", "pane.close")
 
 rex.bind("ctrl+a>z", "pane.zoom")
 
+rex.bind("ctrl+a>shift+]", "pane.move.right")
+rex.bind("ctrl+a>shift+[", "pane.move.left")
+
 -- TAB
 rex.bind("ctrl+a>shift+h", "client.tab.previous")
 rex.bind("ctrl+a>p", "client.tab.previous")
