@@ -15,7 +15,6 @@ java        = "21"
 lua         = "latest"
 scala       = "2.13"
 sqlite      = "latest"
-# rust        = "lastest"
 zig         = "latest"
 opam        = "latest"
 just        = "latest"
@@ -35,6 +34,8 @@ tree-sitter = "latest"
 jj          = "latest"
 xh          = "latest"
 argocd      = "latest"
+
+# rust        = "latest"
 
 # C tools
 clang = "latest"
