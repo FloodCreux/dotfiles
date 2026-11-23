@@ -150,7 +150,11 @@ fi
 # Rex
 # ============================================
 header "Rex"
-rex config reload
+if command_exists rex; then
+    rex config reload
+else
+    warn "Rex not installed"
+fi
 
 # ============================================
 # Neovim
