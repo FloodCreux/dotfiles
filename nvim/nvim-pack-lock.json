@@ -14,7 +14,7 @@
       "src": "https://github.com/j-hui/fidget.nvim"
     },
     "gitsigns.nvim": {
-      "rev": "ef707fb93301a9b856f36eae4c8f56f5b988a794",
+      "rev": "dc7698f932792a764d3db95fedee26c38e728355",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "gruber-darker.nvim": {
@@ -30,39 +30,39 @@
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "mini.ai": {
-      "rev": "98a5d73937930a2bb08129020601ab8d5016d706",
+      "rev": "c2e6e88a9de01b5aec5c3cffee1277b9ac8a6d69",
       "src": "https://github.com/nvim-mini/mini.ai"
     },
     "mini.bracketed": {
-      "rev": "2757ab8b893f08a5f2a6f0fb8a56acd581a19d00",
+      "rev": "ee8888fe7eda8a187bd2bfa0a992213451745ecd",
       "src": "https://github.com/nvim-mini/mini.bracketed"
     },
     "mini.completion": {
-      "rev": "cda8669fb9a7fd681016f43dddcc2a635f8b645d",
+      "rev": "8a36acb1bf6f927b6b6e35adcf84d82b940743d7",
       "src": "https://github.com/nvim-mini/mini.completion"
     },
     "mini.files": {
-      "rev": "f031f95dcaa5efd30f12983d5e40020c4d75f694",
+      "rev": "52b6a0ff498edd0755c71c3476b30ba07798989a",
       "src": "https://github.com/nvim-mini/mini.files"
     },
     "mini.hipatterns": {
-      "rev": "b435ff459774b7ec234f1ae2834062f5829e75fa",
+      "rev": "7a79e5f000beb530ade0fa9faec70f01469dbcb3",
       "src": "https://github.com/nvim-mini/mini.hipatterns"
     },
     "mini.icons": {
-      "rev": "eab3e692d796d78ea6ffc978d8a380ff26fcf4e3",
+      "rev": "fc90b3925a2a68282be06e28cfe0cbb366c75dad",
       "src": "https://github.com/nvim-mini/mini.icons"
     },
     "mini.snippets": {
-      "rev": "810c9aeb976791e3c329e0f073c82dab70fed8a7",
+      "rev": "c48f1587092f6c91da932434667ddb980073c101",
       "src": "https://github.com/nvim-mini/mini.snippets"
     },
     "mini.statusline": {
-      "rev": "d7133a9a244a8d93ccee42ff37fb9499af5956fb",
+      "rev": "591b9d553dc3604b114577bc0f6e289ea3783fc2",
       "src": "https://github.com/nvim-mini/mini.statusline"
     },
     "neogit": {
-      "rev": "aa99b440b266bcf7e03399f149ed46f981555fa3",
+      "rev": "0288a0fe32bce35f4ea1195f9b546a71c5977a82",
       "src": "https://github.com/neogitorg/neogit"
     },
     "noice.nvim": {
@@ -102,7 +102,7 @@
       "src": "https://github.com/nvim-neotest/nvim-nio"
     },
     "nvim-treesitter": {
-      "rev": "19bdfc04f40ed2ccb3340591d125f759b0406875",
+      "rev": "0bf28a34f1da3259809807d4b4b63c93aa9055aa",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
@@ -152,7 +152,7 @@
       "src": "https://github.com/folke/which-key.nvim"
     },
     "yazi.nvim": {
-      "rev": "087b673c2fa98ad3740767fc94f106e45c15734d",
+      "rev": "34f1de6f848e656e093edf142759141e07ba466c",
       "src": "https://github.com/mikavilpas/yazi.nvim"
     }
   }

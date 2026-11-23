@@ -9,7 +9,8 @@ display = "{split: :1..|join: }"
 output  = "{split: :0}"
 
 [preview]
-command = "rex session inspect '{split: :0}'"
+command = "rex capture -s '{split: :0}' --format=vt --trim | tail -n 80"
+inspect = "rex session inspect '{split: :0}'"
 
 [keybindings]
 enter  = "actions:select"
