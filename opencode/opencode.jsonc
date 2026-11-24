@@ -7,7 +7,7 @@
       "name": "Bifrost (local)",
       "package": "@opencode/ai/providers/anthropic-compatible",
       "env": ["BIFROST_VK_OPENCODE"],
-      "settings": { "baseURL": "http://localhost:8080/anthropic" },
+      "settings": { "baseURL": "http://127.0.0.1:18080/anthropic/v1" },
       "models": { "claude-opus-5-5": {} }
     }
   },

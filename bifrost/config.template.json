@@ -6,7 +6,7 @@
 		"log_retention_days": 30,
 		"disable_content_logging": false,
 		"enforce_auth_on_inference": true,
-		"allowed_origins": ["http://localhost:8080"]
+		"allowed_origins": ["http://127.0.0.1:18080", "http://localhost:18080"]
 	},
 	"env_label": "local",
 	"providers": {},

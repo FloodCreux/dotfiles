@@ -8,8 +8,8 @@ SELF="$(realpath "${BASH_SOURCE[0]}")"
 PKG_DIR="$(dirname "$(dirname "$SELF")")"
 APP_DIR="${BIFROST_APP_DIR:-$HOME/.config/bifrost}"
 HOST=127.0.0.1
-PORT="${BIFROST_PORT:-8080}"
-URL="http://localhost:$PORT"
+PORT="${BIFROST_PORT:-18080}"
+URL="http://$HOST:$PORT"
 LABEL=ai.getbifrost.gateway
 PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 LOG_DIR="$HOME/Library/Logs"
@@ -96,8 +96,8 @@ install() {
 run() {
 	load_secrets
 	install
-	if lsof -nP -iTCP:"$PORT" -sTCP:LISTEN >/dev/null; then
-		echo "port $PORT busy" >&2
+	if nc -z -w1 "$HOST" "$PORT" 2>/dev/null; then
+		echo "port $PORT busy on $HOST" >&2
 		exit 1
 	fi
 	# local stdio MCP servers (uvx, npx) need mise shims
@@ -344,8 +344,10 @@ doctor() {
 	local name var need _
 	for s in "${SECRETS[@]}"; do
 		IFS=: read -r name var need _ <<<"$s"
-		if has_secret "$name"; then pass "bifrost-$name"
-		elif [[ $need == req ]]; then fail "bifrost-$name missing (bfgw secrets)" secrets
+		if has_secret "$name"; then
+			pass "bifrost-$name"
+		elif [[ $need == req ]]; then
+			fail "bifrost-$name missing (bfgw secrets)" secrets
 		else warn "bifrost-$name missing (optional)"; fi
 	done
 
@@ -405,7 +407,7 @@ doctor() {
 			pass "launcher has a virtual key for '$CLI_CONTEXT'" || fail "launcher has no virtual key for '$CLI_CONTEXT'" cli-sync
 	fi
 
-	if ((!quiet || fails || warns)); then
+	if ((! quiet || fails || warns)); then
 		printf '\n%s failed, %s warnings\n' "$fails" "$warns"
 	fi
 
